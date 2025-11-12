@@ -28,8 +28,10 @@
           {
             "group": "Dashboard Reports",
             "pages": [
-              "dashboard-reports/ltv_retention",
-              "dashboard-reports/daily_kpi_performance"
+              "dashboard-reports/daily_kpi_performance",
+              "dashboard-reports/channel_performance",
+              "dashboard-reports/ltv_retention"
+              
             ]
           }
         ]
