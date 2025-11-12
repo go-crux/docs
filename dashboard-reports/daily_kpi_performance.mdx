@@ -1,0 +1,199 @@
+---
+title: "Daily KPI Performance Report"
+description: "The Daily KPI Performance report provides a top level overview of your core business KPIs. 
+It is the go to report for an overview of daily performance and metric trends."
+---
+
+<iframe 
+  src="https://www.loom.com/embed/d7778f64733a40a6aad3658579072fae" 
+  title="Daily KPI Performance Report Walkthrough"
+  className="w-full h-96"
+>
+</iframe>
+
+
+## Overview
+
+This report provides comprehensive marketing and business performance metrics at a daily granularity.
+The report combines marketing spend, session data, order metrics, and detailed financial performance including revenue, costs, and profitability across both new and returning customers, as well as one-off and subscription order types. 
+
+
+## Data Dictionary
+Fields and their respective definitions available within this report.
+
+### Dimensions
+| Name | Description |
+| --- | --- |
+| ID | A surrogate key created from date, country_code, channel_group, channel, platform, campaign & ad group. |
+| Date | The date of the transaction or event. |
+| Country Code | ISO country code for the transaction location. |
+| Channel Group | High-level marketing channel grouping. |
+| Channel | Specific marketing channel. |
+| Platform | Marketing platform (e.g., Google Ads, Facebook). |
+| Campaign | Marketing campaign identifier. |
+| Ad Group | Ad group within the campaign. |
+
+### Spend and Session Metrics
+| Name | Description |
+| --- | --- |
+| Spend | Total marketing spend. |
+| Total Sessions | Total number of sessions. |
+| New Sessions | Number of sessions from new users. |
+| Repeat Sessions | Number of sessions from returning users. |
+| Total Users | Total number of unique users. |
+| New Users | Number of new unique users. |
+| Repeat Users | Number of returning unique users. |
+| New User % | The percentage of total users who are classified as 'new'. |
+| CR | Conversion rate. Total new orders & repeat one-off orders divided by total sessions. <Note> Conversion rate doesn't include repeat subscription orders.</Note>|
+| NC CR | New customer conversion rate; new orders divided by total sessions. |
+| CAC | Customer acquisition cost. Total marketing spend divided by new orders. |
+| CPU | Cost per user. Total spend divided by total users. |
+| CPNU | Cost per new user. Total spend divided by total new users. |
+
+### Order Metrics
+| Name | Description |
+| --- | --- |
+| Total Orders | Total number of orders. |
+| One Off Orders | Number of one-off (non-subscription) orders. |
+| Subscription Orders | Number of subscription orders. |
+| New Orders | Number of orders from new customers. |
+| New One Off Orders | Number of one-off orders from new customers. |
+| New Subscription Orders | Number of subscription orders from new customers. |
+| Repeat Orders | Number of orders from returning customers. |
+| Repeat One Off Orders | Number of one-off orders from returning customers. |
+| Repeat Subscription Orders | Number of subscription orders from returning customers. |
+| AOV | Average order value. Total net revenue divided by total orders. |
+| FOV | First order value. New net revenue divided by new orders. |
+| New Order Sub % | The percentage of new orders which are subscription (rather than one-off). |
+
+### Revenue Metrics
+| Name | Description |
+| --- | --- |
+| Total Gross Revenue | Total gross revenue. |
+| One Off Gross Revenue | Gross revenue from one-off orders. |
+| Subscription Gross Revenue | Gross revenue from subscription orders. |
+| New Gross Revenue | Gross revenue from new customers. |
+| New One Off Gross Revenue | Gross revenue from one-off orders by new customers. |
+| New Subscription Gross Revenue | Gross revenue from subscription orders by new customers. |
+| Repeat Gross Revenue | Gross revenue from returning customers. |
+| Repeat One Off Gross Revenue | Gross revenue from one-off orders by returning customers. |
+| Repeat Subscription Gross Revenue | Gross revenue from subscription orders by returning customers. |
+| Net Revenue | Gross revenue minus discounts & refund amounts. |
+| New Net Revenue | Net revenue from new customers. |
+| CM1 £ | Contribution margin level 1. Net revenue minus total cogs. |
+| CM1 % | Contribution margin level 1 as a percetange of net revenue. |
+| CM2 £ | Contribution margin level 2. CM1 minus fulfillment and payment processing fees. |
+| CM2 % | Contribution margin level 2 as a percetange of net revenue. |
+| CM3 £ | Contribution margin level 3. CM2 minus total marketing spend. |
+| CM3 % | Contribution margin level 3 as a percetange of net revenue. |
+| MER | Marketing efficiency ratio. Total net revenue divided by total marketing spend. |
+
+
+### Shipping Metrics
+| Name | Description |
+| --- | --- |
+| Total Shipping Price | Total shipping charges before tax. |
+| One Off Shipping Price | Shipping charges before tax for one-off orders. |
+| Subscription Shipping Price | Shipping charges before tax for subscription orders. |
+| New Shipping Price | Shipping charges before tax for new customers. |
+| New One Off Shipping Price | Shipping charges before tax for one-off orders by new customers. |
+| New Subscription Shipping Price | Shipping charges before tax for subscription orders by new customers. |
+| Repeat Shipping Price | Shipping charges before tax for returning customers. |
+| Repeat One Off Shipping Price | Shipping charges before tax for one-off orders by returning customers. |
+| Repeat Subscription Shipping Price | Shipping charges before tax for subscription orders by returning customers. |
+
+### Discount Metrics
+| Name | Description |
+| --- | --- |
+| Total Discount Amount | Total discount amount before tax. |
+| One Off Discount Amount | Discount amount before tax for one-off orders. |
+| Subscription Discount Amount | Discount amount before tax for subscription orders. |
+| New Discount Amount | Discount amount before tax for new customers. |
+| New One Off Discount Amount | Discount amount before tax for one-off orders by new customers. |
+| New Subscription Discount Amount | Discount amount before tax for subscription orders by new customers. |
+| Repeat Discount Amount | Discount amount before tax for returning customers. |
+| Repeat One Off Discount Amount | Discount amount before tax for one-off orders by returning customers. |
+| Repeat Subscription Discount Amount | Discount amount before tax for subscription orders by returning customers. |
+
+### Refund Metrics
+| Name | Description |
+| --- | --- |
+| Total Refund Amount | Total refund amount. |
+| One Off Refund Amount | Refund amount for one-off orders. |
+| Subscription Refund Amount | Refund amount for subscription orders. |
+| New Refund Amount | Refund amount for new customers. |
+| New One Off Refund Amount | Refund amount for one-off orders by new customers. |
+| New Subscription Refund Amount | Refund amount for subscription orders by new customers. |
+| Repeat Refund Amount | Refund amount for returning customers. |
+| Repeat One Off Refund Amount | Refund amount for one-off orders by returning customers. |
+| Repeat Subscription Refund Amount | Refund amount for subscription orders by returning customers. |
+
+### Tax Metrics
+| Name | Description |
+| --- | --- |
+| Total Tax Amount | Total tax amount. |
+| One Off Tax Amount | Tax amount for one-off orders. |
+| Subscription Tax Amount | Tax amount for subscription orders. |
+| New Tax Amount | Tax amount for new customers. |
+| New One Off Tax Amount | Tax amount for one-off orders by new customers. |
+| New Subscription Tax Amount | Tax amount for subscription orders by new customers. |
+| Repeat Tax Amount | Tax amount for returning customers. |
+| Repeat One Off Tax Amount | Tax amount for one-off orders by returning customers. |
+| Repeat Subscription Tax Amount | Tax amount for subscription orders by returning customers. |
+
+### COGS Metrics
+| Name | Description |
+| --- | --- |
+| Total COGS | Total cost of goods sold. |
+| One Off COGS | Cost of goods sold for one-off orders. |
+| Subscription COGS | Cost of goods sold for subscription orders. |
+| New COGS | Cost of goods sold for new customers. |
+| New One Off COGS | Cost of goods sold for one-off orders by new customers. |
+| New Subscription COGS | Cost of goods sold for subscription orders by new customers. |
+| Repeat COGS | Cost of goods sold for returning customers. |
+| Repeat One Off COGS | Cost of goods sold for one-off orders by returning customers. |
+| Repeat Subscription COGS | Cost of goods sold for subscription orders by returning customers. |
+
+### Fulfillment Cost Metrics
+| Name | Description |
+| --- | --- |
+| Total Fulfillment Costs | Total fulfillment costs. |
+| One Off Fulfillment Costs | Fulfillment costs for one-off orders. |
+| Subscription Fulfillment Costs | Fulfillment costs for subscription orders. |
+| New Fulfillment Costs | Fulfillment costs for new customers. |
+| New One Off Fulfillment Costs | Fulfillment costs for one-off orders by new customers. |
+| New Subscription Fulfillment Costs | Fulfillment costs for subscription orders by new customers. |
+| Repeat Fulfillment Costs | Fulfillment costs for returning customers. |
+| Repeat One Off Fulfillment Costs | Fulfillment costs for one-off orders by returning customers. |
+| Repeat Subscription Fulfillment Costs | Fulfillment costs for subscription orders by returning customers. |
+
+### Payment Processing Fee Metrics
+| Name | Description |
+| --- | --- |
+| Total Payment Processing Fees | Total payment processing fees. |
+| One Off Payment Processing Fees | Payment processing fees for one-off orders. |
+| Subscription Payment Processing Fees | Payment processing fees for subscription orders. |
+| New Payment Processing Fees | Payment processing fees for new customers. |
+| New One Off Payment Processing Fees | Payment processing fees for one-off orders by new customers. |
+| New Subscription Payment Processing Fees | Payment processing fees for subscription orders by new customers. |
+| Repeat Payment Processing Fees | Payment processing fees for returning customers. |
+| Repeat One Off Payment Processing Fees | Payment processing fees for one-off orders by returning customers. |
+| Repeat Subscription Payment Processing Fees | Payment processing fees for subscription orders by returning customers. |
+
+## Questions Answered
+
+<AccordionGroup>
+
+  <Accordion title="What is my new vs. repeat customer performance?">
+    Analyse how new customers compare to returning customers across all key metrics including order volume, revenue, COGS, fulfillment costs, and payment processing fees.
+  </Accordion>
+
+  <Accordion title="What was my blended CAC for yesterday?">
+    Measure customer acquisition cost (CAC) on a daily level and instantly see whether its on or off track.
+  </Accordion>
+
+  <Accordion title="How are my acquisition KPIs trending?">
+    Get a clear picture into acquisition KPI trends. Track Conversion rate, CAC, Cost per user, First Order Value, Marketing Efficiency Ratio etc. over daily, weekly & monthly timeframes.
+  </Accordion>
+
+</AccordionGroup>

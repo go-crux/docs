@@ -11,7 +11,7 @@
     "dark": "#57aaf6"
   },
 
-  "favicon": "/favicon.svg",
+  "favicon": "/favicon.png",
 
   "navigation": {
     "tabs": [
@@ -28,7 +28,8 @@
           {
             "group": "Dashboard Reports",
             "pages": [
-              "dashboard-reports/ltv_retention"
+              "dashboard-reports/ltv_retention",
+              "dashboard-reports/daily_kpi_performance"
             ]
           }
         ]
