@@ -1,52 +1,39 @@
 {
   "$schema": "https://mintlify.com/docs.json",
+
   "theme": "mint",
+
   "name": "Crux",
+
   "colors": {
     "primary": "#57aaf6",
     "light": "#57aaf6",
     "dark": "#57aaf6"
   },
+
   "favicon": "/favicon.svg",
+
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Reporting Overview",
         "groups": [
           {
             "group": "Getting started",
             "pages": [
               "index",
-              "quickstart",
-              "development"
+              "quickstart"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Dashboard Reports",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
-            ]
-          },
-          {
-            "group": "Writing content",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "dashboard-reports/ltv_retention"
             ]
           }
         ]
       },
+
       {
         "tab": "API reference",
         "groups": [
@@ -54,15 +41,6 @@
             "group": "API documentation",
             "pages": [
               "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
             ]
           }
         ]
@@ -83,15 +61,21 @@
       ]
     }
   },
+
   "logo": {
     "light": "/logo/logo.png",
     "dark": "/logo/logo.png"
   },
+
+  "appearance": {
+    "default": "light"
+  },
+
   "navbar": {
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:support@gocrux.io"
       }
     ],
     "primary": {
@@ -100,18 +84,16 @@
       "href": "https://dashboard.mintlify.com"
     }
   },
+
   "contextual": {
     "options": [
      "copy",
      "view",
      "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
+     "claude"
    ]
   },
+
   "footer": {
     "socials": {
       "x": "https://x.com/mintlify",
