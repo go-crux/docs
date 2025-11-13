@@ -1,0 +1,190 @@
+---
+title: "Orders"
+description: "The Orders report provides a comprehensive view of all DTC orders with detailed customer, product, financial, and marketing attribution data to analyze order patterns, customer behavior, and marketing effectiveness."
+---
+
+<iframe 
+  src="https://www.youtube.com/embed/Tlck4zfzhpk?si=LRuqVRh6Ggp-KR5V" 
+  title="Orderd Deep Dive Report Walkthrough"
+  frameBorder="0"
+  className="w-full aspect-video"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  referrerpolicy="strict-origin-when-cross-origin" 
+  allowfullscreen
+>
+</iframe>
+
+## Overview
+
+This report delivers granular order-level analysis combining transaction details, customer information, product data, financial metrics, and complete marketing attribution. 
+
+Use this report to analyse order trends, discount usage & deep dive into specific order attributes.
+
+## Data Dictionary
+Fields and their respective definitions available within this report.
+
+### Order Identifiers
+| Name | Description |
+| --- | --- |
+| Order ID | Primary key. The unique identifier for an order. |
+| Recharge ID | The unique identifier for the recharge order (if applicable). |
+| Shopify Order Name | The unique order name in Shopify, typically starting with '#'. |
+
+### Customer Information
+| Name | Description |
+| --- | --- |
+| Customer ID | The unique identifier for the customer who placed the order. |
+| Customer Tags | Tags associated with the customer (e.g., 'VIP', 'Active Subscriber'). |
+
+### Order Dates and Status
+| Name | Description |
+| --- | --- |
+| Order Date | The date when the order was placed. |
+| Delivery Date | The date when the order was fulfilled or shipped. |
+| Delivery Time | The date difference between the order date and the delivery date. |
+| Cancelled Date | The date when the order was cancelled, if applicable. |
+| Order Index | The order number for a customer, 1 if it is their first order. |
+| Is Acquisition | Whether the order is from a new customer or not (true/false). |
+| Prev Order Date | The date of the customer's previous order. |
+| Days Since Previous Order | The amount of days since the customers last order. |
+
+### Order Classification
+| Name | Description |
+| --- | --- |
+| Order Type | The type of the order (e.g., 'subscription' or 'one-off) |
+| Recharge Order Status | The status of the recharge order (if applicable). |
+| Recharge Order Type | The type of the recharge order (e.g., 'subscription', 'one-time'). |
+| Fulfillment Status | The fulfillment status of the order (e.g., 'fulfilled', 'pending'). |
+| Payment Status | The payment status of the order (e.g., 'paid', 'pending', 'failed'). |
+| Payment Gateway | The payment method used for the order (e.g., 'credit_card', 'paypal'). |
+| Cancel Reason | The reason for the cancellation of the order. |
+
+### Product Information
+| Name | Description |
+| --- | --- |
+| Order SKUs | List of SKUs included in the order. |
+| Order Line Items | List of line items included in the order. |
+| Product Categories | Categories of products included in the order. |
+
+### Shipping Information
+| Name | Description |
+| --- | --- |
+| Shipping Country Code | The country code for the shipping address (e.g., 'US', 'GB'). |
+| Shipping Price Before Tax | The shipping price before tax is applied. |
+
+### Discount Information
+| Name | Description |
+| --- | --- |
+| Discount Code | The discount code(s) applied to the order (comma-separated if multiple). |
+| Discount Type | The type(s) of discount applied to the order (e.g., 'percentage', 'fixed_amount'). |
+| Discount Amount Before Tax | The discount amount applied before taxes. |
+| Discount Channel | The marketing channel assigned to the discount code e.g., 'Affiliate', 'Affiliate Influencer', 'Email Partner', 'VIP Influencer'. |
+| Discount Channel Group | Grouping the channel into broader categories either, 'Influencer', 'Offline', 'Other' or 'Paid Media'. |
+| Discount Campaign | The corresponding campaign name the discount code is assigned to. |
+| Discount Ad Group | The ad group assigned to the discount code. |
+| Discount Keyword | The keyword assigned to the discount code. |
+| Is Discounted Order | Whether the order contains a discount code or not (yes/no). |
+| % Discounted Orders | The % of orders with a discount code applied. |
+
+### Financial Metrics
+| Name | Description |
+| --- | --- |
+| Total Line Items Price | The total price of the line items in the order, excluding shipping and taxes. |
+| Gross Product Sales | The total revenue generated from the products in an order before any discounts and tax. |
+| Gross Revenue | The total revenue generated from the products and shipping in an order before any discounts and tax. |
+| Net Revenue Excl Refunds | The total revenue generated from the order after discounts, including shipping charges, excluding tax and refunds. |
+| Net Revenue | Revenue after discounts & refunds (before tax). |
+| Net Revenue % | Net Revenue as a % of gross revenue. |
+| Tax Rate | The applicable tax rate for the order. |
+| Total Tax | The total tax applied to the order. |
+| Refund Amount | The total refund amount for the order, if applicable. |
+| AOV | The average order value (net revenue divided by total orders). |
+| CM1 £ | Level 1 contribution margin (sales after COGS). |
+| CM1 % | Level 1 contribution margin (sales after COGS) as a percentage of net revenue. |
+| CM2 £ | Level 2 contribution margin (sales after COGS, fulfillment & payment processing fees). |
+| CM2 % | Level 2 contribution margin (sales after COGS, fulfillment & payment processing fees) as a percentage of net revenue. |
+| % Repeat Orders | The % of orders from repeat customers. |
+| % Subscription Orders | The % of orders that are subscription. | 
+
+### Cost Metrics
+| Name | Description |
+| --- | --- |
+| Total COGS | Total cost of goods sold for the order. |
+| Fulfillment Costs | The fulfillment costs associated with the order. |
+| Payment Processing Fees | Payment processing fees charged for the order. |
+
+### Marketing Attribution - Platform & Channel
+| Name | Description |
+| --- | --- |
+| Platform | The advertising platform (e.g., 'Google Ads', 'Meta Ads', 'TikTok Ads', 'Bing Ads', 'Awin', 'VIP Influencer', 'Non Paid'). |
+| Channel | The primary marketing channel attribution based on UTMs and discount codes. |
+| Channel Last Click | The marketing channel attribution based on last click data. |
+| Channel Group | The channel group mapping for the primary channel (e.g., 'Paid Media', 'Influencer', 'Offline', 'Other'). |
+| Channel Group Last Click | The channel group mapping for the last click channel. |
+
+### Marketing Attribution - Campaign Level
+| Name | Description |
+| --- | --- |
+| Campaign | The campaign name using our default attribution. |
+| Campaign ID | The campaign ID. |
+| Ad Group | The ad group derived from platform-specific logic (e.g., content for Google, campaign for Bing, ad set for Meta). |
+| Ad | The ad name, derived from Meta content or keyword for other platforms. |
+| Content | The content parameter using our default attribution. |
+| Keyword | The keyword from using our default attribution. |
+
+### Marketing Attribution - Last Click (GA4)
+| Name | Description |
+| --- | --- |
+| Last Click Source | The source of the last click before the order from GA4 attribution. |
+| Last Click Medium | The medium of the last click before the order from GA4 attribution. |
+| Last Click Source Medium | Combined source and medium of the last click from GA4 attribution. |
+| Last Click Campaign | The campaign of the last click before the order from GA4 attribution. |
+| Last Click Campaign ID | The campaign ID of the last click before the order from GA4 attribution. |
+| Last Click Content | The content parameter of the last click from GA4 attribution. |
+| Last Click Keyword | The keyword of the last click before the order from GA4 attribution. |
+| Last Click Landing URL | The landing page URL of the last click from GA4 attribution. |
+| Last Click Page Referrer | The page referrer of the last click from GA4 attribution. |
+
+### Marketing Attribution - First Click (GA4)
+| Name | Description |
+| --- | --- |
+| Source | The first click source from GA4 attribution. |
+| Medium | The first click medium from GA4 attribution. |
+| Source Medium | Combined source and medium from first click GA4 attribution. |
+| First Click Landing URL | The landing page URL from the first click in GA4. |
+| First Click Page Referrer | The page referrer from the first click in GA4. |
+| Event Agg | Aggregated event data from GA4. |
+
+### Order Metadata
+| Name | Description |
+| --- | --- |
+| Source Name | The source name from which the order originated in Shopify (e.g., 'web', 'pos', 'shopify_draft_order'). |
+| Order Tags | Tags associated with the order (e.g., 'sale', 'holiday_promo'). |
+| Note | Additional notes related to the order (e.g., 'gift wrap requested'). |
+| Taxes Included | Indicates if taxes are included in the order price (true/false). |
+
+## Questions This Report Answers
+
+<AccordionGroup>
+
+  <Accordion title="How are repeat v new customer orders trending over time?">
+    Analyse order metrics over time including; % of orders discounted, new v repeat, average fufillment / delivery time, discounts, returns & profitability.
+  </Accordion>
+
+  <Accordion title="What's my typical order frequency?">
+    View median time between different order index's. i.e. whats the median time for a customer to place their second order? Compare order times between subscription & one-off customers.
+  </Accordion>
+
+  <Accordion title="What are my most used discount codes? How are they impacting profitability?">
+    Examine which discount codes are used, their associated marketing channels and campaigns, and how they affect order value and profitability.
+  </Accordion>
+
+  <Accordion title="How is my subscription rate evolving over time?">
+    View orders over time aggregated by order type (subscription v one-off), channel, and discount usage to identify key drivers for performance changes.
+  </Accordion>
+
+  <Accordion title="How do subscription vs. one-off orders differ in performance?">
+    Compare recharge order types, order values, and customer behavior between subscription and one-time purchases. Analyze which marketing channels and campaigns drive subscription adoption and how subscription orders differ in profitability and retention.
+  </Accordion>
+
+</AccordionGroup>
