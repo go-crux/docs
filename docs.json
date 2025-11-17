@@ -29,6 +29,7 @@
             "group": "Dashboard Reports",
             "pages": [
               "dashboard-reports/orders",
+              "dashboard-reports/customer_deep_dive",
               "dashboard-reports/daily_kpi_performance",
               "dashboard-reports/channel_performance",
               "dashboard-reports/ltv_retention"
