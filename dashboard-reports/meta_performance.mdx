@@ -1,0 +1,286 @@
+---
+title: "Meta Performance Report"
+description: "The Meta Performance report provides comprehensive Meta Ads analysis with detailed ad-level performance metrics combining platform data, session tracking, and order attribution to optimise your Meta advertising campaigns."
+---
+
+<iframe 
+  src="https://www.youtube.com/embed/vmWedg6R4pk?si=yRMznDhc0fY215QC" 
+  title="Meta Performance Report Walkthrough"
+  frameBorder="0"
+  className="w-full aspect-video"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  referrerpolicy="strict-origin-when-cross-origin" 
+  allowfullscreen
+>
+</iframe>
+
+## Overview
+
+This report delivers granular Meta advertising performance analysis at the ad level, combining platform metrics from Meta Ads Manager, session data from GA4, and complete order attribution from your store. 
+
+Data is broken down by date, country, campaign, campaign type, ad set, and individual ad. Enabling you to analyse performance from high-level campaign strategy down to individual creative performance. The report includes sophisticated ad age tracking and automatic winner identification to inform creative optimisation and strategy.
+
+Use this report to identify winning ads to scale, analyse creative fatigue, optimise budget allocation across campaigns and ad sets, compare new vs. repeat customer acquisition, and calculate true profitability after all costs including COGS, fulfillment fees, and ad spend.
+
+## Data Dictionary
+Fields and their respective definitions available within this report.
+
+### Identifiers & Dimensions
+| Name | Description |
+| --- | --- |
+| ID | A surrogate key created from date, country_code, campaign, adset, ad and ad_launch_date. |
+| Date | The date of the ad performance metrics. |
+| Country Code | ISO country code for the ad performance location. |
+| Campaign | The Meta campaign name. |
+| Campaign Type | Campaign classification (e.g., 'TOF', 'RET', 'RTN', 'ASC', 'TEST', 'AWARENESS', 'OTHER'). |
+| Adset | The Meta ad set name. |
+| Ad | The Meta ad name. |
+
+### Ad Metrics
+| Name | Description |
+| --- | --- |
+| Ad Launch Date | The date when the ad first recorded impressions. |
+| Ad Age | The age of the ad in days since it first recorded impressions (only counts days with impressions). |
+| Weighted Ad Age | Ad age weighted by impressions for aggregated ad age. |
+| Active Ads | Number of ads that have received 1 or more impressions. |
+| Ad Diversity | A % score (out of 100%) representing how evenly your active ads are distributed across ad formats. |
+| Ad Velocity | The average number of ads launched per day. |
+| Ad Winners | Ads that have met the default spend threshold over the first 7 days from launch and have beaten the campaign average CAC by 25% or more. |
+| Win Rate | Number of ad winners divided by number of new ads launched. |
+| New Ads | Number of new ads launched. 'New' being where the ad age is 0 and impressions are greater than 0. |
+| Spend per Active Ad | Total spend divided by the amount of active ads. |
+
+
+### Platform Metrics (Meta Reported)
+| Name | Description |
+| --- | --- |
+| Impressions | Total number of times the ad was displayed. |
+| Reach | Total number of unique users who saw the ad. |
+| Frequency | Impressions divided by reach. The average amount of times a user saw an ad. |
+| Clicks | Total number of clicks on the ad. |
+| Outbound Clicks | Number of clicks to destinations off Meta-owned properties. |
+| Spend | Total advertising spend for the ad. |
+| Purchases | Total purchases reported by Meta (platform-reported conversions). |
+| CPM | Cost per thousand impressions (spend / impressions * 1000). |
+| CPC | Cost per click (spend / clicks). |
+| CTR | Click-through rate (clicks / impressions * 100). |
+
+### Video Engagement Metrics
+| Name | Description |
+| --- | --- |
+| Video P25 Watched Actions | Number of times video was watched to 25% completion. |
+| Video P50 Watched Actions | Number of times video was watched to 50% completion. |
+| Video P75 Watched Actions | Number of times video was watched to 75% completion. |
+| Video P100 Watched Actions | Number of times video was watched to 100% completion. |
+| Video 30s Watched Actions | Number of times video was watched for at least 30 seconds. |
+
+### Session Metrics (GA4 Attributed)
+| Name | Description |
+| --- | --- |
+| Total Sessions | Total number of sessions attributed to the ad. |
+| New Sessions | Number of sessions from new users attributed to the ad. |
+| Repeat Sessions | Number of sessions from returning users attributed to the ad. |
+| Total Users | Total number of users attributed to the ad. |
+| New Users | Number of new users attributed to the ad. |
+| Repeat Users | Number of returning users attributed to the ad. |
+| New User % | Percentage of total users who are new users. |
+| CPU | Cost per user (spend / total users). |
+| CPNU | Cost per new user (spend / new users). |
+
+### Order Metrics
+| Name | Description |
+| --- | --- |
+| Total Orders | Total number of orders attributed to the ad. |
+| One Off Orders | Number of one-off (non-subscription) orders attributed to the ad. |
+| Subscription Orders | Number of subscription orders attributed to the ad. |
+| New Orders | Number of orders from new customers attributed to the ad. |
+| New Oneoff Orders | Number of one-off orders from new customers attributed to the ad. |
+| New Subscription Orders | Number of subscription orders from new customers attributed to the ad. |
+| Repeat Orders | Number of orders from returning customers attributed to the ad. |
+| Repeat Oneoff Orders | Number of one-off orders from returning customers attributed to the ad. |
+| Repeat Subscription Orders | Number of subscription orders by returning customers attributed to the ad. |
+| CR | Conversion rate (total orders / total sessions * 100). |
+| NC CR | New customer conversion rate (new orders / total sessions * 100). |
+| CAC | Customer acquisition cost (spend / new orders). |
+| AOV | Average order value (total net revenue / total orders). |
+| FOV | First order value (new net revenue / new orders). |
+
+### Gross Revenue Metrics
+| Name | Description |
+| --- | --- |
+| Total Gross Revenue | Total gross revenue before discounts and tax attributed to the ad. |
+| One Off Gross Revenue | Gross revenue from one-off orders attributed to the ad. |
+| Subscription Gross Revenue | Gross revenue from subscription orders attributed to the ad. |
+| New Gross Revenue | Gross revenue from new customers attributed to the ad. |
+| New Oneoff Gross Revenue | Gross revenue from one-off orders by new customers attributed to the ad. |
+| New Subscription Gross Revenue | Gross revenue from subscription orders by new customers attributed to the ad. |
+| Repeat Gross Revenue | Gross revenue from returning customers attributed to the ad. |
+| Repeat Oneoff Gross Revenue | Gross revenue from one-off orders by returning customers attributed to the ad. |
+| Repeat Subscription Gross Revenue | Gross revenue from subscription orders by returning customers attributed to the ad. |
+
+### Net Revenue Metrics
+| Name | Description |
+| --- | --- |
+| Total Net Revenue Excl Refunds | Total net revenue after discounts, excluding tax and refunds, attributed to the ad. |
+| One Off Net Revenue Excl Refunds | Net revenue from one-off orders attributed to the ad. |
+| Subscription Net Revenue Excl Refunds | Net revenue from subscription orders attributed to the ad. |
+| New Net Revenue Excl Refunds | Net revenue from new customers attributed to the ad. |
+| New Oneoff Net Revenue Excl Refunds | Net revenue from one-off orders by new customers attributed to the ad. |
+| New Subscription Net Revenue Excl Refunds | Net revenue from subscription orders by new customers attributed to the ad. |
+| Repeat Net Revenue Excl Refunds | Net revenue from returning customers attributed to the ad. |
+| Repeat Oneoff Net Revenue Excl Refunds | Net revenue from one-off orders by returning customers attributed to the ad. |
+| Repeat Subscription Net Revenue Excl Refunds | Net revenue from subscription orders by returning customers attributed to the ad. |
+| MER | Marketing efficiency ratio (total net revenue / spend). |
+| ROAS | Return on ad spend (total net revenue / spend). |
+
+### Shipping Metrics
+| Name | Description |
+| --- | --- |
+| Total Shipping Price Before Tax | Total shipping charges before tax attributed to the ad. |
+| One Off Shipping Price Before Tax | Shipping charges from one-off orders attributed to the ad. |
+| Subscription Shipping Price Before Tax | Shipping charges from subscription orders attributed to the ad. |
+| New Shipping Price Before Tax | Shipping charges from new customers attributed to the ad. |
+| New Oneoff Shipping Price Before Tax | Shipping charges from one-off orders by new customers attributed to the ad. |
+| New Subscription Shipping Price Before Tax | Shipping charges from subscription orders by new customers attributed to the ad. |
+| Repeat Shipping Price Before Tax | Shipping charges from returning customers attributed to the ad. |
+| Repeat Oneoff Shipping Price Before Tax | Shipping charges from one-off orders by returning customers attributed to the ad. |
+| Repeat Subscription Shipping Price Before Tax | Shipping charges from subscription orders by returning customers attributed to the ad. |
+
+### Discount Metrics
+| Name | Description |
+| --- | --- |
+| Total Discount Amount Before Tax | Total discount amount before tax attributed to the ad. |
+| One Off Discount Amount Before Tax | Discount amount from one-off orders attributed to the ad. |
+| Subscription Discount Amount Before Tax | Discount amount from subscription orders attributed to the ad. |
+| New Discount Amount Before Tax | Discount amount from new customers attributed to the ad. |
+| New Oneoff Discount Amount Before Tax | Discount amount from one-off orders by new customers attributed to the ad. |
+| New Subscription Discount Amount Before Tax | Discount amount from subscription orders by new customers attributed to the ad. |
+| Repeat Discount Amount Before Tax | Discount amount from returning customers attributed to the ad. |
+| Repeat Oneoff Discount Amount Before Tax | Discount amount from one-off orders by returning customers attributed to the ad. |
+| Repeat Subscription Discount Amount Before Tax | Discount amount from subscription orders by returning customers attributed to the ad. |
+
+### Refund Metrics
+| Name | Description |
+| --- | --- |
+| Total Refund Amount | Total refund amount attributed to the ad. |
+| One Off Refund Amount | Refund amount from one-off orders attributed to the ad. |
+| Subscription Refund Amount | Refund amount from subscription orders attributed to the ad. |
+| New Refund Amount | Refund amount from new customers attributed to the ad. |
+| New Oneoff Refund Amount | Refund amount from one-off orders by new customers attributed to the ad. |
+| New Subscription Refund Amount | Refund amount from subscription orders by new customers attributed to the ad. |
+| Repeat Refund Amount | Refund amount from returning customers attributed to the ad. |
+| Repeat Oneoff Refund Amount | Refund amount from one-off orders by returning customers attributed to the ad. |
+| Repeat Subscription Refund Amount | Refund amount from subscription orders by returning customers attributed to the ad. |
+
+### Tax Metrics
+| Name | Description |
+| --- | --- |
+| Total Tax | Total tax amount attributed to the ad. |
+| One Off Tax | Tax amount from one-off orders attributed to the ad. |
+| Subscription Tax | Tax amount from subscription orders attributed to the ad. |
+| New Tax | Tax amount from new customers attributed to the ad. |
+| New Oneoff Tax | Tax amount from one-off orders by new customers attributed to the ad. |
+| New Subscription Tax | Tax amount from subscription orders by new customers attributed to the ad. |
+| Repeat Tax | Tax amount from returning customers attributed to the ad. |
+| Repeat Oneoff Tax | Tax amount from one-off orders by returning customers attributed to the ad. |
+| Repeat Subscription Tax | Tax amount from subscription orders by returning customers attributed to the ad. |
+
+### COGS Metrics
+| Name | Description |
+| --- | --- |
+| Total COGS | Total cost of goods sold attributed to the ad. |
+| One Off COGS | COGS from one-off orders attributed to the ad. |
+| Subscription COGS | COGS from subscription orders attributed to the ad. |
+| New COGS | COGS from new customers attributed to the ad. |
+| New Oneoff COGS | COGS from one-off orders by new customers attributed to the ad. |
+| New Subscription COGS | COGS from subscription orders by new customers attributed to the ad. |
+| Repeat COGS | COGS from returning customers attributed to the ad. |
+| Repeat Oneoff COGS | COGS from one-off orders by returning customers attributed to the ad. |
+| Repeat Subscription COGS | COGS from subscription orders by returning customers attributed to the ad. |
+
+### Fulfillment Cost Metrics
+| Name | Description |
+| --- | --- |
+| Total Fulfillment Costs | Total fulfillment costs attributed to the ad. |
+| One Off Fulfillment Costs | Fulfillment costs from one-off orders attributed to the ad. |
+| Subscription Fulfillment Costs | Fulfillment costs from subscription orders attributed to the ad. |
+| New Fulfillment Costs | Fulfillment costs from new customers attributed to the ad. |
+| New Oneoff Fulfillment Costs | Fulfillment costs from one-off orders by new customers attributed to the ad. |
+| New Subscription Fulfillment Costs | Fulfillment costs from subscription orders by new customers attributed to the ad. |
+| Repeat Fulfillment Costs | Fulfillment costs from returning customers attributed to the ad. |
+| Repeat Oneoff Fulfillment Costs | Fulfillment costs from one-off orders by returning customers attributed to the ad. |
+| Repeat Subscription Fulfillment Costs | Fulfillment costs from subscription orders by returning customers attributed to the ad. |
+
+### Payment Processing Fee Metrics
+| Name | Description |
+| --- | --- |
+| Total Payment Processing Fees | Total payment processing fees attributed to the ad. |
+| One Off Payment Processing Fees | Payment processing fees from one-off orders attributed to the ad. |
+| Subscription Payment Processing Fees | Payment processing fees from subscription orders attributed to the ad. |
+| New Payment Processing Fees | Payment processing fees from new customers attributed to the ad. |
+| New Oneoff Payment Processing Fees | Payment processing fees from one-off orders by new customers attributed to the ad. |
+| New Subscription Payment Processing Fees | Payment processing fees from subscription orders by new customers attributed to the ad. |
+| Repeat Payment Processing Fees | Payment processing fees from returning customers attributed to the ad. |
+| Repeat Oneoff Payment Processing Fees | Payment processing fees from one-off orders by returning customers attributed to the ad. |
+| Repeat Subscription Payment Processing Fees | Payment processing fees from subscription orders by returning customers attributed to the ad. |
+
+### Contribution Margin Metrics
+| Name | Description |
+| --- | --- |
+| CM1 £ | Level 1 contribution margin (net revenue after COGS). |
+| CM1 % | Level 1 contribution margin as a percentage of net revenue. |
+| CM2 £ | Level 2 contribution margin (CM1 minus fulfillment & payment processing fees). |
+| CM2 % | Level 2 contribution margin as a percentage of net revenue. |
+| CM3 £ | Level 3 contribution margin (CM2 minus ad spend). |
+| CM3 % | Level 3 contribution margin as a percentage of net revenue. |
+
+### Rolling Window Metrics (7-Day)
+| Name | Description |
+| --- | --- |
+| Cum 7d Ad Spend | Cumulative ad spend over the last 7 days for the specific ad. |
+| Cum 7d Ad New Orders | Cumulative new orders over the last 7 days for the specific ad. |
+| Cum 7d Campaign Spend | Cumulative campaign spend over the last 7 days. |
+| Cum 7d Campaign New Orders | Cumulative new orders over the last 7 days for the campaign. |
+| 7d Ad CAC | 7-day rolling customer acquisition cost for the ad (cum_7d_ad_spend / cum_7d_ad_new_orders). |
+| 7d Campaign CAC | 7-day rolling customer acquisition cost for the campaign (cum_7d_campaign_spend / cum_7d_campaign_new_orders). |
+
+### Winner Identification
+| Name | Description |
+| --- | --- |
+| Meets Criteria Today | Boolean indicating if the ad meets winner criteria today (CAC 25% lower than campaign average, spent >£600 in 7 days, ad age ≤7 days). |
+| Meets Criteria Yesterday | Boolean indicating if the ad met winner criteria yesterday. |
+| Is Winner First Time | Boolean indicating if this is the first time the ad has met winner criteria (meets criteria today but not yesterday). |
+
+## Questions This Report Answers
+
+<AccordionGroup>
+
+  <Accordion title="Which metrics are on-track / off-track?">
+    Use the metric health report to get instant insight into whats working and what isn't. Easily see metrics that require attention and prioritise your time accordingly.
+  </Accordion>
+  
+  <Accordion title="Which ads are performing best and should be scaled?">
+    Use the automatic winner identification to find ads with CAC 25% lower than campaign averages (thresholds are tailored to each customer) that have spent >£600 in the last 7 days. Filter ad winners to identify newly successful ads, then analyse their creative elements, targeting, and copy to replicate success.
+  </Accordion>
+
+  <Accordion title="Do we have enough creative variety?">
+    Use creative diversification metric to ensure you're giving meta a wide breadth of creative input to optimise towards.
+  </Accordion>
+
+  <Accordion title="How does ad performance evolve over time?">
+    Track ad age and performance metrics to understand creative fatigue. Compare CPM, CTR, conversion rate, and CAC across different ad ages to identify when ads start declining and need refreshing.
+  </Accordion>
+
+  <Accordion title="Analyse how differing budget strategies across the funnel impact performance">
+    Compare spend across campaign types (Awareness, Advantage, TOF etc) over time and understand how they influence wider account performance.
+  </Accordion>
+
+  <Accordion title="What is the true profitability of each ad after all costs?">
+    Calculate CM1, CM2, and CM3 at the ad level to understand profitability after COGS, fulfillment costs, payment fees, and ad spend. Identify which ads drive profitable growth vs. which ads are spending inefficiently despite appearing to have good ROAS.
+  </Accordion>
+
+  <Accordion title="How does ad performance vary by geography?">
+    Segment by country code to understand geographic performance differences. Compare CAC, conversion rates, AOV, and profitability across markets to optimize geo-targeted campaigns and budget allocation by region.
+  </Accordion>
+
+</AccordionGroup>

@@ -32,6 +32,7 @@
               "dashboard-reports/customer_deep_dive",
               "dashboard-reports/daily_kpi_performance",
               "dashboard-reports/channel_performance",
+              "dashboard-reports/meta_performance",
               "dashboard-reports/ltv_retention"
               
             ]
