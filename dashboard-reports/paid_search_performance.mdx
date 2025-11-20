@@ -1,0 +1,151 @@
+---
+title: "Paid Search Performance Report"
+description: "The Paid Search Performance report provides comprehensive analysis of Google Ads and Bing Ads campaigns with detailed ad group-level performance metrics combining platform data, session tracking, and order attribution."
+---
+
+<iframe 
+  src="https://www.youtube.com/embed/sKxHvd1ESLM" 
+  title="Paid Search Performance Report Walkthrough"
+  frameBorder="0"
+  className="w-full aspect-video"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  referrerpolicy="strict-origin-when-cross-origin" 
+  allowfullscreen
+>
+</iframe>
+
+
+
+## Overview
+
+The Paid Search Performance Report is broken down by date, country, platform, campaign type, campaign, and ad group - enabling you to analyse performance from high-level platform strategy down to individual ad group targeting and keywords. Campaign types are automatically classified (Brand, Performance Max, Demand Gen, YouTube, Shopping, Generic) based on naming conventions to help you quickly segment and compare different campaign strategies.
+
+Use this report to compare Google Ads vs. Bing Ads performance, analyse brand vs. non-brand efficiency, optimise budget allocation across campaign types, track new customer acquisition vs. repeat purchases, and calculate true profitability including COGS and fees.
+
+## Data Dictionary
+Fields and their respective definitions available within this report.
+
+### Identifiers & Dimensions
+| Name | Description |
+| --- | --- |
+| ID | A surrogate key created from date, country_code, platform, campaign, and ad_group. |
+| Date | The date of the paid search performance metrics. |
+| Country Code | ISO country code for the ad performance location. |
+| Platform | The paid search platform (e.g., 'Google Ads', 'Bing Ads'). |
+| Campaign Type | Campaign classification (e.g., 'Brand', 'Performance Max', 'Demand Gen', 'YouTube', 'Shopping', 'Generic', 'Other'). |
+| Campaign | The paid search campaign name. |
+| Ad Group | The ad group name within the campaign. |
+
+### Platform Metrics
+| Name | Description |
+| --- | --- |
+| Impressions | Total number of times ads were displayed. |
+| Video Views | Total number of video views for video campaigns. |
+| Clicks | Total number of clicks on the ads. |
+| Interactions | Total number of interactions with the ads. |
+| Spend | Total advertising spend. |
+| Conversions | Total conversions reported by the platform. |
+| Conversion Value | Total conversion value reported by the platform. |
+| CPM | Cost per thousand impressions (spend / impressions * 1000). |
+| CPC | Cost per click (spend / clicks). |
+| CTR | Click-through rate (clicks / impressions * 100). |
+
+### Session Metrics (GA4 Attributed)
+| Name | Description |
+| --- | --- |
+| Total Sessions | Total number of sessions attributed to the ads. |
+| New Sessions | Number of sessions from new users attributed to the ads. |
+| Repeat Sessions | Number of sessions from returning users attributed to the ads. |
+| Total Users | Total number of users attributed to the ads. |
+| New Users | Number of new users attributed to the ads. |
+| Repeat Users | Number of returning users attributed to the ads. |
+| New User % | Percentage of total users who are new users. |
+| CPU | Cost per user (spend / total users). |
+| CPNU | Cost per new user (spend / new users). |
+
+### Order Metrics
+| Name | Description |
+| --- | --- |
+| Total Orders | Total number of orders attributed to the ads. |
+| One Off Orders | Number of one-off (non-subscription) orders attributed to the ads. |
+| Subscription Orders | Number of subscription orders attributed to the ads. |
+| New Orders | Number of orders from new customers attributed to the ads. |
+| New Oneoff Orders | Number of one-off orders from new customers attributed to the ads. |
+| New Subscription Orders | Number of subscription orders from new customers attributed to the ads. |
+| CR | Conversion rate (total orders / total sessions * 100). |
+| NC CR | New customer conversion rate (new orders / total sessions * 100). |
+| CAC | Customer acquisition cost (spend / new orders). |
+| AOV | Average order value (total net revenue / total orders). |
+| FOV | First order value (new customer net revenue / new orders). |
+
+### Financial Metrics
+| Name | Description |
+| --- | --- |
+| Total Gross Revenue | Total gross revenue before discounts and tax attributed to the ads. |
+| Total Net Revenue Excl Refunds | Total net revenue after discounts, excluding tax and refunds, attributed to the ads. |
+| Total Discount Amount Before Tax | Total discount amount before tax attributed to the ads. |
+| Total Refund Amount | Total refund amount attributed to the ads. |
+| MER | Marketing efficiency ratio (total net revenue / spend). |
+| ROAS | Return on ad spend (total net revenue / spend). |
+
+### Cost Metrics
+| Name | Description |
+| --- | --- |
+| Total COGS | Total cost of goods sold attributed to the ads. |
+| Total Payment Processing Fees | Total payment processing fees attributed to the ads. |
+
+### Contribution Margin Metrics
+| Name | Description |
+| --- | --- |
+| CM1 £ | Level 1 contribution margin (net revenue after COGS). |
+| CM1 % | Level 1 contribution margin as a percentage of net revenue. |
+| CM2 £ | Level 2 contribution margin (CM1 minus payment processing fees). |
+| CM2 % | Level 2 contribution margin as a percentage of net revenue. |
+| CM3 £ | Level 3 contribution margin (CM2 minus ad spend). |
+| CM3 % | Level 3 contribution margin as a percentage of net revenue. |
+
+## Questions This Report Answers
+
+<AccordionGroup>
+
+  <Accordion title="How does Google Ads performance compare to Bing Ads?">
+    Compare platform metrics, CAC, ROAS, and profitability between Google Ads and Bing Ads to understand which platform delivers better efficiency. Analyse whether you should increase or decrease budget allocation between platforms based on true profitability metrics.
+  </Accordion>
+
+  <Accordion title="What is the efficiency difference between brand and non-brand campaigns?">
+    Segment by campaign type to compare Brand campaigns against Generic, Shopping, and other non-brand campaign types. Analyse CAC, conversion rates, and ROAS to understand the role each plays in your acquisition funnel and optimise budget allocation accordingly.
+  </Accordion>
+
+  <Accordion title="Which campaign types drive the most efficient customer acquisition?">
+    Compare Performance Max, Demand Gen, Shopping, Brand, Generic, and YouTube campaigns across new customer acquisition metrics. Identify which campaign types drive the lowest CAC and highest-quality new customers for scaling opportunities.
+  </Accordion>
+
+  <Accordion title="How do subscription vs. one-off orders differ by campaign type?">
+    Analyse subscription order acquisition by campaign type to identify which strategies drive subscription adoption vs. one-time purchases. Compare the long-term value potential of customers acquired through different campaign types.
+  </Accordion>
+
+  <Accordion title="What is the true profitability of each ad group after all costs?">
+    Calculate CM1, CM2, and CM3 at the ad group level to understand profitability after COGS, payment processing fees, and ad spend. Identify which ad groups drive profitable growth vs. which are spending inefficiently despite appearing to have good ROAS.
+  </Accordion>
+
+  <Accordion title="How does paid search performance vary by geography?">
+    Segment by country code to understand geographic performance differences. Compare CAC, conversion rates, AOV, and profitability across markets to optimise geo-targeted campaigns and budget allocation by region.
+  </Accordion>
+
+  <Accordion title="Which ad groups within campaigns perform best?">
+    Drill down from campaign to ad group level to identify top-performing targeting, keywords, or audience segments. Compare ad group CAC, conversion rates, and ROAS to reallocate budget within campaigns for better efficiency.
+  </Accordion>
+
+  <Accordion title="Are platform-reported conversions aligned with attributed orders?">
+    Compare platform-reported 'Conversions' and 'Conversion Value' metrics with GA4-attributed orders and revenue to understand discrepancies in conversion tracking. Identify campaigns with larger attribution gaps to improve measurement and optimisation decisions.
+  </Accordion>
+
+  <Accordion title="How efficient is video advertising for YouTube campaigns?">
+    Analyse video views alongside conversion metrics for YouTube campaigns to understand video engagement effectiveness. Compare CPU, CPNU, and conversion rates for video campaigns vs. other campaign types.
+  </Accordion>
+
+  <Accordion title="What's the optimal budget split across campaign types?">
+    Compare spend distribution across Brand, Generic, Shopping, Performance Max, and other campaign types against their respective CAC, ROAS, and contribution margins. Identify opportunities to reallocate budget from low-performing to high-performing campaign types for better overall account efficiency.
+  </Accordion>
+
+</AccordionGroup>
