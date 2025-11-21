@@ -1,0 +1,59 @@
+---
+title: "Health score"
+description: "Understanding the 0-100 health score for granular performance comparison"
+---
+
+While health indicators give you a quick visual signal, the health score provides more granular insight into exactly where a metric sits within its historical distribution.
+
+## How the score works
+
+Each metric receives a **health score from 0 to 100** based on its percentile position within the past 12 weeks of same-weekday data.
+
+- A score of **50** means today's value is right at the median—exactly what you'd expect
+- A score of **90** means you're outperforming 90% of historical values
+- A score of **10** means you're underperforming compared to 90% of historical values
+
+<Info>
+For metrics where lower is better (like CAC), the score is automatically inverted. A score of 90 always means "performing well" regardless of whether high or low values are desirable.
+</Info>
+
+## Score ranges
+
+| Score | Interpretation | Typical indicator |
+|-------|----------------|-------------------|
+| **90-100** | Exceptional performance | 🟢 Opportunity |
+| **70-89** | Good performance | No indicator |
+| **50-69** | Normal performance | No indicator |
+| **35-49** | Below average | No indicator |
+| **20-34** | Poor performance | ⚠️ Caution |
+| **0-19** | Critical | ⛔️ Urgent |
+
+## When to use the score
+
+The health score is particularly useful when:
+
+<CardGroup cols={2}>
+  <Card title="Comparing across metrics" icon="scale-balanced">
+    Quickly identify which metrics are your strongest and weakest performers today.
+  </Card>
+  <Card title="Tracking trends" icon="chart-line">
+    A metric moving from 60 to 45 over several days signals a developing issue before it hits "Caution".
+  </Card>
+  <Card title="Prioritising attention" icon="list-ol">
+    When multiple metrics show caution, the score helps you decide which to address first.
+  </Card>
+  <Card title="Reporting to stakeholders" icon="presentation-screen">
+    A single number is easier to communicate than percentile bands.
+  </Card>
+</CardGroup>
+
+## Score vs indicator
+
+The health indicator and health score work together:
+
+- **Indicators** answer: "Does this need my attention right now?"
+- **Scores** answer: "How is this performing relative to normal?"
+
+<Tip>
+Use indicators for your morning triage—scan of the business health report, looking for ⛔️ and ⚠️ icons. Use scores when you want to dig deeper or compare performance across your entire metric set.
+</Tip>

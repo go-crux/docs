@@ -1,0 +1,123 @@
+---
+title: "Metric definitions"
+description: "Complete reference for all health metrics tracked in your Crux dashboard"
+---
+
+This page provides definitions for every **health metric** available in our dashboard, organised by category.
+
+<Note>
+Many metrics are also available with rolling period suffixes (7d, 14d, 30d) showing performance over those time windows. These use the same health logic as their base metric.
+</Note>
+
+## Business metrics
+
+Core metrics for overall business performance.
+
+| Metric | Definition | Good direction |
+|--------|------------|----------------|
+| **Net Revenue** | Total revenue after refunds and discounts | Higher ↑ |
+| **New Orders** | Count of first-time customer orders | Higher ↑ |
+| **Total Sessions** | Website visits | Higher ↑ |
+| **Conversion Rate (CR)** | Orders ÷ Sessions | Higher ↑ |
+| **New Customer CR** | New orders ÷ Sessions | Higher ↑ |
+| **AOV** | Average Order Value—Revenue ÷ Orders | Higher ↑ |
+| **FOV** | First Order Value—Average value of first purchases | Higher ↑ |
+| **CAC** | Customer Acquisition Cost—Marketing spend ÷ New customers | Lower ↓ |
+| **MER** | Marketing Efficiency Ratio—Revenue ÷ Marketing spend | Higher ↑ |
+| **Spend** | Total marketing spend | Higher ↑ |
+| **Organic Order %** | Percentage of orders from non-paid channels | Higher ↑ |
+| **Subscription Split** | New subscription orders ÷ Total new orders | Higher ↑ |
+
+### Contribution margins
+
+| Metric | Definition | Good direction |
+|--------|------------|----------------|
+| **CM1** | Contribution Margin 1—Revenue minus COGS | Higher ↑ |
+| **CM1%** | CM1 as percentage of revenue | Higher ↑ |
+| **CM2** | Contribution Margin 2—CM1 minus marketing costs | Higher ↑ |
+| **CM2%** | CM2 as percentage of revenue | Higher ↑ |
+| **CM3** | Contribution Margin 3—CM2 minus overheads | Higher ↑ |
+| **CM3%** | CM3 as percentage of revenue | Higher ↑ |
+| **New CM1 / CM2 / CM3** | Contribution margins for new customers only | Higher ↑ |
+| **New CM1% / CM2% / CM3%** | New customer contribution margins as percentages | Higher ↑ |
+
+### Channel-specific CAC
+
+| Metric | Definition | Good direction |
+|--------|------------|----------------|
+| **Paid Meta CAC** | CAC from Meta advertising | Lower ↓ |
+| **Paid Search CAC** | CAC from search advertising | Lower ↓ |
+| **VIP Influencer CAC** | CAC from influencer marketing | Lower ↓ |
+
+## LTV & retention metrics
+
+Metrics focused on customer lifetime value and retention.
+
+| Metric | Definition | Good direction |
+|--------|------------|----------------|
+| **LTV CM1 per Customer** | Lifetime CM1 value per customer | Higher ↑ |
+| **LTV CM2 per Customer** | Lifetime CM2 value per customer | Higher ↑ |
+| **LTV CM3 per Customer** | Lifetime CM3 value per customer | Higher ↑ |
+| **LTV:CAC Ratio (CM2)** | Customer lifetime value ÷ Acquisition cost | Higher ↑ |
+| **CAC** | Customer Acquisition Cost | Lower ↓ |
+
+## Paid Meta metrics
+
+Performance metrics for Meta (Facebook/Instagram) advertising.
+
+| Metric | Definition | Good direction |
+|--------|------------|----------------|
+| **Spend** | Total Meta advertising spend | Higher ↑ |
+| **Total Users** | Users acquired from Meta ads | Higher ↑ |
+| **New Orders** | First-time orders from Meta traffic | Higher ↑ |
+| **CAC** | Customer Acquisition Cost from Meta | Lower ↓ |
+| **CTR** | Click-through rate on ads | Higher ↑ |
+| **CPU** | Cost per user acquired | Lower ↓ |
+| **CPM** | Cost per thousand impressions | Lower ↓ |
+| **New CR** | New customer conversion rate | Higher ↑ |
+
+### Creative performance
+
+| Metric | Definition | Good direction |
+|--------|------------|----------------|
+| **Ad Win Rate (7d)** | Percentage of ads meeting performance thresholds | Higher ↑ |
+| **Ad Velocity (7d/14d/30d)** | Rate of new ad creative launches | Higher ↑ |
+| **Weighted Ad Age** | Average age of active ads weighted by spend | Monitor |
+
+<Info>
+**Weighted Ad Age** is a monitoring metric—it flags unusual values in either direction rather than treating high or low as inherently good or bad.
+</Info>
+
+## Paid Search metrics
+
+Performance metrics for Google and Bing search advertising.
+
+| Metric | Definition | Good direction |
+|--------|------------|----------------|
+| **Impressions** | Number of times ads were shown | Higher ↑ |
+| **Clicks** | Number of ad clicks | Higher ↑ |
+| **Spend** | Total search advertising spend | Higher ↑ |
+| **CTR** | Clicks ÷ Impressions | Higher ↑ |
+| **CPC** | Cost per click | Lower ↓ |
+| **CPU** | Cost per user acquired | Lower ↓ |
+| **Total Users** | Users acquired from search ads | Higher ↑ |
+| **New Orders** | First-time orders from search traffic | Higher ↑ |
+| **CAC** | Customer Acquisition Cost from search | Lower ↓ |
+| **New CR** | New customer conversion rate | Higher ↑ |
+| **New User %** | Percentage of users who are new | Higher ↑ |
+
+## Influencer metrics
+
+Performance metrics for influencer marketing.
+
+| Metric | Definition | Good direction |
+|--------|------------|----------------|
+| **Post TAM** | Total addressable market from influencer posts | Higher ↑ |
+| **Total Posts** | Number of influencer posts | Higher ↑ |
+| **Rebook Posts** | Posts from returning influencers | Higher ↑ |
+| **Post Winners** | Posts meeting performance thresholds | Higher ↑ |
+| **Total Cost** | Total influencer spend | Higher ↑ |
+| **New Orders** | First-time orders from influencer traffic | Higher ↑ |
+| **CAC** | Customer Acquisition Cost from influencers | Lower ↓ |
+| **Post Win Rate** | Winning posts ÷ Total posts | Higher ↑ |
+| **Rebook Rate** | Rebooked influencers ÷ Total influencers | Higher ↑ |

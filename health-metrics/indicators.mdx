@@ -1,0 +1,104 @@
+---
+title: "Health indicators"
+description: "Understanding the four-tier alert system and what each indicator means"
+---
+
+Each metric in your dashboard displays one of four health indicators, giving you an instant visual signal of what needs your attention.
+
+## The four indicators
+
+<CardGroup cols={2}>
+  <Card title="🟢 Opportunity" icon="arrow-trend-up">
+    Performance is unusually strong. Worth investigating to understand what's driving the improvement and whether it can be capitilised on.
+  </Card>
+  <Card title="⚠️ Caution" icon="triangle-exclamation">
+    Performance is below typical levels but not critically so. Monitor closely over the next few days.
+  </Card>
+  <Card title="⛔️ Urgent" icon="circle-exclamation">
+    Performance is significantly below historical norms. Investigate immediately to identify and address the cause.
+  </Card>
+  <Card title="No indicator" icon="check">
+    Performance is within normal range. No action required. Note no visual indicator is actually displayed to limit cognitive load.
+  </Card>
+</CardGroup>
+
+## How thresholds are set
+
+Different types of metrics use different sensitivity levels. This is because some metrics naturally fluctuate more than others, and we want to avoid both false alarms and missed issues. i.e. false positives & negatives.
+
+### Volume metrics
+
+Metrics like revenue, orders, and sessions are unbounded—they can range from zero to very large numbers and naturally fluctuate significantly. We use wider thresholds to avoid false alarms:
+
+| Indicator | Condition |
+|-----------|-----------|
+| ⛔️ Urgent | Below the 5th percentile |
+| ⚠️ Caution | Between 5th and 15th percentile |
+| 🟢 Opportunity | Above the 90th percentile |
+| No indicator | Between 15th and 85th percentile |
+
+<Tip>
+Being below the 5th percentile means today's value is lower than approximately 11 of your last 12 same-weekday values. That's a genuine outlier worth investigating.
+</Tip>
+
+### Rate metrics
+
+Metrics like conversion rate, CTR, and win rate are naturally bounded between 0% and 100%. Because they're more stable, we use tighter thresholds:
+
+| Indicator | Condition |
+|-----------|-----------|
+| ⛔️ Urgent | Below the 10th percentile |
+| ⚠️ Caution | Between 10th and 20th percentile |
+| 🟢 Opportunity | Above the 85th percentile |
+| No indicator | Between 20th and 80th percentile |
+
+### Efficiency metrics (lower is better)
+
+For cost-based ratios like CAC, CPC, and CPM where lower values are better, the logic is inverted:
+
+| Indicator | Condition |
+|-----------|-----------|
+| ⛔️ Urgent | Above the 90th percentile (costs too high) |
+| ⚠️ Caution | Between 80th and 90th percentile |
+| 🟢 Opportunity | Below the 15th percentile (costs unusually low) |
+| No indicator | Between 15th and 80th percentile |
+
+### Value metrics (higher is better)
+
+For ratio metrics like AOV, LTV, and MER where higher is better:
+
+| Indicator | Condition |
+|-----------|-----------|
+| ⛔️ Urgent | Below the 5th percentile |
+| ⚠️ Caution | Between 5th and 15th percentile |
+| 🟢 Opportunity | Above the 90th percentile |
+| No indicator | Between 15th and 85th percentile |
+
+## Responding to indicators
+
+<AccordionGroup>
+  <Accordion title="When you see ⛔️ Urgent" icon="circle-exclamation" defaultOpen={true}>
+    **Act immediately.** This metric is performing significantly worse than normal.
+
+    1. Check if there's an obvious cause (site issues, ad account problems, stock availability)
+    2. Look at related metrics—if conversion rate dropped, did traffic source mix change?
+    3. Compare against the same day last week to confirm the anomaly
+    4. If you can't identify a cause, escalate to your team
+  </Accordion>
+
+  <Accordion title="When you see ⚠️ Caution" icon="triangle-exclamation">
+    **Monitor closely.** Performance is below typical but not critical.
+
+    1. Note the metric and check it again tomorrow
+    2. If caution persists for 2-3 days, investigate as you would an urgent issue
+    3. Consider whether external factors (seasonality, competitor activity) might explain it
+  </Accordion>
+
+  <Accordion title="When you see 🟢 Opportunity" icon="arrow-trend-up">
+    **Investigate and learn.** Something is working unusually well.
+
+    1. Identify what's different—new creative, audience, or channel mix?
+    2. Document the finding for your team
+    3. Consider whether this can be replicated or scaled
+  </Accordion>
+</AccordionGroup>

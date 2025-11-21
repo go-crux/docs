@@ -1,0 +1,66 @@
+---
+title: "FAQs"
+description: "Common questions about health metrics and indicators"
+---
+
+<AccordionGroup>
+  <Accordion title="Why doesn't a metric have a health indicator?" icon="question">
+    The system requires a minimum of **4 data points** for the same day of week before generating indicators. New metrics or those with gaps in data will show no indicator until sufficient history accumulates.
+
+    This typically takes 4-6 weeks for a new metric to start showing reliable indicators.
+  </Accordion>
+
+  <Accordion title="Can I adjust the sensitivity of alerts?" icon="sliders">
+    The percentile thresholds are calibrated to balance sensitivity with false positive rates. If you're seeing too many or too few alerts for specific metrics, contact your account manager to discuss custom threshold configuration.
+  </Accordion>
+
+  <Accordion title="How quickly do the baselines update?" icon="clock">
+    Baselines recalculate daily, incorporating the most recent 12 weeks of data. This means the system naturally adapts to gradual changes in your business while still detecting sudden anomalies.
+
+    If your business has grown significantly, what was "good" three months ago might now be flagged as underperformance—this is intentional and helps maintain relevant expectations.
+  </Accordion>
+
+  <Accordion title="What about holidays and promotions?" icon="calendar">
+    Known events like Black Friday will naturally become part of your historical baseline over time. For one-off promotions or unusual events, treat any alerts with appropriate context—a "high" conversion rate during a flash sale with a heavy discount may be expected.
+  </Accordion>
+
+  <Accordion title="Why is the same metric flagged differently in different dashboards?" icon="copy">
+    Some metrics (like CAC) appear in multiple dashboard contexts—business overview, Meta, search, influencer. Each is calculated specifically for that channel, so they may have different values and health statuses.
+
+    For example, your overall CAC might be healthy while your Paid Meta CAC shows caution, indicating that specific channel needs attention.
+  </Accordion>
+
+  <Accordion title="Why do rate metrics use different thresholds than volume metrics?" icon="percent">
+    Rate metrics (like conversion rate) are naturally bounded between 0% and 100% and tend to be more stable. Volume metrics (like revenue) are unbounded and can fluctuate more dramatically.
+
+    Using tighter thresholds for rates (10th/20th percentile) versus wider thresholds for volumes (5th/15th percentile) ensures both types trigger alerts at appropriate sensitivity levels.
+  </Accordion>
+
+  <Accordion title="What does 'Monitor' mean for a metric?" icon="eye">
+    A small number of metrics (like Weighted Ad Age) are classified as monitoring metrics. These flag unusual values in either direction without treating high or low as inherently good or bad.
+
+    For these metrics, you'll see an "Attention" indicator when the value is outside normal range, prompting you to investigate what's changed.
+  </Accordion>
+
+  <Accordion title="How should I use the dashboard in my daily routine?" icon="coffee">
+    We recommend a quick morning triage using the daily business health report:
+
+    1. **Review ⛔️ High Priority indicators** — These need immediate investigation.
+    2. **Note any ⚠️ Caution indicators** — Keep an eye on these throughout the day.
+    3. **Seek to captilise on 🟢 Opportunity indicators** — Understand what's working well and if there is opportunity to drive more of it.
+
+    This should take no more than 3 minutes. Only dive deeper when indicators demand it.
+  </Accordion>
+
+  <Accordion title="Can I export the health data?" icon="download">
+    Yes, all health scores and indicator data are available via your data warehouse and can be included in scheduled reports. Speak to your account manager about setting up automated alerts or custom exports.
+  </Accordion>
+
+  <Accordion title="What if I disagree with an indicator?" icon="comment">
+    The system uses statistical methods that work well in most cases, but you know your business best. If an indicator seems wrong:
+
+    1. Consider whether there's business context the system doesn't have (planned promotion, known issue, etc.)
+    2. Check the underlying data for data quality issues
+    3. Let your account manager know—we may need to adjust thresholds for your specific situation
+  </Accordion>
+</AccordionGroup>

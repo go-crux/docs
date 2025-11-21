@@ -25,6 +25,18 @@
               "quickstart"
             ]
           },
+
+          {
+            "group": "Health Metrics",
+             "pages": [
+                "health-metrics/overview",
+                "health-metrics/indicators",
+                "health-metrics/score",
+                "health-metrics/definitions",
+                "health-metrics/FAQs"
+              ]
+            },
+
           {
             "group": "Dashboard Reports",
             "pages": [

@@ -1,0 +1,47 @@
+---
+title: "Overview"
+description: "How we automatically monitors your key metrics and alerts you to what needs attention."
+---
+
+Every morning, you face the same challenge: dozens of metrics across multiple platforms, and limited time to figure out what actually needs your attention. Crux solves this by automatically analysing your metrics and telling you exactly which ones are performing unusually well or badly.
+
+## The problem we solve
+
+Operators typically spend the first hour of their day stitching together data from Shopify, Google Analytics, Meta, Klaviyo, and spreadsheets—just to understand what happened yesterday. Even then, it's hard to know whether a 15% drop in conversion rate is cause for concern or just normal Tuesday behaviour.
+
+Crux eliminates this cognitive load by doing the statistical heavy lifting for you.
+
+## How it works
+
+The health system answers a simple question for every metric: **"Is today's value normal for this day of the week?"**
+
+Mondays perform differently to Saturdays. Black Friday looks nothing like a typical Tuesday. Rather than comparing today against a simple average, we compare each day only against the same day of week from the past 12 weeks.
+
+<Info>
+For example, if today is Wednesday, your conversion rate is compared against the previous 12 Wednesdays—not against all days combined.
+</Info>
+
+This approach catches genuine anomalies while avoiding false alarms from expected weekly patterns.
+
+## The lookback window
+
+We analyse **12 weeks of historical data** to establish what's "normal" for each metric on each day of the week. This provides enough data points (12 per weekday) to calculate reliable baselines while remaining responsive to recent trends.
+
+A minimum of **4 data points** is required for health indicators to show. For new metrics or those with sparse data, you'll see a neutral status until sufficient history accumulates.
+
+## Percentile-based detection
+
+Rather than using arbitrary thresholds, we calculate where today's value sits within the historical distribution. If your revenue today is higher than 85% of previous same-weekday values, that's noteworthy. If it's lower than 95% of previous values, that's concerning.
+
+This percentile approach automatically adapts to each metric's natural variance, no manual threshold configuration required.
+
+## What you get
+
+<CardGroup cols={2}>
+  <Card title="Health indicators" icon="traffic-light" href="/health-metrics/indicators">
+    Visual icons showing which metrics need attention right now
+  </Card>
+  <Card title="Health scores" icon="gauge-high" href="/health-metrics/score">
+    A 0-100 score for granular performance comparison
+  </Card>
+</CardGroup>
