@@ -1,0 +1,147 @@
+---
+title: "Influencer Performance Report"
+description: "The Influencer Performance report provides comprehensive analysis of influencer marketing campaigns with post-level performance metrics, automatic winner identification, and complete order attribution tracking."
+---
+
+<iframe 
+  src="https://www.youtube.com/embed/zdcr0_h5u2k" 
+  title="Influencer Performance Report Walkthrough"
+  frameBorder="0"
+  className="w-full aspect-video"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  referrerpolicy="strict-origin-when-cross-origin" 
+  allowfullscreen
+>
+</iframe>
+
+## Overview
+
+This report delivers comprehensive influencer marketing performance analysis at the individual post level, combining influencer costs, discount code attribution, and complete order tracking across multiple markets.
+
+Data is broken down by date, country, influencer handle, post index, and discount code - enabling you to analyse performance from high-level influencer strategy down to individual post effectiveness. The report automatically identifies "winner" posts using 7-day rolling metrics (posts achieving a defined minimum amount of new orders within a specific CAC threshold), helping you quickly spot top-performing content and influencers worth reactivating or scaling.
+
+Use this report to compare influencer ROI across platforms (Instagram, TikTok), track repeat collaboration performance (post index 1, 2, 3+), analyse new customer acquisition vs. subscription conversion, calculate true profitability including all costs, and identify which influencers and content styles drive the best results for scaling your programme.
+
+## Configuration Sheet 
+
+Influencer posts, discount codes & stats are powered by the input on your configuration sheet.
+
+**Influencer Stats** - This sheet powers the statistics you see per influencer such as; name, category, country & following.
+
+**Influencer Costs** - This sheet powers the costs for each post as well as; date of post, discount code, source & owner.
+
+## Data Dictionary
+Fields and their respective definitions available within this report.
+
+### Identifiers & Dimensions
+| Name | Description |
+| --- | --- |
+| ID | A surrogate key created from date, country_code, handle, discount_code, and post_index. |
+| Post ID | Unique identifier for the influencer post. |
+| Date | The date of the influencer performance metrics. |
+| Country Code | ISO country code for the influencer campaign location. |
+| Handle | The influencer's social media handle. |
+| Name | The influencer's display name. |
+| Discount Code | The discount code associated with the influencer post. |
+| Source | The source platform for the influencer post (e.g., 'Instagram', 'TikTok'). |
+| Owner | The account owner or manager responsible for the influencer relationship. |
+| Primary Category | The primary product category associated with the influencer campaign. |
+| Post Index | Sequential index number for posts by the same influencer (1 for first post, 2 for second, etc.). |
+
+### Influencer Metrics
+| Name | Description |
+| --- | --- |
+| UK Following | The influencer's UK follower count at the time of the post. |
+| Post TAM | Total addressable market - cumulative UK following across all posts for the influencer. |
+| Cost | Total cost paid to the influencer for the post, attributed to the country where orders occurred. |
+| CPM | Cost per thousand followers (cost / uk_following * 1000). |
+
+### Order Metrics
+| Name | Description |
+| --- | --- |
+| Total Orders | Total number of orders attributed to the influencer post. |
+| New Orders | Number of orders from new customers attributed to the influencer post. |
+| Repeat Orders | Number of orders from returning customers attributed to the influencer post. |
+| One Off Orders | Number of one-off (non-subscription) orders attributed to the influencer post. |
+| Subscription Orders | Number of subscription orders attributed to the influencer post. |
+| New One Off Orders | Number of one-off orders from new customers attributed to the influencer post. |
+| New Subscription Orders | Number of subscription orders from new customers attributed to the influencer post. |
+| Repeat One Off Orders | Number of one-off orders from returning customers attributed to the influencer post. |
+| Repeat Subscription Orders | Number of subscription orders from returning customers attributed to the influencer post. |
+| CAC | Customer acquisition cost (cost / new orders). |
+| AOV | Average order value (total net revenue / total orders). |
+| FOV | First order value for new customers (new customer net revenue / new orders). |
+
+### Financial Metrics
+| Name | Description |
+| --- | --- |
+| Total Gross Revenue | Total gross revenue before discounts and tax attributed to the influencer post. |
+| Total Net Revenue Excl Refunds | Total net revenue after discounts, excluding tax and refunds, attributed to the influencer post. |
+| Total Discount Amount Before Tax | Total discount amount before tax attributed to the influencer post. |
+| Total Refund Amount | Total refund amount attributed to the influencer post. |
+| ROAS | Return on ad spend (total net revenue / cost). |
+
+### Cost Metrics
+| Name | Description |
+| --- | --- |
+| Total COGS | Total cost of goods sold attributed to the influencer post. |
+| Total Fulfillment Costs | Total fulfillment and shipping costs attributed to the influencer post. |
+| Total Payment Processing Fees | Total payment processing fees attributed to the influencer post. |
+
+### Contribution Margin Metrics
+| Name | Description |
+| --- | --- |
+| CM1 £ | Level 1 contribution margin (net revenue after COGS). |
+| CM1 % | Level 1 contribution margin as a percentage of net revenue. |
+| CM2 £ | Level 2 contribution margin (CM1 minus fulfillment costs and payment processing fees). |
+| CM2 % | Level 2 contribution margin as a percentage of net revenue. |
+| CM3 £ | Level 3 contribution margin (CM2 minus influencer cost). |
+| CM3 % | Level 3 contribution margin as a percentage of net revenue. |
+
+### Winner Identification Metrics
+| Name | Description |
+| --- | --- |
+| Cum 7d New Orders | Cumulative number of new customer orders over the last 7 days (rolling window). |
+| Cum 7d Cost | Cumulative cost over the last 7 days (rolling window), scoped to the country. |
+| Cum 7d CAC | Cumulative 7-day customer acquisition cost (cum_7d_cost / cum_7d_new_orders). |
+| Meets Criteria Today | Boolean indicating if the post meets winner criteria today (> x new orders and < y CAC over last 7 days). |
+| Meets Criteria Yesterday | Boolean indicating if the post met winner criteria yesterday. |
+| Is Winner First Time | Boolean indicating if this is the first day the post achieved winner status (meets criteria today but not yesterday). |
+
+## Questions This Report Answers
+
+<AccordionGroup>
+
+  <Accordion title="How many post winners have I had over the last 7 days?">
+    Use the Post Winners metric to identify posts that have just crossed your winning post criteria. This can be defined as a combination of minimum order quantity and CAC over a specified time range of the post going live (typically first 7 days). These are your proven performers worth reactivating for additional posts or using as benchmarks for evaluating new collaborations.
+  </Accordion>
+
+  <Accordion title="How does influencer performance improve with repeat collaborations?">
+    Segment by Post Index to compare first posts (index 1) vs. second posts (index 2) vs. subsequent posts. Analyse whether CAC, conversion rates, and subscription adoption improve as influencers become more familiar with your brand and refine their content approach.
+  </Accordion>
+
+  <Accordion title="What's the true profitability of each influencer collaboration?">
+    Calculate CM1, CM2, and CM3 at the post level to understand profitability after COGS, fulfillment, fees, and influencer costs. Identify which influencers drive profitable growth vs. which deliver high revenue but poor margins after all costs are considered.
+  </Accordion>
+
+  <Accordion title="How does influencer audience size correlate with performance?">
+    Analyse Following size vs. CAC, conversion metrics, and profitability to understand if larger influencers deliver proportionally better results. Compare cost per thousand followers (CPM) across different audience sizes to identify the optimal influencer tier for your budget.
+  </Accordion>
+
+  <Accordion title="Which influencers drive the highest subscription conversion rates?">
+    Compare Subscription Orders as a percentage of Total Orders across influencers to identify which creators' audiences are most receptive to subscription products. This helps you prioritise influencers who drive higher lifetime value customers rather than just one-off purchases.
+  </Accordion>
+
+  <Accordion title="How quickly do influencer posts generate results?">
+    Track cumulative metrics (Cum 7d New Orders, Cum 7d Cost) over time for individual posts to understand typical performance curves. Identify how many days it typically takes for posts to reach winner status or plateau in performance.
+  </Accordion>
+
+  <Accordion title="How does influencer performance vary across markets?">
+    Analyse by Country Code to understand geographic performance differences. Compare CAC, subscription rates, and profitability across UK, US, and other markets to optimise influencer selection and content strategy by region.
+  </Accordion>
+
+  <Accordion title="Which team members are building the most effective influencer partnerships?">
+    Segment by Owner to compare performance across different team members managing influencer relationships. Identify which managers consistently secure high-performing influencers and apply their best practices across the team.
+  </Accordion>
+
+</AccordionGroup>
