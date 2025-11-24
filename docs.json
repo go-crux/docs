@@ -48,11 +48,11 @@
                 "group": "Paid Media",
                 "pages": [
                   "dashboard-reports/meta_performance",
-                  "dashboard-reports/paid_search_performance",
-                  "dashboard-reports/influencer_performance"
+                  "dashboard-reports/paid_search_performance"
                  
                 ]
               },
+              "dashboard-reports/influencer_performance",
                "dashboard-reports/ltv_retention"
             ]
           }
