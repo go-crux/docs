@@ -1,0 +1,217 @@
+---
+title: "Customisation"
+description: "How to tailor Crux to your business using the configuration sheet."
+---
+
+## Configuration Sheet Overview
+
+The **configuration sheet** is your control panel for customising Crux without touching code. Hosted as a Google Sheet, it provides a user-friendly interface for defining how your business data is classified and attributed.
+
+<Card title="View Demo Configuration Sheet" icon="sheet" href="https://docs.google.com/spreadsheets/d/1gi4ncRDjvWVPxD3awr73TY9_vyY_SUBof9-6FdCS_DM/edit?gid=406777972#gid=406777972">
+  Explore a working example of the configuration sheet structure
+</Card>
+
+## What You Can Customise
+
+### Marketing Channel Definitions
+
+Define how traffic sources map to your marketing channels based on UTM parameters and discount codes.
+
+**Use cases:**
+- Classify organic social vs paid social based on UTM medium
+- Create channel groups (e.g., "Paid Media" encompasses Paid Social + Paid Search)
+- Handle edge cases like referral traffic or direct visits
+
+**Example configuration:**
+
+| Channel | Attribute | Operator | Value |
+|---------|-----------|----------|-------|
+| Paid Social | source_medium | contains | facebook / cpc |
+| Paid Social | source_medium | contains | instagram / cpc |
+| Paid Search | medium | equals | cpc |
+| Email | medium | equals | email |
+| Organic Social | source | in | facebook, instagram, tiktok |
+| Influencers | discount_channel | is not null | |
+
+<Info>
+The `discount_channel` attribute enables discount code-based attribution—perfect for influencer and affiliate tracking where UTMs aren't present.
+</Info>
+
+**Supported operators:**
+- `equals`: Exact match
+- `contains`: Substring match (case-insensitive)
+- `starts_with` / `ends_with`: Prefix/suffix matching
+- `in`: Multiple value matching (comma-separated)
+- `is not null` / `is null`: Existence checking
+
+---
+
+### Discount Code Attribution
+
+Map discount codes to marketing channels and campaigns for accurate influencer and affiliate attribution.
+
+**Sheet structure:**
+
+| Discount Code | Channel | Channel Group | Campaign | Ad Group | Keyword |
+|---------------|---------|---------------|----------|----------|---------|
+| INFLUENCE10 | Affiliate Influencer | Influencer | Spring Campaign | Beauty Category | |
+| PODCAST15 | Affiliate | Offline | Podcast Tour | | |
+| FRIEND20 | Email Partner | Other | Referral Programme | | |
+
+**How this works:**
+
+When a customer uses discount code `INFLUENCE10`, Crux automatically attributes their order to:
+- **Channel**: Affiliate Influencer
+- **Channel Group**: Influencer
+- **Campaign**: Spring Campaign
+- **Ad Group**: Beauty Category
+
+This enables tracking influencer performance even when clicks don't include UTM parameters.
+
+---
+
+### Additional Marketing Costs
+
+Track marketing spend beyond ad platforms—crucial for accurate CAC calculations.
+
+**Typical use cases:**
+- Influencer flat fees and gifting costs
+- Affiliate network commissions
+- Podcast sponsorships
+- Traditional media spend
+- Agency fees
+
+**Sheet structure:**
+
+| Date | Channel | Channel Group | Campaign | Cost |
+|------|---------|---------------|----------|------|
+| 2025-01-15 | Affiliate | Offline | Podcast Tour | 500 |
+| 2025-01-15 | Affiliate Influencer | Influencer | @beautyguru_uk | 1200 |
+
+These costs integrate into your profitability metrics (CM3, MER) and CAC calculations automatically.
+
+---
+
+### Influencer Campaign Tracking
+
+Track individual influencer posts with attribution to discount codes for complete ROI visibility.
+
+**Influencer stats sheet:**
+
+| Handle | Name | Category | Country | Followers | Platform |
+|--------|------|----------|---------|-----------|----------|
+| @beautyguru_uk | Sarah Williams | Beauty | UK | 125000 | Instagram |
+| @fitnessdaily | Mike Chen | Fitness | UK | 89000 | TikTok |
+
+**Influencer costs sheet:**
+
+| Date | Handle | Discount Code | Post Index | Cost | Owner | Source |
+|------|--------|---------------|------------|------|-------|--------|
+| 2025-01-10 | @beautyguru_uk | SARAH10 | 1 | 1200 | Marketing | Story + Feed |
+| 2025-01-24 | @beautyguru_uk | SARAH10 | 2 | 800 | Marketing | Story |
+
+**What you get:**
+
+Crux's influencer performance report automatically calculates:
+- ROI per post
+- CAC by influencer
+- Post-level conversion tracking
+- "Winner" identification (posts exceeding performance thresholds)
+- Repeat collaboration performance (post index 1 vs 2 vs 3+)
+
+<Tip>
+Post index tracking helps identify whether influencers perform better on first collaborations or improve with repeat partnerships.
+</Tip>
+
+---
+
+## Making Configuration Updates
+
+### Self-Service Updates
+
+You can update the configuration sheet anytime—changes typically reflect in dashboards within 24 hours (after overnight data refresh).
+
+**Safe to update yourself:**
+- Adding new discount codes
+- Updating marketing channel rules
+- Adding influencer posts and costs
+- Adjusting additional marketing spend
+
+**Requires support assistance:**
+- Structural changes (adding new columns)
+- Complex attribution logic
+- New data source integrations
+
+### When To Use Monthly Hours
+
+Your 7 included monthly hours are perfect for:
+
+**Strategic customisation:**
+- Building new calculated metrics
+- Creating custom cohort definitions
+- Implementing advanced attribution models
+- Adding new dashboard reports
+
+**Analysis requests:**
+- Deep-dive investigations ("Why did CAC spike last month?")
+- Opportunity identification ("Which product categories have the highest LTV?")
+- Scenario modelling ("What if we increased influencer spend by 50%?")
+
+**Technical modifications:**
+- New data source connections
+- Custom profitability calculations
+- Automated alerting setup
+
+---
+
+## Configuration Best Practices
+
+<AccordionGroup>
+  <Accordion title="Start Simple, Iterate">
+    Begin with high-level channel definitions ("Paid Social", "Paid Search") before creating granular sub-channels. 
+    
+    You can always refine attribution logic as you understand your data better—historical orders will automatically reclassify when rules change.
+  </Accordion>
+  
+  <Accordion title="Document Your Logic">
+    Use the configuration sheet comments to note why specific rules exist:
+    
+    - "Black Friday traffic uses /bfcm/ in campaign name"
+    - "Direct traffic with checkout_start source is actually abandoned cart email"
+    
+    Future you (and your team) will appreciate the context.
+  </Accordion>
+  
+  <Accordion title="Test Changes Before Broad Rollout">
+    When updating channel definitions that affect many orders, check a sample of recent orders to ensure classification matches expectations before assuming all historical data reclassifies correctly.
+  </Accordion>
+  
+  <Accordion title="Keep Influencer Tracking Current">
+    Update influencer costs and discount codes promptly—attribution only works if discount codes are mapped before orders arrive.
+    
+    Consider blocking a weekly 15-minute admin task for configuration updates.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Advanced Customisation (Using Monthly Hours)
+
+### Custom Cohort Dimensions
+
+Beyond standard cohort analysis, create segments like:
+- First-order product category (starters vs refills)
+- Acquisition discount usage (discounted vs full-price)
+- Geographic micro-segments (London vs rest of UK)
+
+### Multi-Touch Attribution
+
+Move beyond last-click attribution with position-based or data-driven models that credit multiple touchpoints in the customer journey.
+
+### Predictive Analytics
+
+Implement CLV prediction models, churn probability scoring, or next-purchase timing forecasts using Machine Learning.
+
+---
+
+**Need help with configuration?** [Reach out to our team](mailto:support@gocrux.io) or book time from your monthly allocation.

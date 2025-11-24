@@ -16,7 +16,27 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Reporting Overview",
+        "tab": "Overview",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "overview/what-is-crux",
+              "overview/getting-started"
+            ]
+          },
+          {
+            "group": "Platform Details",
+            "pages": [
+              "overview/faqs",
+              "overview/customisation",
+              "overview/ongoing-support"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Dashboard Suite",
         "groups": [
           {
             "group": "Getting started",
@@ -57,19 +77,8 @@
             ]
           }
         ]
-      },
-
-      {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
-          }
-        ]
       }
+
     ],
     "global": {
       "anchors": [

@@ -1,0 +1,231 @@
+---
+title: "Frequently Asked Questions"
+description: "Common questions about the Crux platform, data, and implementation."
+---
+
+## Data & Accuracy
+
+<AccordionGroup>
+  <Accordion title="Why do Crux numbers differ from Shopify?">
+    You may notice small discrepancies between Crux and Shopify for orders and revenue metrics. This is expected and occurs for several reasons:
+    
+    ### Timing & Attribution Differences
+    
+    **Order vs Payment Dates**: Crux reports based on order dates, whilst Shopify admin views may display by payment processing dates—creating timing mismatches, particularly around month-end.
+    
+    **Refund Handling**: Crux calculates net revenue by subtracting refund amounts from gross revenue at the time of order. Shopify displays refunds at the time of the refund.
+    
+    **Gross Revenue Definitions**: Crux reports on gross revenue as; product sales + shipping charges, before tax, discounts & returns. While shopify defines it as product price * quantity (before taxes, shipping, discounts & returns).
+
+    **Cancelled & Test Orders**: Crux excludes any orders that have a test discount code (provided by you) applied to them as well as any cancelled orders. Shopify will include cancelled orders and orders from all discount codes. 
+    
+    ### Which Number Should You Trust?
+    
+    **For strategic decisions: Use Crux.** Our data model is purpose-built for analytical consistency:
+    
+    - Orders are always attributed to order date (not payment date)
+    - Revenue metrics clearly separate gross, net, and refunded amounts
+    - Tax is consistently excluded from profitability calculations
+    - Attribution logic is transparent and configurable
+    
+    **For operational reconciliation: Use Shopify.** The Shopify admin remains authoritative for:
+    
+    - Payment processing reconciliation
+    - Fulfilment status tracking
+    - Customer service order lookups
+    
+    <Info>
+    Discrepancies are typically less than 1-2% and occur primarily at period boundaries or during refund-heavy periods.
+    </Info>
+  </Accordion>
+  
+  <Accordion title="How often does data refresh?">
+    **Daily refresh schedule**: All data sources update overnight (typically between 2-4am GMT).
+    
+    **Yesterday's data is available each morning** when you start your day—enabling consistent morning triage without waiting for intraday updates.
+    
+    **Real-time data**: Not currently supported. Crux is optimised for strategic decision-making, not real-time operational monitoring. Although this could be offered in the future.
+  </Accordion>
+  
+  <Accordion title="Can I export data from Crux?">
+    **Yes, with full flexibility:**
+    
+    - All Looker Studio dashboards support CSV/Excel export of visible data
+    - Direct BigQuery access available for SQL users (included in your plan)
+    - Custom data extracts can be scheduled as part of your monthly hours
+    
+    Your data warehouse is your data—you own it to do as you wish with it and we never lock you in.
+  </Accordion>
+</AccordionGroup>
+
+## Onboarding & Implementation
+
+<AccordionGroup>
+  <Accordion title="How long does onboarding take?">
+    **Typical timeline: 2-3 weeks** from kickoff to production dashboards.
+    
+    **What affects timing:**
+    - **Faster (2 weeks)**: Clean data sources, simple COGS structure, standard channel definitions
+    - **Slower (3-4 weeks)**: Complex product catalogues, custom attribution requirements, historical data cleanup needed
+    
+    We'll provide a specific timeline post kickoff call based on your data complexity.
+  </Accordion>
+  
+  <Accordion title="What data access do you need?">
+    **Required integrations:**
+    - Shopify (Admin API access)
+    - Google Analytics 4 (View & Edit permissions)
+    - Meta Ads Manager (Ads reporting access)
+    - Google Ads (Read-only access)
+    - TikTok Ads (Ads reporting access)
+    
+    **Optional integrations** (if used):
+    - Email platform (Klaviyo coming soon)
+    - Subscription platform (Recharge)
+    - Affiliate networks (Awin)
+    - Influencer marketing tracking (via config sheet)
+    
+    <Warning>
+    All data connections use secure OAuth or API keys with minimum required permissions. We never request payment processing access.
+    </Warning>
+  </Accordion>
+  
+  <Accordion title="Do you support my tech stack?">
+    **Core requirements:**
+    - Shopify (or Shopify Plus)
+    - Google Analytics 4
+    
+    **Supported advertising platforms:**
+    - Meta (Facebook/Instagram)
+    - Google Ads
+    - TikTok Ads
+    - Awin affiliate network
+    - Custom influencer costs
+    - Any marketing cost you add to the config sheet can be configured
+    
+    **Not sure?** [Contact us](mailto:support@gocrux.io) to discuss your specific setup.
+  </Accordion>
+</AccordionGroup>
+
+## Platform Comparison
+
+<AccordionGroup>
+  <Accordion title="How is Crux different from Triple Whale, Northbeam, or Klar?">
+    The key difference is **strategic positioning**: Crux is a growth partnership, not self-service software. Reporting is fully customisable and you own your data within BigQuery to activate and optimise as you wish.
+    
+    ### vs Triple Whale
+    
+    **Triple Whale strengths**: Real-time dashboards, mobile app, quick setup.
+    
+    **Crux advantages**:
+    - **Statistical prioritisation**: Automated health indicators vs manual dashboard monitoring.
+    - **Full profitability**: CM1/CM2/CM3 with COGS integration vs primarily revenue-focused.
+    - **Monthly customisation**: 7 included hours vs DIY configuration.
+    - **Strategic support**: Growth partnership vs software subscription.
+    
+    **Best for**: Brands prioritising real-time operational monitoring choose Triple Whale. Brands needing strategic profitability analysis choose Crux.
+    
+    ---
+    
+    ### vs Northbeam
+    
+    **Northbeam strengths**: Attribution modelling (MMM + MTA), sophisticated incrementality testing.
+    
+    **Crux advantages**:
+    - **Implementation speed**: 2-3 weeks vs 2-3 months
+    - **Transparent methodology**: Statistical indicators vs proprietary black-box models.
+    - **Cost efficiency**: From £999/month vs £3,000+ enterprise pricing.
+    - **Hands-on support**: Included customisation vs purely software delivery.
+    
+    **Best for**: Brands spending £600k+/month on ads with attribution complexity choose Northbeam. Early-stage brands needing clear profitability metrics choose Crux.
+    
+    ---
+    
+    ### vs Klar
+    
+    **Klar strengths**: Blended COGS tracking, multi-currency support.
+    
+    **Crux advantages**:
+    - **Strategic partnership**: Included monthly analysis vs self-service.
+    - **Advanced analytics**: LTV v Payback analysis, statistical health indicators.
+    - **Customisation depth**: Bespoke channel attribution vs standard definitions.
+    - **Technical sophistication**: DBT + BigQuery stack vs managed database.
+    
+    **Best for**: Brands wanting good-enough analytics quickly choose Klar. Brands needing sophisticated analysis tailored to their business choose Crux.
+    
+    ---
+    
+    ### The Crux Philosophy
+    
+    **We solve root cause problems, not surface-level tooling gaps.**
+    
+    The issue isn't that brands lack dashboards—it's that fragmented data prevents organisational coherence. Growth, finance, and ecommerce teams can't align when everyone works from different numbers.
+    
+    Crux delivers the **capability** to triage effectively, not just another dashboard to monitor.
+  </Accordion>
+  
+  <Accordion title="Can I switch from another platform?">
+    **Yes—we regularly onboard clients from other platforms.**
+    
+    **What makes switching straightforward:**
+    - We connect directly to source data (Shopify, GA4, ads platforms)—no dependency on previous vendor's data models.
+    - Historical data imports automatically (typically 24+ months).
+    - Your team can run both platforms in parallel during transition if desired.
+    
+    **Migration timeline**: Standard 2-3 weeks, same as new implementations.
+  </Accordion>
+</AccordionGroup>
+
+## Pricing & Support
+
+<AccordionGroup>
+  <Accordion title="What's included in the monthly fee?">
+    **Your monthly fee includes:**
+    
+    - 7 hours of customisation and analysis
+    - Your own BigQuery datawarehouse, optimised & maintained
+    - Unlimited dashboard access for your team
+    - Daily data refreshes across all sources
+    - Direct support via email/Slack
+    - Configuration sheet updates (self-service)
+    - Platform improvements and new features
+    
+    **Not included:**
+    - Additional analysis beyond 7 hours (£175/hour on-demand)
+    - New data source integrations requiring custom engineering (additional charge)
+    - Training for new team members beyond 7 hours usage (can be charged via on-demand service if required)
+  </Accordion>
+  
+  <Accordion title="What does 'on-demand analysis' cover?">
+    **On-demand projects (£175/hour) are priced upfront after scoping.**
+    
+    **Common on-demand requests:**
+    - Comprehensive data audits identifying core value drivers through regression analysis
+    - Geo-lift testing scope, setup & tracking
+    - Custom metric thresholds
+    - Custom Multi-touch attribution modelling
+    - Predictive analytics (customer churn probability, next-purchase timing)
+    - Custom cohort segmentation studies
+    - Competitive analysis incorporating external data sources
+    - Executive reporting automation
+    
+    <Info>
+    We scope projects before starting work. You'll receive a clear estimate and approve before any additional charges.
+    </Info>
+  </Accordion>
+  
+  <Accordion title="What's your cancellation policy?">
+    **30-day notice required, post completition of the initial period.** 
+    
+    No long-term contracts, if you have completed your initial period (typically first 3 months) and Crux isn't delivering value, you're free to leave.
+    
+    **What happens upon cancellation:**
+    - Dashboard access continues through notice period
+    - BigQuery data warehouse remains yours (export instructions provided)
+    - Crux data models will cease running after contract period.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+**Still have questions?** [Get in touch with our team](mailto:support@gocrux.io)
