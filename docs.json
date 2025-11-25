@@ -53,10 +53,12 @@
           {
             "group": "Dashboard Reports",
             "pages": [
-              "dashboard-reports/orders",
-              "dashboard-reports/customer_deep_dive",
+              "dashboard-reports/overview",
               "dashboard-reports/daily_kpi_performance",
               "dashboard-reports/channel_performance",
+              "dashboard-reports/customer_deep_dive",
+              "dashboard-reports/orders",
+              "dashboard-reports/ltv_retention",
               {
                 "group": "Paid Media",
                 "pages": [
@@ -65,8 +67,7 @@
                  
                 ]
               },
-              "dashboard-reports/influencer_performance",
-               "dashboard-reports/ltv_retention"
+              "dashboard-reports/influencer_performance"
             ]
           }
         ]
