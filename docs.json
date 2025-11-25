@@ -38,13 +38,6 @@
       {
         "tab": "Dashboard Suite",
         "groups": [
-          {
-            "group": "Getting started",
-            "pages": [
-              "index",
-              "quickstart"
-            ]
-          },
 
           {
             "group": "Health Metrics",
