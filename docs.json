@@ -14,22 +14,24 @@
   "favicon": "/favicon.png",
 
   "navigation": {
+
     "tabs": [
       {
         "tab": "Overview",
         "groups": [
           {
             "group": "Getting Started",
+            "icon": "rocket-launch",
             "pages": [
               "overview/what-is-crux",
               "overview/getting-started"
             ]
           },
           {
-            "group": "Platform Details",
+            "group": "Service Details",
+            "icon": "list",
             "pages": [
               "overview/faqs",
-              "overview/customisation",
               "overview/ongoing-support"
             ]
           }
@@ -38,9 +40,16 @@
       {
         "tab": "Dashboard Suite",
         "groups": [
-
+          {
+            "group": "Getting Started",
+            "icon": "rocket-launch",
+            "pages": [
+              "dashboard-suite/overview"
+            ]
+          },
           {
             "group": "Health Metrics",
+            "icon": "traffic-light",
              "pages": [
                 "health-metrics/overview",
                 "health-metrics/indicators",
@@ -52,22 +61,29 @@
 
           {
             "group": "Dashboard Reports",
+            "icon": "chart-line",
             "pages": [
-              "dashboard-reports/overview",
-              "dashboard-reports/daily_kpi_performance",
-              "dashboard-reports/channel_performance",
-              "dashboard-reports/customer_deep_dive",
-              "dashboard-reports/orders",
-              "dashboard-reports/ltv_retention",
+              "dashboard-suite/daily_kpi_performance",
+              "dashboard-suite/channel_performance",
+              "dashboard-suite/customer_deep_dive",
+              "dashboard-suite/orders",
+              "dashboard-suite/ltv_retention",
               {
                 "group": "Paid Media",
                 "pages": [
-                  "dashboard-reports/meta_performance",
-                  "dashboard-reports/paid_search_performance"
+                  "dashboard-suite/meta_performance",
+                  "dashboard-suite/paid_search_performance"
                  
                 ]
               },
-              "dashboard-reports/influencer_performance"
+              "dashboard-suite/influencer_performance"
+            ]
+          },
+          {
+            "group": "Customising Your Dashboard",
+            "icon": "user",
+            "pages": [
+              "dashboard-suite/customisation"
             ]
           }
         ]
@@ -77,14 +93,9 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
+          "anchor": "Changelog",
+          "href": "https://docs.gocrux.io/changelog",
+          "icon": "list-timeline"
         }
       ]
     }
@@ -102,14 +113,14 @@
   "navbar": {
     "links": [
       {
-        "label": "Support",
+        "label": "Contact Support",
         "href": "mailto:support@gocrux.io"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Book A Demo",
+      "href": "https://gocrux.io/"
     }
   },
 
@@ -124,9 +135,7 @@
 
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "youtube": "https://www.youtube.com/@go-crux"
     }
   }
 }
