@@ -93,8 +93,8 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Changelog",
-          "href": "https://docs.gocrux.io/changelog",
+          "anchor": "Product Updates",
+          "href": "https://docs.gocrux.io/product-updates",
           "icon": "list-timeline"
         }
       ]
