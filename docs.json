@@ -23,6 +23,7 @@
             "group": "Getting Started",
             "icon": "rocket-launch",
             "pages": [
+              "index",
               "overview/what-is-crux",
               "overview/getting-started"
             ]
@@ -120,7 +121,7 @@
     "primary": {
       "type": "button",
       "label": "Book A Demo",
-      "href": "https://gocrux.io/"
+      "href": "https://gocrux.io/contact"
     }
   },
 
