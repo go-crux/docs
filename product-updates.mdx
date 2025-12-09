@@ -1,23 +1,85 @@
 ---
-title: "Changelog"
-description: "Latest updates, improvements, and fixes to the Crux platform"
+title: "Product Updates"
+description: "Latest platform updates, improvements, and new features"
+rss: true
 ---
-<Update label="2025-11-30" description="Updated attribution models" tags={["Update"]}>
 
-## Update 1
-- New health check metrics
+<Update label="November 2024" description="Data Quality & Infrastructure" tags={["Infrastructure", "Data Quality"]}>
+
+### Elementary Package Integration
+
+Integrated Elementary data observability package for automated data quality monitoring and testing across our DBT models. This enhancement provides real-time alerts for data anomalies and improves pipeline reliability.
+
+### Incremental Model Optimisation
+
+Restructured incremental models to improve query performance and dashboard speeds. Updated refresh logic for GA4 events to handle the 72-hour update window more efficiently.
 
 </Update>
 
-<Update label="2025-11-25" description="New stuff" tags={["New"]}>
+<Update label="November 2024" description="Documentation Expansion" tags={["Documentation"]}>
 
-## Update 1
-- New health check metrics
+### Influencer Performance Documentation
+
+Published comprehensive documentation for the Influencer Performance dashboard, including post-level ROI tracking, winner identification criteria, and discount code attribution methodology.
+
+### Paid Search Documentation
+
+Added detailed documentation for the Paid Search Performance dashboard covering campaign type classification, keyword attribution, and Brand vs Generic performance analysis.
+
+### Meta Ads Documentation
+
+Launched complete Meta Performance dashboard documentation with ad-level metrics, creative performance tracking, and video engagement analysis.
+
+### Customer Deep Dive Documentation
+
+Released customer-level analysis documentation covering LTV calculations, behavioural segmentation (New, Active, Lapsed, Churned), and cohort methodology.
 
 </Update>
 
-<Update label="2025-11-01" description="2025-11-10" tags={["Update"]}>
+<Update label="November 2024" description="Health Metrics Expansion" tags={["Health Metrics", "Analytics"]}>
 
-- Improved tracking
+### Health Metric Type Categorisation
+
+Enhanced statistical health indicators with improved categorisation logic, enabling more accurate anomaly detection across different metric types (count, rate, currency).
+
+### Influencer Health Indicators
+
+Added statistical health monitoring for influencer performance metrics including post-level ROI, CAC by creator, and conversion tracking with day-of-week seasonality adjustments.
+
+### Paid Search Health Metrics
+
+Implemented health indicators for paid search campaigns with campaign type-specific thresholds and performance anomaly detection.
+
+### Meta Ads Health Monitoring
+
+Deployed health indicators for Meta advertising metrics including ad-level performance tracking, creative fatigue detection, and audience efficiency monitoring.
+
 </Update>
 
+<Update label="October 2024" description="Core Features & Attribution" tags={["Features", "Attribution"]}>
+
+### Paid Search Performance Report
+
+Launched comprehensive Paid Search dashboard with Google Ads and Bing integration, automatic campaign type classification (Brand, Generic, Shopping, Performance Max), and complete attribution from click to order.
+
+### Attribution Framework Enhancement
+
+Improved multi-channel attribution logic with enhanced discount code tracking, source/medium classification, and first-touch attribution methodology for accurate customer acquisition tracking.
+
+### Marketing Costs Staging Model
+
+Introduced staging model for additional marketing costs (influencer fees, affiliate commissions, agency costs) enabling accurate CM3 profitability calculations and complete CAC tracking.
+
+</Update>
+
+<Update label="September 2024" description="Platform Foundation" tags={["Infrastructure"]}>
+
+### Data Model Materialisation Strategy
+
+Optimised DBT model materialisation strategy across the platform, implementing incremental models for high-volume tables and improving overall pipeline performance.
+
+### Core Data Infrastructure
+
+Established foundational data models connecting Shopify, GA4, Meta Ads, and Google Ads into unified BigQuery warehouse with standardised naming conventions and data quality checks.
+
+</Update>
