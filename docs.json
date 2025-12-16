@@ -95,7 +95,7 @@
       "anchors": [
         {
           "anchor": "Product Updates",
-          "href": "https://docs.gocrux.io/product-updates",
+          "href": "/product-updates",
           "icon": "list-timeline"
         }
       ]
