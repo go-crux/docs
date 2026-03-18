@@ -1,0 +1,500 @@
+---
+title: 'Budget Optimiser'
+description: 'Data-driven channel budget allocation using performance curves and elasticity modelling'
+---
+
+# Budget Optimiser
+
+**Answer strategic trade-off questions with confidence.** The Budget Optimiser uses historical performance data to model how each marketing channel responds to spend changes, helping you understand allocation trade-offs before committing budget.
+
+This tool doesn't create perfect forecasts—ecommerce performance depends on creative quality, competitive dynamics, seasonality, and dozens of other factors the model can't predict. Instead, it answers questions like: "If we shift £10K from Meta to TikTok, what's the likely impact on new customer acquisition?" or "How much budget can Paid Search absorb before efficiency drops?"
+
+<Warning>
+  **Strategic planning tool, not a forecast guarantee**
+  
+  The Budget Optimiser models historical channel behaviour to inform allocation decisions. It cannot predict creative performance, competitive landscape shifts, platform algorithm changes, or market conditions. Use outputs as directional guidance for strategic trade-offs, not as absolute revenue predictions.
+</Warning>
+
+## How it works
+
+The system builds mathematical models of each channel's performance curve using your historical data, then simulates different budget scenarios to show expected outcomes. Three core concepts drive the methodology:
+
+### 1. Elasticity: How channels respond to spend changes
+
+Elasticity measures the relationship between spend increases and revenue outcomes. A channel with 0.8 elasticity means a 10% spend increase typically generates an 8% revenue increase. Higher elasticity indicates better scaling potential; lower elasticity suggests diminishing returns.
+
+**The model uses logarithmic regression on your complete historical data** to calculate elasticity per channel. For example, if Meta historically shows 0.75 elasticity whilst TikTok shows 0.85, the model will recommend allocating more growth budget to TikTok—assuming similar efficiency and confidence levels.
+
+**Elasticity is capped at 0.9 maximum** to prevent unrealistic scaling assumptions. A channel showing 1.0+ elasticity (suggesting exponential growth) gets constrained to 0.9, with a flag indicating the cap was applied. This prevents the model from over-recommending channels with limited data or unusual historical patterns.
+
+<Tip>
+  **High elasticity doesn't always mean "spend more"**
+  
+  A channel might show high elasticity but low absolute efficiency (aMER). The performance score balances elasticity with profitability—scaling an efficient channel matters more than scaling an elastic one.
+</Tip>
+
+### 2. Performance Score: Weighting efficiency and scale
+
+Raw elasticity alone is insufficient for budget allocation. A channel with high elasticity but terrible margins shouldn't receive more budget. The **Performance Score** combines multiple factors:
+
+```
+Performance Score = 
+  (Capped Elasticity × Recent aMER × Recent Margin) × LN(Historical Spend)
+```
+
+**Each component plays a specific role:**
+
+- **Elasticity** (0-0.9): Channel's responsiveness to spend changes
+- **Recent aMER** (last 12 weeks): Revenue efficiency from recent performance
+- **Recent Margin** (last 12 weeks): CM2 margin percentage on new customer revenue
+- **LN(Historical Spend)**: Logarithmic bias toward proven scale—channels with established spend history receive priority over untested channels
+
+This composite score determines each channel's share of the growth budget. A channel with 0.6 elasticity, £2.50 aMER, 40% margin, and £50K historical spend receives more allocation than a channel with 0.8 elasticity, £1.80 aMER, 30% margin, and £5K historical spend—despite lower elasticity.
+
+### 3. Historical time windows
+
+The model uses different time windows for different purposes, balancing recency with statistical reliability:
+
+**Full historical data (typically 18-24 months):**
+- Elasticity calculation via logarithmic regression
+- Requires minimum 6 weeks of active spend per channel
+- Channels with insufficient history are excluded
+
+**Last 12 weeks:**
+- Recent aMER (new customer revenue per £1 spend)
+- Recent CM2 margin percentage
+- Captures current efficiency without overweighting old performance
+
+**Last 8 weeks:**
+- Current budget mix anchor
+- Recommended allocations are constrained to ±20% swing from this baseline
+- Prevents dramatic shifts that might disrupt stable channels
+
+**Last full month:**
+- Starting point for demand capture channel caps (Paid Search - Brand, Affiliate)
+- Seasonally adjusted for forecasting
+
+This multi-window approach ensures recommendations reflect both long-term scaling behaviour and recent efficiency shifts.
+
+## Demand Capture vs Demand Generation
+
+Marketing channels split into two fundamentally different categories requiring distinct treatment:
+
+### Demand Capture Channels
+
+**Paid Search - Brand, Affiliate**
+
+These channels harvest existing demand—people already searching for your brand or clicking referral links. Performance scales with brand awareness and traffic, not budget increases. Doubling spend doesn't double revenue; it captures marginal incremental searches.
+
+**The model treats demand capture channels as fixed costs:**
+
+1. Calculate last month's spend
+2. Apply seasonal index for target month
+3. Use channel-specific performance curve to forecast revenue at that spend level
+4. Deduct from total budget before allocating to growth channels
+
+Demand capture channels get their own elasticity curves but **don't participate in growth budget allocation**. They maintain stable spend based on historical patterns whilst growth budget flows to demand generation.
+
+### Demand Generation Channels
+
+**Paid Meta, Paid TikTok, Paid Search - Generic, VIP Influencer, etc.**
+
+These channels create demand—driving awareness and consideration amongst audiences who weren't actively searching. Performance scales more directly with spend, though diminishing returns still apply.
+
+**Growth budget allocation uses performance scoring:**
+
+1. Calculate total available budget (Total Budget - Demand Capture Fixed Costs)
+2. Compute Performance Score for each demand generation channel
+3. Allocate growth budget proportional to Performance Scores
+4. Apply guardrails: ±20% swing from current mix (±10% for low-confidence channels)
+5. Normalise final allocations to 100%
+
+The guardrails prevent radical reallocation based on statistical noise. A channel currently receiving 30% of growth budget can shift to 24-36% based on performance scores, but won't jump to 60% or drop to 5% without manual intervention.
+
+<Info>
+  **Why separate demand capture?**
+  
+  Optimising a brand search campaign means bid adjustments and negative keywords, not budget increases. Capturing 100% of brand searches costs £X; spending £2X won't generate £2X revenue. Growth channels operate differently—they scale audience reach, making them suitable for budget reallocation logic.
+</Info>
+
+## Confidence Levels and Constraints
+
+Not all performance curves are equally reliable. The model classifies each channel by confidence level, then applies appropriate constraints:
+
+### R² Thresholds
+
+- **High Confidence (R² ≥ 0.7):** Historical data fits the curve tightly; ±20% budget swing allowed
+- **Medium Confidence (R² ≥ 0.4):** Moderate fit; ±20% budget swing allowed
+- **Low Confidence (R² < 0.4):** Weak fit; ±10% budget swing allowed (conservative)
+
+R² (R-squared) measures how well the logarithmic curve explains historical variance. 0.7 means 70% of revenue variation is explained by spend variation—strong predictive power. 0.3 means high noise relative to signal—recommendations should be conservative.
+
+**Low-confidence channels receive tighter constraints** to prevent over-allocation based on spurious correlations. If a channel shows promising scores but low R², the model limits reallocation magnitude until more data confirms the pattern.
+
+### Minimum Data Requirements
+
+Channels need sufficient history for inclusion:
+
+- Minimum 6 weeks of active spend (≥£500/week)
+- Minimum £1,000 total historical spend
+- Positive elasticity (negative curves indicate data issues)
+
+Channels failing these thresholds are excluded from recommendations. New channels require 6-8 weeks of baseline data before the optimiser can model their behaviour.
+
+## Saturation and Diminishing Returns
+
+Every channel eventually saturates—audience size is finite, creative performance declines, competition increases. The model handles saturation through **dynamic elasticity adjustment:**
+
+**Base Formula:**
+```
+Revenue = EXP(Intercept) × (Spend ^ Elasticity)
+```
+
+**With Saturation Logic:**
+```
+IF Weekly_Spend > (Historical_Max_Weekly_Spend × Threshold_Multiplier):
+  Adjusted_Elasticity = Base_Elasticity × ((Saturation_Limit / Current_Spend) ^ Decay_Strength)
+ELSE:
+  Adjusted_Elasticity = Base_Elasticity
+```
+
+**Configuration Parameters:**
+
+- **Threshold Multiplier (default 1.2):** How far beyond historical max the model trusts the curve (120% of peak)
+- **Decay Strength (default 0.2):** How quickly efficiency degrades past saturation point (higher = harder wall)
+
+These parameters are channel-specific. Paid Meta might use 1.0× threshold (saturates at historical max) whilst TikTok uses 3.0× threshold (can scale 3× beyond historical peaks due to larger addressable audience).
+
+When a channel's recommended spend exceeds `Historical_Max × Threshold`, elasticity decays proportionally. A channel with 0.8 base elasticity hitting 150% of its saturation limit with 0.2 decay strength would see adjusted elasticity drop to ~0.67—still scaling, but at reduced efficiency.
+
+<Warning>
+  **Saturation limits are statistical, not causal**
+  
+  The model knows historical spending patterns, not audience size or creative refresh cycles. A channel might have headroom beyond its statistical saturation limit if you improve creative strategy, expand targeting, or enter new markets. Use saturation warnings as signals for strategic review, not absolute ceilings.
+</Warning>
+
+## Seasonality Adjustments
+
+Ecommerce revenue fluctuates by month—November performs differently than February. The model applies **month-level seasonal indices** to forecasts:
+
+**Seasonal Index Calculation:**
+```sql
+Seasonal_Index = Month_Revenue / Average_Monthly_Revenue
+```
+
+A month with 1.2 seasonal index historically generates 20% above average revenue. A month with 0.8 generates 20% below average.
+
+**The model applies seasonality to:**
+
+1. **Demand capture channel spend:** Last month's spend × Seasonal index = Forecasted spend
+2. **Revenue forecasts:** Base revenue forecast × Seasonal index = Seasonally-adjusted forecast
+3. **AOV adjustments:** New customer forecast adjusted for seasonal AOV patterns
+
+Seasonal indices are calculated from your full historical dataset. If your Q4 historically drives 40% of annual revenue whilst Q1 drives 15%, the model reflects this in monthly forecasts—even at identical spend levels.
+
+## Reading the Output
+
+The Budget Optimiser generates two primary views:
+
+### Channel Summary
+
+Per-channel performance DNA:
+
+- **Elasticity:** Channel's scaling responsiveness (0-0.9, capped if needed)
+- **R²:** Curve fit quality / confidence level
+- **Last 12 Weeks aMER:** Recent revenue efficiency
+- **Weighted CM2 Margin %:** Recent profitability on new customers
+- **Current Share:** Last 8 weeks' budget allocation percentage
+- **Recommended Share:** Model's suggested allocation (growth channels only)
+
+Use this view to understand **why** channels receive certain allocations. A channel with low recommended share despite high elasticity likely has poor margins or low confidence.
+
+### Monthly Allocation
+
+Month-by-month forecast for each budget scenario:
+
+- **Total Budget Scenario:** Input budget level (e.g., £50K, £75K, £100K)
+- **Month:** Target forecast month (1-12)
+- **Channel:** Specific marketing channel
+- **Recommended Monthly Spend:** Allocated budget for this channel/month
+- **Forecast New Revenue:** Expected new customer revenue at this spend level
+- **Forecast New Customers:** Expected new customer acquisition count
+- **Forecast aMER:** Implied efficiency (Revenue / Spend)
+
+Compare scenarios side-by-side to answer questions like: "At £75K/month, which channels receive more budget than at £50K?" or "Does Meta's forecasted aMER decline as we scale from £60K to £90K?"
+
+<Tip>
+  **Scenario comparison reveals trade-offs**
+  
+  Don't just look at a single budget level. Compare £50K vs £75K vs £100K scenarios to see where diminishing returns appear. If Meta's aMER drops from £2.80 to £2.20 when scaling £50K→£100K whilst TikTok stays stable at £2.50, you've identified Meta's saturation point.
+</Tip>
+
+## Using the Optimiser Strategically
+
+The Budget Optimiser is a **strategic planning tool for informed trade-off decisions**, not a replacement for marketing judgment. Here's how to use it effectively:
+
+### Good Use Cases
+
+**✓ Quarterly budget planning:** "We have £300K for Q2. How should we allocate across channels given current efficiency?"
+
+**✓ Scaling analysis:** "If we increase budget from £60K to £90K/month, which channels can absorb the additional spend?"
+
+**✓ Channel comparison:** "Meta currently gets 45% of budget. Does its performance justify that share vs TikTok?"
+
+**✓ Reallocation scenarios:** "What happens if we shift £15K from Paid Search - Generic to VIP Influencer?"
+
+**✓ Saturation detection:** "Which channels are approaching their efficiency ceilings at current spend levels?"
+
+### Poor Use Cases
+
+**✗ Day-to-day optimisation:** The model operates on monthly timeframes; use platform-level optimisation for daily/weekly adjustments
+
+**✗ Creative testing decisions:** The model can't predict which ad creative will perform; it only knows historical averages
+
+**✗ New channel launches:** Channels need 6+ weeks of data before modelling works; initial spend should follow test-and-learn principles
+
+**✗ Board/investor projections:** Revenue forecasts depend on too many unpredictable factors for external reporting
+
+**✗ Blended/multi-touch attribution scenarios:** The model attributes based on your configured attribution (typically new customer, last-click); it doesn't re-attribute across models
+
+### Interpreting Unexpected Recommendations
+
+If allocations surprise you, investigate before dismissing:
+
+**"Why is TikTok getting 35% when it's only 20% currently?"**
+- Check Performance Score components: Likely high elasticity + strong recent aMER + healthy margins
+- Review R²: If confidence is low, the ±10% constraint prevents larger shifts; high confidence allows ±20%
+- Consider strategic context: Is TikTok genuinely underfunded, or do you have operational constraints the model doesn't know?
+
+**"Why is Meta's allocation dropping despite strong ROAS?"**
+- Check elasticity: Meta might be saturating (low elasticity = poor scaling potential)
+- Check recent aMER: Overall ROAS includes returning customers; model uses new customer aMER
+- Check saturation threshold: Meta may be hitting historical maximum spend levels
+
+**"Why is a channel excluded entirely?"**
+- Verify data requirements: Minimum 6 weeks, £1K total spend, positive elasticity
+- Check channel categorisation: Is it marked as demand capture (excluded from growth allocation)?
+- Review R² and elasticity: Channels with negative or zero elasticity indicate data quality issues
+
+### Combining with Other Data
+
+The optimiser works best alongside qualitative inputs it can't measure:
+
+- **Creative pipeline:** Can your team produce enough TikTok content to justify 40% budget share?
+- **Platform relationships:** Does a rep partnership give you beta access or fee discounts the model doesn't account for?
+- **Strategic priorities:** Are you deliberately investing in a channel for long-term positioning despite current inefficiency?
+- **Market conditions:** Have CPMs increased significantly since the model's training data?
+
+Use the optimiser's quantitative recommendations as a **starting point for strategic discussion**, not as final instructions.
+
+## Frequently Asked Questions
+
+### How often should budget allocations be updated?
+
+**Review monthly, adjust quarterly.** The model uses 12-week performance windows, so weekly changes create noise without signal. Review allocations monthly to spot emerging trends, but implement major shifts quarterly to give channels time to stabilise.
+
+Exception: If a channel's performance dramatically changes (new creative strategy, platform algorithm shift), re-run optimiser analysis immediately rather than waiting for quarterly review.
+
+---
+
+### What if my recommended allocation differs significantly from current spend?
+
+**Treat large swings as signals for investigation, not instructions.** If the model recommends shifting Meta from 40% to 25% share:
+
+1. Check the Performance Score breakdown—which component drives this?
+2. Review recent aMER trends—has efficiency genuinely declined, or is it a temporary blip?
+3. Examine saturation metrics—is Meta hitting its ceiling, or is there operational headroom?
+4. Consider qualitative factors—creative quality, audience expansion opportunities, platform changes
+
+Then decide whether to: (a) implement the full shift, (b) make a partial adjustment, or (c) maintain current allocation whilst monitoring the trend.
+
+The ±20% guardrails prevent radical reallocation in a single step. If the model consistently recommends similar shifts over multiple months, that strengthens the case for action.
+
+---
+
+### Can I manually override channel allocations?
+
+**Yes, via custom budget scenario inputs.** The optimiser calculates recommended allocations based on performance data, but you can create custom scenarios with manual overrides:
+
+1. Use the channel summary to understand model recommendations
+2. Create a custom allocation scenario based on strategic priorities
+3. Input that scenario's spend levels to see forecasted outcomes
+4. Compare custom scenario vs optimiser recommendation
+
+For example: "Model recommends 30% Meta / 25% TikTok, but I want to test 40% Meta / 15% TikTok. What's the forecasted impact on new customer acquisition?"
+
+This approach lets you evaluate strategic decisions quantitatively even when overriding model recommendations.
+
+---
+
+### Why does forecasted aMER decline as budget increases?
+
+**Diminishing returns and saturation.** As spend increases beyond historical patterns, the model applies elasticity decay through the saturation logic. A channel with 0.75 elasticity means revenue grows slower than spend—if you increase budget 33%, revenue might grow only 25%, causing aMER to decline.
+
+This reflects real-world constraints: finite audiences, creative fatigue, competitive bidding pressure. The forecast shows **expected efficiency at scale**, helping you make informed decisions about whether incremental spend justifies lower marginal efficiency.
+
+---
+
+### What data quality issues affect optimiser accuracy?
+
+**Several factors reduce model reliability:**
+
+- **Inconsistent tracking:** If attribution setup changed mid-history, regression captures the inconsistency as performance variance
+- **Small sample sizes:** Channels with `<12` weeks of consistent £500+ weekly spend lack statistical power for robust curves
+- **Outlier weeks:** One-off promotions, platform bugs, or seasonal spikes create noise; the model includes them but can't distinguish from baseline
+- **Missing COGS data:** CM2 margin calculations require accurate product-level COGS; missing data flows through to performance scores
+
+Check data quality before trusting recommendations: verify attribution consistency, review outlier weeks, confirm COGS coverage. The model's accuracy depends entirely on input data quality.
+
+---
+
+### How does the optimiser handle new channels?
+
+**New channels require 6-8 weeks of baseline data before inclusion.** When launching a new channel:
+
+1. Run initial test budget outside the optimiser (typically £2-5K/month)
+2. Collect 6+ weeks of performance data at consistent spend levels
+3. After minimum data threshold, the channel appears in optimiser output
+4. Initial recommendations will show "Low" confidence due to limited history
+5. As data accumulates over 3-6 months, confidence increases and allocations stabilise
+
+Don't rely on the optimiser for new channel launch decisions—use it for ongoing allocation once baseline performance is established.
+
+---
+
+### Can I use this for annual planning?
+
+**Yes, with important caveats.** The optimiser forecasts up to 12 months forward using:
+
+- Historical seasonality patterns (monthly indices)
+- Channel-specific performance curves
+- Your specified annual budget
+
+However, **accuracy degrades significantly beyond 3-6 months** due to:
+
+- Creative performance decay (campaigns age, audiences saturate)
+- Competitive landscape shifts (CPMs fluctuate, new competitors enter)
+- Platform algorithm changes (targeting, attribution, auction dynamics)
+- Product/market evolution (new SKUs, geographic expansion, positioning shifts)
+
+**Recommended approach for annual planning:**
+
+- Use optimiser for directional budget allocation across channels
+- Review and update quarterly as actual performance data arrives
+- Build in 15-20% budget flexibility for adjustments
+- Treat 6+ month forecasts as strategic frameworks, not precision predictions
+
+Annual plans should establish budget **ranges** per channel (e.g., "Meta: 30-40%, TikTok: 20-30%") rather than fixed monthly allocations.
+
+---
+
+### Why are some channels marked with elasticity caps?
+
+**Channels showing elasticity >0.9 get capped to prevent unrealistic scaling assumptions.** An elasticity of 1.0 implies linear scaling (10% spend increase = 10% revenue increase), whilst >1.0 implies exponential growth.
+
+This typically indicates:
+- **Limited data:** Few data points create regression artifacts
+- **Inconsistent tracking:** Attribution changes mid-history
+- **Outlier-driven fit:** One exceptional month skews the curve
+
+The cap prevents the model from over-recommending these channels. The `is_elasticity_capped` flag alerts you to review the channel's historical data for quality issues.
+
+If you believe a channel genuinely has >0.9 elasticity (e.g., emerging platform with massive headroom), investigate the raw data and consider whether the cap should be adjusted—but err on the side of conservative estimates.
+
+---
+
+## Technical Implementation Notes
+
+<AccordionGroup>
+  <Accordion title="Data Pipeline Architecture">
+    The Budget Optimiser runs as a DBT pipeline with four intermediate models feeding two final marts:
+
+    **Intermediate Models:**
+    - `int_budget_optimiser__channel_data`: Weekly aggregations of spend, revenue, customers, CM2 by channel
+    - `int_budget_optimiser__channel_weights`: Performance scoring and growth budget allocation logic
+    - `int_budget_optimiser__demand_capture_caps`: Fixed spend forecasts for brand search and affiliate
+    - `int_budget_optimiser__seasonality`: Monthly seasonal indices for revenue and AOV
+
+    **Final Marts:**
+    - `budget_optimiser__channel_allocation`: Month × Channel × Budget Scenario forecasts (partitioned table)
+    - `budget_optimiser__channel_summary`: Per-channel performance DNA and recommendations
+
+    The allocation mart is partitioned by `total_budget_scenario` for query performance when filtering specific budget levels. Scenario ranges are generated via `GENERATE_ARRAY(25000, 1500000, 25000)` at £25K intervals—adjust based on client scale.
+  </Accordion>
+
+  <Accordion title="Logarithmic Regression Implementation">
+    Elasticity calculation uses log-log regression in BigQuery:
+
+    ```sql
+    Elasticity = CORR(LN(revenue), LN(spend)) × (STDDEV(LN(revenue)) / STDDEV(LN(spend)))
+    Intercept = AVG(LN(revenue)) - (Elasticity × AVG(LN(spend)))
+    R² = POW(CORR(LN(revenue), LN(spend)), 2)
+    ```
+
+    This transforms the power law relationship (Revenue = a × Spend^b) into a linear regression in log-space, where the slope coefficient equals elasticity.
+
+    Revenue forecasts then apply: `Revenue = EXP(Intercept) × (Spend ^ Elasticity)`
+
+    Weekly spend is converted to monthly via `× 4.345` (average weeks per month) rather than `× 4` to match calendar reality over annual periods.
+  </Accordion>
+
+  <Accordion title="Guardrail and Anchoring Logic">
+    Budget allocation guardrails prevent excessive reallocation:
+
+    ```sql
+    Current_Share = Last_8_Weeks_Spend / Total_Last_8_Weeks_Spend
+    Max_Swing = IF(Confidence = 'Low', 0.10, 0.20)
+    
+    Lower_Bound = Current_Share × (1 - Max_Swing)
+    Upper_Bound = Current_Share × (1 + Max_Swing)
+    
+    Clamped_Share = GREATEST(Lower_Bound, LEAST(Upper_Bound, Ideal_Share))
+    
+    Final_Share = Clamped_Share / SUM(Clamped_Share)  -- Re-normalise to 100%
+    ```
+
+    This anchoring approach allows gradual shifts toward optimal allocation whilst preventing shock reallocation that could destabilise performance.
+  </Accordion>
+
+  <Accordion title="Saturation Decay Formula">
+    Dynamic elasticity adjustment when spend exceeds historical thresholds:
+
+    ```sql
+    Saturation_Limit = Historical_Max_Weekly_Spend × Threshold_Multiplier
+    
+    IF Weekly_Spend > Saturation_Limit:
+      Adjusted_Elasticity = Base_Elasticity × POWER(
+        (Saturation_Limit / Weekly_Spend),
+        Decay_Strength
+      )
+    ELSE:
+      Adjusted_Elasticity = Base_Elasticity
+    ```
+
+    **Example:** Channel with 0.8 elasticity, £10K historical max, 1.2× threshold, 0.2 decay:
+    - At £12K spend (saturation limit): elasticity = 0.8 (no decay)
+    - At £15K spend (125% of limit): elasticity = 0.8 × (12/15)^0.2 ≈ 0.77
+    - At £20K spend (167% of limit): elasticity = 0.8 × (12/20)^0.2 ≈ 0.74
+
+    Higher decay strength (e.g., 0.5) creates a harder ceiling; lower decay (e.g., 0.1) creates a softer degradation.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Related Documentation
+
+<CardGroup cols={2}>
+  <Card title="Statistical Health Indicators" icon="chart-line" href="/statistical-health-indicators">
+    Understand the anomaly detection system that monitors channel performance metrics
+  </Card>
+  <Card title="Marketing Performance Dashboards" icon="rectangle-ad" href="/dashboard-suite#marketing-performance">
+    View channel-specific dashboards showing historical performance data used by the optimiser
+  </Card>
+  <Card title="Attribution Methodology" icon="diagram-project" href="/attribution-methodology">
+    Learn how new customer revenue attribution feeds the optimiser's aMER calculations
+  </Card>
+  <Card title="Analysis On Demand" icon="messages-question" href="/analysis-on-demand">
+    Request custom budget scenarios or allocation adjustments beyond the standard optimiser output
+  </Card>
+</CardGroup>
