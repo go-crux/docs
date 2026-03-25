@@ -1,0 +1,68 @@
+---
+title: "How Attribution Works"
+description: "A step-by-step explanation of the Crux attribution waterfall, covering the five data sources checked in sequence and how first-click and last-click attribution differ."
+---
+
+Crux attribution works as a **waterfall**: for each order, we check multiple data sources in sequence. If the first source returns a clear attribution (not Direct or Unknown), we use it. If not, we move to the next source. This layered approach recovers orders that any single tracking method would miss.
+
+## The five layers
+
+<Steps>
+  <Step title="GA4 session data">
+    Google Analytics 4 tracks clicks, landing pages, and UTM parameters across your site. When a customer purchases, we match their session history to the Shopify order.
+
+    This captures paid search, Meta ads, email clicks, and any UTM-tagged traffic. GA4 provides both **first-click** (the customer's first ever session) and **last-click** (the session that led directly to purchase).
+
+    For most brands, GA4 is the primary attribution source, handling the majority of orders.
+  </Step>
+
+  <Step title="Discount codes">
+    Discount codes are mapped to channels, campaigns, and ad groups via your [configuration sheet](/attribution/channel-mapping). When a customer types your URL directly but uses an influencer's code at checkout, the discount code correctly attributes the order, even though GA4 saw it as direct traffic.
+
+    This is particularly valuable for influencer and affiliate channels where customers often navigate directly rather than clicking a tracked link.
+  </Step>
+
+  <Step title="Shopify customer journey">
+    Shopify independently tracks the last non-direct touchpoint before purchase. This is used as a fallback when GA4 and discount codes both return Direct or Unknown.
+
+    Shopify's journey data captures social media referrals, search engine visits, and other touchpoints that GA4 may have missed due to tracking blockers or cookie restrictions.
+  </Step>
+
+  <Step title="Post-purchase surveys">
+    First-party data from "How did you hear about us?" surveys (such as Fairing) provides a final fallback for orders still attributed to Unknown, Direct, Self Referral, or Paid Search Brand.
+
+    Surveys capture channels with no digital footprint: word of mouth, podcast mentions, TV ads, in-store recommendations, and other offline touchpoints that no click-based system can detect.
+  </Step>
+
+  <Step title="Order note attributes">
+    Tags appended by affiliate platforms (Awin, Social Snowball) serve as the final layer for any remaining Unknown orders. These platform-specific tags identify affiliate and influencer orders that slipped through all previous layers.
+  </Step>
+</Steps>
+
+## First-click vs last-click
+
+Crux captures both first-click and last-click attribution for every order, giving you two complementary views of your marketing performance.
+
+**First-click** shows which channel introduced the customer to your brand. **Last-click** shows which channel drove the purchase. Both are valuable, but they answer different questions.
+
+First-click is the default across all Crux dashboards because it best measures acquisition activity, complemented by discount codes and post-purchase surveys. Last-click is surfaced for visibility and used primarily in CRM reporting (email and SMS channels), since those are low-funnel touchpoints that close sales rather than introduce customers.
+
+**Example:** A customer discovers your brand through a Meta ad (first-click), then returns two weeks later via a Google brand search and purchases (last-click). Both touchpoints are captured. The Meta ad gets credit for acquisition, while the Google search gets credit for conversion.
+
+<Info>
+In your [Orders report](/dashboard-suite/orders), fields prefixed with "Last Click" show last-click data. Fields like Source, Medium, and Channel show the primary first-click attribution.
+</Info>
+
+## What happens to unattributed orders
+
+After all five layers have been evaluated, any remaining orders are labelled as Unknown or Direct. These are genuine cases where no trackable touchpoint exists, typically caused by privacy-focused browsers, VPNs, or customers who typed your URL directly without using a discount code.
+
+Most brands see **80-90%+ attribution coverage** after the full waterfall, meaning only a small percentage of orders remain truly unattributed.
+
+<Warning>
+Privacy browsers (Safari ITP, Firefox ETP) and VPN usage are increasing, which can reduce GA4's ability to match sessions to orders. The waterfall's additional layers (discount codes, surveys, affiliate tags) help compensate, but some unattributed orders are unavoidable.
+</Warning>
+
+---
+
+**Need help?** [Contact our team](mailto:support@gocrux.io) or [book a demo](https://gocrux.io/contact).

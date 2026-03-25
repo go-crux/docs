@@ -94,6 +94,27 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "Attribution",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "icon": "rocket-launch",
+            "pages": [
+              "attribution/overview",
+              "attribution/how-it-works"
+            ]
+          },
+          {
+            "group": "Configuration",
+            "icon": "gear",
+            "pages": [
+              "attribution/channel-mapping",
+              "attribution/faqs"
+            ]
+          }
+        ]
       }
 
     ],

@@ -1,0 +1,99 @@
+---
+title: "Channel Mapping & Configuration"
+description: "How to configure your attribution rules, discount code mappings, channel groups, and survey answers using the Google Sheet that powers Crux attribution."
+---
+
+Your attribution rules live in a Google Sheet that you have direct access to. During onboarding, Crux helps with the initial setup, and ongoing support is available for any changes you need.
+
+<Info>
+Changes to the configuration sheet take effect on the next scheduled dashboard update (typically 7AM). They do not retroactively change historical attribution.
+</Info>
+
+## Channel mapping rules
+
+Channel mapping rules define how traffic sources are classified into marketing channels. Each rule checks a specific attribute using an operator, and rules are evaluated from top to bottom, with the first match winning.
+
+<Tip>
+Priority order matters. Place specific rules above broader ones. For example, a rule matching `source_medium contains facebook / cpc` (Paid Social) should sit above a rule matching `source contains facebook` (Organic Social), otherwise paid traffic would be misclassified.
+</Tip>
+
+### Available attributes
+
+| Attribute | Description |
+|---|---|
+| source | The traffic source from GA4 (e.g., google, facebook, newsletter). |
+| medium | The traffic medium from GA4 (e.g., cpc, email, organic). |
+| source_medium | Combined source and medium (e.g., google / cpc, facebook / paid). |
+| campaign | The campaign name from UTM parameters. |
+| discount_channel | The channel assigned to the discount code in your discount code mapping. |
+| full_landing_url | The full landing page URL the customer arrived on. |
+| order_note_attribute_names | Tags appended by affiliate platforms (e.g., Awin, Social Snowball). |
+
+### Available operators
+
+| Operator | Description |
+|---|---|
+| equals | Exact match (case-insensitive). |
+| starts_with | Matches the beginning of the value. |
+| ends_with | Matches the end of the value. |
+| contains | Substring match (case-insensitive). |
+| doesn't contain | Excludes values containing the substring. |
+| in | Matches any of a comma-separated list of values. |
+| is not null | The attribute has a value (is not empty). |
+| is null | The attribute is empty or missing. |
+
+### Example rules
+
+| Channel | Attribute | Operator | Value |
+|---|---|---|---|
+| Paid Social | source_medium | contains | facebook / cpc |
+| Paid Search Brand | campaign | contains | brand |
+| Paid Search Generic | medium | equals | cpc |
+| Affiliate Influencer | discount_channel | equals | Affiliate Influencer |
+| Organic Social | source | in | facebook, instagram, tiktok |
+
+## Discount code mapping
+
+Discount codes are mapped to channels, campaigns, and ad groups so that orders using a specific code are correctly attributed, even when GA4 shows the traffic as direct.
+
+| Column | Description |
+|---|---|
+| discount_code | The exact discount code (case-insensitive). |
+| channel | The marketing channel to attribute orders to (e.g., Affiliate Influencer). |
+| channel_group | The broader channel group (e.g., Influencer, Paid Media). |
+| campaign | The campaign name for reporting (e.g., the influencer's name). |
+| ad_group | Optional ad group for further granularity. |
+| keyword | Optional keyword for search-related codes. |
+
+**Example:** If you have an influencer called Sarah Smith using the code `SARAH20`, her row would map to channel "Affiliate Influencer", campaign "sarah_smith". Every order using that code is then attributed to her, regardless of how the customer arrived at your site.
+
+<Tip>
+When onboarding a new influencer, add their discount code to this sheet before their first post goes live. This ensures orders are attributed from day one.
+</Tip>
+
+## Channel group mapping
+
+Channel groups aggregate individual channels into broader categories for high-level reporting on the [Channel Performance dashboard](/dashboard-suite/channel_performance). For example, "Paid Social" and "Paid Search" both roll up into "Paid Media", while "Affiliate Influencer" and "VIP Influencer" roll up into "Influencer".
+
+This mapping is maintained in a dedicated tab of your configuration sheet. Crux sets up the initial groups during onboarding, and you can adjust them as your channel mix evolves.
+
+## Post-purchase survey mapping
+
+If you run a post-purchase survey (such as Fairing), free-text answers are mapped to channels in your configuration sheet. For example, "I saw you on TikTok" maps to Organic Social, while "A friend told me" maps to Word of Mouth.
+
+Crux sets up the initial mapping based on your existing survey answers. New answers are reviewed periodically and added to the mapping.
+
+<Info>
+If you add new answer options to your survey, let us know so we can update the mapping promptly.
+</Info>
+
+## Getting help
+
+For any changes to your configuration, your options are:
+
+- **Self-service:** You have direct access to the Google Sheet and can add discount codes, update rules, or log additional marketing costs at any time.
+- **Support:** Reach out via Slack or email for help with more complex changes. Configuration updates are covered under your support hours.
+
+---
+
+**Need help?** [Contact our team](mailto:support@gocrux.io) or [book a demo](https://gocrux.io/contact).
