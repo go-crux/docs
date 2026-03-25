@@ -13,66 +13,24 @@ The **configuration sheet** is your control panel for customising Crux without t
 
 ## What You Can Customise
 
-### Marketing Channel Definitions
+### Attribution & Channel Mapping
 
-Define how traffic sources map to your marketing channels based on UTM parameters and discount codes.
+Channel definitions, discount code mappings, and survey answer mappings are configured in your Google Sheet. For full details on how attribution works and how to configure it, see the dedicated [Attribution section](/attribution/overview).
 
-**Use cases:**
-- Classify organic social vs paid social based on UTM medium
-- Create channel groups (e.g., "Paid Media" encompasses Paid Social + Paid Search)
-- Handle edge cases like referral traffic or direct visits
-
-**Example configuration:**
-
-| Channel | Attribute | Operator | Value |
-|---------|-----------|----------|-------|
-| Paid Social | source_medium | contains | facebook / cpc |
-| Paid Social | source_medium | contains | instagram / cpc |
-| Paid Search | medium | equals | cpc |
-| Email | medium | equals | email |
-| Organic Social | source | in | facebook, instagram, tiktok |
-| Influencers | discount_channel | is not null | |
-
-<Info>
-The `discount_channel` attribute enables discount code-based attribution—perfect for influencer and affiliate tracking where UTMs aren't present.
-</Info>
-
-**Supported operators:**
-- `equals`: Exact match
-- `contains`: Substring match (case-insensitive)
-- `starts_with` / `ends_with`: Prefix/suffix matching
-- `in`: Multiple value matching (comma-separated)
-- `is not null` / `is null`: Existence checking
-
----
-
-### Discount Code Attribution
-
-Map discount codes to marketing channels and campaigns for accurate influencer and affiliate attribution.
-
-**Sheet structure:**
-
-| Discount Code | Channel | Channel Group | Campaign | Ad Group | Keyword |
-|---------------|---------|---------------|----------|----------|---------|
-| INFLUENCE10 | Affiliate Influencer | Influencer | Spring Campaign | Beauty Category | |
-| PODCAST15 | Affiliate | Offline | Podcast Tour | | |
-| FRIEND20 | Email Partner | Other | Referral Programme | | |
-
-**How this works:**
-
-When a customer uses discount code `INFLUENCE10`, Crux automatically attributes their order to:
-- **Channel**: Affiliate Influencer
-- **Channel Group**: Influencer
-- **Campaign**: Spring Campaign
-- **Ad Group**: Beauty Category
-
-This enables tracking influencer performance even when clicks don't include UTM parameters.
+<CardGroup cols={2}>
+  <Card title="How attribution works" icon="layer-group" href="/attribution/how-it-works">
+    The five-layer waterfall that powers Crux attribution.
+  </Card>
+  <Card title="Channel mapping & configuration" icon="gear" href="/attribution/channel-mapping">
+    Configure channel rules, discount codes, and survey mappings.
+  </Card>
+</CardGroup>
 
 ---
 
 ### Additional Marketing Costs
 
-Track marketing spend beyond ad platforms—crucial for accurate CAC calculations.
+Track marketing spend beyond ad platforms, crucial for accurate CAC calculations.
 
 **Typical use cases:**
 - Influencer flat fees and gifting costs
@@ -129,7 +87,7 @@ Post index tracking helps identify whether influencers perform better on first c
 
 ### Self-Service Updates
 
-You can update the configuration sheet anytime—changes typically reflect in dashboards within 24 hours (after overnight data refresh).
+You can update the configuration sheet at any time, and changes typically reflect in dashboards within 24 hours (after the overnight data refresh).
 
 **Safe to update yourself:**
 - Adding new discount codes
@@ -176,7 +134,7 @@ Your 7 included monthly hours are perfect for:
   </Accordion>
   
   <Accordion title="Keep Influencer Tracking Current">
-    Update influencer costs and discount codes promptly—attribution only works if discount codes are mapped before orders arrive.
+    Update influencer costs and discount codes promptly, as attribution only works if discount codes are mapped before orders arrive.
     
     Consider blocking a weekly 15-minute admin task for configuration updates.
   </Accordion>

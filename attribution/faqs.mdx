@@ -1,0 +1,52 @@
+---
+title: "Attribution FAQs"
+description: "Answers to common questions about Crux attribution, including how it differs from GA4 and platform reporting, first-click vs last-click, and configuration."
+---
+
+<AccordionGroup>
+  <Accordion title="Why do I still see 'Unknown' or 'Direct' orders?">
+    Some orders genuinely have no trackable touchpoint. This happens when customers use privacy-focused browsers (Safari ITP, Firefox ETP), VPNs, or simply type your URL directly without using a discount code. The waterfall resolves as many orders as possible across five data sources, but a small percentage will always remain unattributed. Most brands see 80-90%+ coverage after the full waterfall.
+  </Accordion>
+
+  <Accordion title="How does Crux attribution differ from what I see in GA4?">
+    GA4 only captures session-level click data. If a customer types your URL directly or uses a privacy browser, GA4 marks the order as direct. Crux layers discount codes, Shopify customer journey, post-purchase surveys, and affiliate tags on top, recovering orders that GA4 would otherwise miss. The result is a significantly more complete picture of what is driving your revenue.
+  </Accordion>
+
+  <Accordion title="How does Crux attribution differ from what I see in Meta or Google Ads?">
+    Platform-reported conversions (Meta Ads Manager, Google Ads) use their own tracking pixels and often count view-through conversions, where a customer saw an ad but did not click it. Crux uses click-based and first-party data, which is more conservative but more accurate for budget decisions. Platforms may also count the same order multiple times across campaigns, while Crux attributes each Shopify order exactly once.
+  </Accordion>
+
+  <Accordion title="Can I see which data source attributed each order?">
+    Yes. The [Orders report](/dashboard-suite/orders) includes fallback flags showing whether Shopify customer journey or survey fallback was used for a given order, alongside the raw GA4 source and medium. This gives you full transparency into how each order was attributed.
+  </Accordion>
+
+  <Accordion title="Why does my Channel Performance report show different numbers to Meta Ads Manager?">
+    Three main reasons: different attribution windows (Crux uses session-based, Meta uses 7-day click / 1-day view by default), different counting methodologies (click-based vs view-through), and deduplication. Crux attributes each Shopify order to a single channel, while Meta may count the same purchase across multiple campaigns or ad sets.
+  </Accordion>
+
+  <Accordion title="How quickly do new discount codes appear in attribution?">
+    After adding a code to the [configuration sheet](/attribution/channel-mapping), it takes effect on the next scheduled dashboard update, typically around 7AM. If you need a faster turnaround, request a manual refresh via Slack or email.
+  </Accordion>
+
+  <Accordion title="What is first-click vs last-click, and which should I use?">
+    First-click shows the channel that originally introduced the customer to your brand. Last-click shows the channel that drove the specific purchase. First-click is the default across all Crux dashboards because it best measures acquisition activity, answering the question "what is bringing new customers in?"
+
+    Last-click is used primarily for CRM reporting (email and SMS channels), since those are low-funnel touchpoints that close sales rather than introduce new customers. Both views are available in the [Orders report](/dashboard-suite/orders).
+  </Accordion>
+
+  <Accordion title="How are affiliate orders (Awin, Social Snowball) attributed?">
+    Affiliate platforms tag orders with note attributes that Crux detects automatically. These are used as the final layer in the attribution waterfall, catching orders that GA4 shows as direct but were actually driven by an affiliate or influencer link. Orders are attributed to the Affiliate or Affiliate Influencer channel depending on the tag.
+  </Accordion>
+
+  <Accordion title="Can I change how channels are defined?">
+    Yes. Channel definitions live in a Google Sheet that you have direct access to. You can update rules, add new discount codes, and adjust channel groups at any time. During onboarding, Crux helps with the initial setup, and ongoing support is available for more complex changes. See the [Channel Mapping page](/attribution/channel-mapping) for full details.
+  </Accordion>
+
+  <Accordion title="Why does the same order show different channels for first-click and last-click?">
+    This is expected and common. A customer often discovers your brand through one channel (e.g., a Meta ad) and converts through another (e.g., a Google brand search or email campaign). Both touchpoints are captured so you can see the full picture, from acquisition through to conversion.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+**Need help?** [Contact our team](mailto:support@gocrux.io) or [book a demo](https://gocrux.io/contact).
