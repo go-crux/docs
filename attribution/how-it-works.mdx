@@ -11,7 +11,7 @@ Crux attribution works as a **waterfall**: for each order, we check multiple dat
   <Step title="GA4 raw event data">
     We sync your raw GA4 event data straight into BigQuery. This bypasses the sampling, unnattributed & data processing issues you see within the GA user interface. GA4 tracks events (page views, clicks, add to carts, purchases etc), landing pages and UTM parameters across your site. When a customer purchases, we match their session history to the Shopify order.
 
-    This captures paid search, Meta ads, email clicks, and any UTM-tagged traffic. We look at the users first ever event on the website (that is not Direct or Unknown) for the attribution source. We also don't bound this by time meaning if you have a long purchase cycle (60+ days) we cater for that unlike GA standard reporting.
+    This captures paid search, Meta ads, email clicks, and any UTM-tagged traffic. We look at the users first ever event on the website (that is not Direct or Unknown) for the attribution source. We also don't bound this by time, meaning if you have a long purchase cycle (60+ days) we cater for that unlike GA standard reporting.
 
     This first event (click) model using raw ga4 data typically accounts for 60 - 70% of your order attribution.
   </Step>
