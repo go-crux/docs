@@ -4,6 +4,111 @@ description: "Latest platform updates, improvements, and new features"
 rss: true
 ---
 
+<Update label="April 2026" description="1st April" tags={["Features", "AI"]}>
+
+### AI Analyst — Early Access
+
+Launched the Crux AI Analyst, a Slack-native assistant that answers natural language questions about your store data and delivers automated daily and weekly performance reports directly in your Slack workspace.
+
+**Ask questions in plain English.** The analyst translates your questions into BigQuery SQL, runs them against your data warehouse, and returns a clear, formatted answer. No dashboards to navigate, no exports to pull, no waiting for a report.
+
+Example questions it can answer:
+
+- "What were our top 5 products by revenue last month?"
+- "How did new customer acquisition change week on week?"
+- "Which channel had the highest AOV in March?"
+- "What's our discount rate trend over the last 8 weeks?"
+
+**Automated daily reports** delivered each morning covering:
+
+- Total and new vs. repeat revenue
+- Order volume and AOV (overall, new, and repeat)
+- New user and session volume
+- Discount rate, with week-on-week comparisons throughout
+
+**Automated weekly reports** covering:
+
+- Revenue, orders, AOV and new customer mix for the full week vs. prior week
+- Product category revenue breakdown
+- Discount rate trends
+
+**Works in shared Slack Connect channels**, so your team gets reports directly in the channels you already use without needing to add another tool.
+
+The AI Analyst is currently in early access with select clients. [Get in touch](mailto:support@gocrux.io) to join the waitlist.
+
+</Update>
+
+<Update label="March 2026" description="25th March" tags={["Attribution", "Analytics"]}>
+
+### Multi-Touch Attribution Framework
+
+Launched a full GA4 raw events attribution pipeline that combines five data sources into a single waterfall, recovering orders that standard UTM tracking misses entirely. Read the full [attribution overview](/attribution/overview) and [how it works](/attribution/how-it-works).
+
+How it works:
+
+- **GA4 raw events** are synced directly into BigQuery, bypassing GA4's interface sampling. First-click attribution is identified across the full purchase cycle, with no time-bound cutoff for long purchase windows.
+- **Discount codes** mapped to channels, campaigns and ad groups via a Google Sheet you control, correctly attributing influencer, referral, affiliate and offline-driven orders.
+- **Shopify customer journey** provides a fallback using Shopify's independent last non-direct touchpoint tracking.
+- **Post-purchase surveys** (Fairing, Kno, Triple Whale) capture offline touchpoints such as word of mouth, podcast mentions and TV ads.
+- **Order note attributes** from affiliate and influencer platforms (Awin, Social Snowball, Saral, Superfiliate) serve as the final recovery layer.
+
+Both **first-click** and **last-click** attribution are captured for every order. First-click is the default across all dashboards, reflecting the full acquisition journey. Last-click is available for CRM channels and visibility.
+
+[Channel mapping rules](/attribution/channel-mapping) live in a connected Google Sheet, allowing you to update attribution logic, add new discount code mappings, or change channel groupings without any code changes. Rules are priority-ordered and case-insensitive.
+
+This typically captures **90%+ of influencer-driven orders** compared to 15-25% with UTM tracking alone, and attributes around **31% more revenue** than standard last-click UTM reporting.
+
+</Update>
+
+<Update label="March 2026" description="5th March" tags={["Health Metrics", "Analytics"]}>
+
+### Meta Ad Fatigue Monitoring
+
+Added a new [health metric](/health-metrics/overview) for detecting creative fatigue across Meta ad accounts, using survival curve analysis combined with Little's Law replacement rate modelling.
+
+- **Ad fatigue status** consolidated per ad, flagging ads approaching or past their performance shelf-life
+- **Healthy ad gap** metric added to the Business Health dashboard, showing how many new ads are needed to maintain current performance levels
+- **Daily new ads and ad winners** tracked to surface whether your creative pipeline is keeping pace with fatigue rates
+- Low-efficiency threshold applied to separate ads that have faded from those that never performed
+
+See the [Meta Performance dashboard](/dashboard-suite/meta_performance) for ad-level fatigue data.
+
+### Repurchase Rate
+
+Added repurchase rate to the retention metrics suite, tracking the share of customers who return for a second purchase within a defined window. Available across the [LTV & Retention dashboard](/dashboard-suite/ltv_retention) and customer profile models.
+
+</Update>
+
+<Update label="February 2026" description="4th February" tags={["Features", "Analytics"]}>
+
+### Budget Optimiser
+
+New strategic planning tool that uses historical performance data to model how each marketing channel responds to spend changes, helping you evaluate allocation trade-offs before committing budget.
+
+Key capabilities:
+
+- **Elasticity modelling** calculates each channel's scaling responsiveness using logarithmic regression on your full historical data
+- **Performance scoring** weights elasticity, recent aMER, CM2 margin, and spend history to rank channels for growth budget allocation
+- **Demand capture vs demand generation** split treats Brand Search and Affiliate as fixed costs, directing growth budget only toward scalable channels
+- **Confidence-based guardrails** apply ±20% swing limits for high/medium confidence channels, and ±10% for low confidence, preventing radical reallocation from statistical noise
+- **Saturation detection** applies dynamic elasticity decay when projected spend exceeds historical maximums
+- **Seasonal adjustments** apply monthly indices so forecasts reflect your historical revenue patterns across the year
+- Multiple budget scenarios generated at £25K intervals, allowing side-by-side comparison of allocation across spend levels
+
+The optimiser is a strategic planning tool for quarterly budget reviews, not day-to-day optimisation. Outputs are directional guidance, not guaranteed forecasts.
+
+</Update>
+
+<Update label="February 2026" description="25th February" tags={["Analytics"]}>
+
+### Customer Profile & Sales Reporting Enhancements
+
+- **Last order attributes** added to [customer profiles](/dashboard-suite/customer_deep_dive), including channel, product, and discount code from each customer's most recent purchase
+- **Total, new and repeat sales** definitions standardised across all reporting models, allowing consistent segmentation of revenue by customer type
+- **Active customer definition** aligned across the platform for consistent cohort and [retention reporting](/dashboard-suite/ltv_retention)
+
+</Update>
+
 <Update label="January 2026" description="23rd January" tags={["Analytics", "UI"]}>
 
 ### Dashboard UI refresh
