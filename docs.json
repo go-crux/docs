@@ -79,8 +79,8 @@
                 "group": "Paid Media",
                 "pages": [
                   "dashboard-suite/meta_performance",
+                  "dashboard-suite/meta_ad_fatigue",
                   "dashboard-suite/paid_search_performance"
-                 
                 ]
               },
               "dashboard-suite/influencer_performance"

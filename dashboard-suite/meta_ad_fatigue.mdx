@@ -1,0 +1,222 @@
+---
+title: "Meta Ad Fatigue Report"
+description: "Classify every active Meta ad by fatigue state and forecast 60-day portfolio viability using survival-curve modelling and target-spend planning."
+---
+
+## Overview
+
+When your Meta CAC starts climbing, it is rarely obvious whether a specific ad has peaked or whether the whole account is under pressure. Without a structured way to assess each ad's health relative to its own history and the campaign blend, you end up pausing ads reactively or, worse, leaving fatigued ads running and burning budget.
+
+This report solves two connected problems. First, it classifies every active ad into a precise fatigue state each day, so you always know which ads to act on and which to leave running. Second, it forecasts how your viable ad portfolio will evolve over the next 60 days and tells you exactly how many new ads you need to launch each week to sustain a target daily spend.
+
+## How fatigue is classified
+
+Each ad is assessed daily using two comparison axes:
+
+- **`pct_worse_than_peak`** — how much worse the ad's rolling CAC is compared to its own historical best (`peak_cac_normalised`)
+- **`pct_vs_blended`** — how much worse the ad's rolling CAC is compared to the campaign-type blended average across all active ads
+
+The model uses a 4-day rolling window by default and evaluates the following classification hierarchy in order. An ad takes the first status that matches.
+
+<AccordionGroup>
+
+  <Accordion title="INACTIVE — no impressions today">
+    The ad recorded zero impressions on the current date. It is excluded from all fatigue calculations until it becomes active again.
+  </Accordion>
+
+  <Accordion title="RAMPING — below spend or age thresholds">
+    The ad has not yet accumulated enough spend or run for enough days to produce a reliable signal. It is ineligible for fatigue assessment and treated as neutral in portfolio calculations.
+  </Accordion>
+
+  <Accordion title="UNKNOWN — missing CAC data">
+    The ad is active and eligible but does not have a valid rolling CAC or peak CAC to compare against. This typically indicates zero recorded orders in the rolling window. No classification is possible until order data is available.
+  </Accordion>
+
+  <Accordion title="LOW_EFFICIENCY — CAC 20%+ above campaign-type blend">
+    The ad's rolling CAC is at least 20% above the blended average for its campaign type. This is a portfolio-level signal: the campaign type as a whole may have a cost problem, not just this individual ad. LOW_EFFICIENCY takes priority in the hierarchy so it is not masked by a favourable comparison to the ad's own peak.
+  </Accordion>
+
+  <Accordion title="IMPROVING — recovering from a past peak decline">
+    The ad's rolling CAC is 20% or more worse than its own peak, but the 3-day CAC trend is negative (CAC is falling). The ad has deteriorated from its best performance but is actively recovering. It is not paused but monitored closely.
+  </Accordion>
+
+  <Accordion title="FATIGUED — fully degraded and confirmed declining">
+    The ad's rolling CAC is 50% or more worse than its own peak, the 3-day trend is flat or worsening, and it was already classified as FATIGUING on the previous day. The requirement to have passed through FATIGUING first prevents a single anomalous day from triggering a FATIGUED classification. This is the strongest signal to pause or refresh the creative.
+  </Accordion>
+
+  <Accordion title="FATIGUING — declining from its own peak">
+    The ad's rolling CAC is 20% or more worse than its own peak and the trend is flat or worsening. The ad has not yet crossed the 50% degradation threshold, and it may not yet have been FATIGUING yesterday, so it is in an early warning state. Review the creative and monitor daily.
+  </Accordion>
+
+  <Accordion title="HEALTHY — within tolerance on both axes">
+    The ad's rolling CAC is within 20% of its own peak and within the campaign-type blend tolerance. No action required.
+  </Accordion>
+
+</AccordionGroup>
+
+The default thresholds (20% for FATIGUING, 50% for FATIGUED, 20% above blend for LOW_EFFICIENCY, 4-day rolling window) are configurable in the model's `config_params` CTE.
+
+Each ad also carries a numeric `fatigue_score` between 0 and 1, where 0 is fully healthy and 1 is fully fatigued. Use this field to sort ads by severity or to build calculated fields in Looker Studio.
+
+## How the forecast works
+
+The forecast takes all currently active ads on the reference date and applies a blended survival curve derived from historical data. The survival curve represents the probability that an ad launched on any given day remains viable as it ages.
+
+The blended rate combines the healthy-ad decay curve with partial credit for ads currently classified as IMPROVING, controlled by the `improving_credit` parameter. At the default of 0, the forecast is anchored entirely on the healthy-ad survival basis, which gives a realistic rather than optimistic projection.
+
+Beyond the maximum observed ad age in the historical data, the model extrapolates using a 5% daily decay applied to the last observed survival rate.
+
+Two summary outputs are produced:
+
+- **`avg_viable_lifespan`** — the area under the blended survival curve. Using Little's Law, this is the expected number of days an ad remains viable after launch. It is used to calculate the steady-state launch rate needed to sustain any given portfolio size.
+- **`cumulative_survival_rate`** at day t — if you launched exactly one new ad per day from today, this is the number of viable ads you would have from that stream on day t. It is the building block for the reactive launch model.
+
+The forecast outputs per-campaign-type rows and a pre-aggregated `ALL` row. Always filter to `campaign_type = 'ALL'` when building totals in Looker Studio to avoid double-counting across campaign types.
+
+The forecast horizon is 60 days forward from the reference date.
+
+## Planning with a target daily spend
+
+The Looker Studio data source accepts `@target_daily_spend` as a user-input parameter. This allows you to set a daily spend goal and see whether your current ad portfolio is sufficient to support it, and how many new ads you need to launch to close any gap.
+
+Key outputs from the planning model:
+
+| Field | Description |
+|---|---|
+| `portfolio_adequacy_pct` | The percentage of your target daily spend that your current viable ad portfolio can cover based on projected ad survival and spend rates. |
+| `target_viable_ads` | The number of viable ads required to cover the target spend at the current average spend per viable ad. |
+| `steady_state_daily_ads` | The average daily launch rate that would sustain the target portfolio in steady state, calculated using Little's Law. This is a reference figure, not the reactive launch rate. |
+| `daily_ads_churned` | The number of ads estimated to leave the viable pool each day, driven by the survival curve dynamics of your current portfolio. |
+| `daily_new_ads_launched` | The reactive launches needed each day to replace churn and close any gap between the current portfolio and the target. Zero on Saturdays and Sundays. |
+| `portfolio_net_change` | The net daily change in viable ad count, equal to launches minus churn. Negative on weekends when no launches occur. |
+| `projected_total_viable_ads` | The projected total viable ad count over the forecast horizon. The trajectory dips at weekends and recovers on Monday when churn accumulates and is then absorbed. |
+| `target_ad_velocity_7d` | The rolling 7-day total of new ad launches needed. Use this as your weekly creative production target. |
+
+**Reactive launch logic**
+
+The model does not assume a constant daily launch rate. Instead, it replaces churn reactively each weekday. No launches are scheduled on Saturdays or Sundays. Monday absorbs the accumulated churn from Saturday, Sunday, and Monday itself in a single batch.
+
+If there is an initial gap between your current viable portfolio and the target at day 0, that gap is spread across the first 10 weekdays (14 calendar days) rather than requiring you to close it all on day 1. This gives you a realistic ramp plan rather than an unachievable immediate target.
+
+## Data dictionary
+
+<AccordionGroup>
+
+  <Accordion title="Ad fatigue status (demo-meta_ad_fatigue_status)">
+    Ad-level daily grain. Use `COUNT_DISTINCT(ad)` for ad counts and `SUM(spend) / SUM(new_orders)` for CAC. Filter `is_active_today = TRUE` for active ad metrics.
+
+    | Name | Description |
+    |---|---|
+    | `id` | Surrogate key generated from date, campaign, adset, and ad. |
+    | `date` | The date of the record. |
+    | `day_of_week` | Day of the week for the record date. |
+    | `campaign` | Meta campaign name. |
+    | `campaign_type` | Campaign classification (e.g. TOF, RET, ASC). |
+    | `adset` | Meta ad set name. |
+    | `ad` | Meta ad name. |
+    | `ad_launch_date` | Date the ad first recorded impressions. |
+    | `ad_age` | Age of the ad in days since first impression. |
+    | `impressions` | Daily impressions for the ad. |
+    | `spend` | Daily spend for the ad. |
+    | `new_orders` | Daily new customer orders attributed to the ad. |
+    | `daily_cac` | Daily customer acquisition cost (spend / new_orders). |
+    | `dow_cac_index` | Day-of-week CAC index used for normalisation. |
+    | `rolling_spend` | Total spend over the rolling window. |
+    | `rolling_new_orders` | Total new orders over the rolling window. |
+    | `rolling_impressions` | Total impressions over the rolling window. |
+    | `days_in_window` | Number of days with data in the rolling window. |
+    | `rolling_cac` | Rolling customer acquisition cost (rolling_spend / rolling_new_orders). |
+    | `rolling_cac_normalised` | Rolling CAC adjusted for day-of-week seasonality. |
+    | `cumulative_spend` | Total spend since ad launch. |
+    | `cumulative_orders` | Total new orders since ad launch. |
+    | `cumulative_cac` | All-time customer acquisition cost since launch. |
+    | `peak_cac_normalised` | The lowest normalised CAC this ad has ever achieved (its historical best). |
+    | `peak_date` | Date on which the ad reached its peak (lowest) normalised CAC. |
+    | `peak_ad_age` | Ad age in days at the time of peak performance. |
+    | `pct_worse_than_peak` | How much worse the current rolling CAC is relative to peak (0.2 = 20% worse). |
+    | `campaign_type_blended_cac` | Blended CAC across all active ads in the same campaign type on this date. |
+    | `pct_vs_blended` | How much worse the ad's rolling CAC is relative to the campaign-type blend. |
+    | `is_eligible_for_fatigue` | Whether the ad has met minimum spend and age thresholds for fatigue assessment. |
+    | `is_active_today` | Whether the ad recorded impressions on this date. |
+    | `fatigue_status` | Fatigue classification: HEALTHY, FATIGUING, FATIGUED, IMPROVING, LOW_EFFICIENCY, RAMPING, INACTIVE, or UNKNOWN. |
+    | `fatigue_score` | Numeric fatigue severity from 0 (healthy) to 1 (fully fatigued). Null for inactive or unknown ads. |
+    | `window_days_config` | Rolling window size used in this model run. |
+    | `threshold_fatiguing_config` | Threshold for FATIGUING classification used in this model run. |
+    | `threshold_fatigued_config` | Threshold for FATIGUED classification used in this model run. |
+    | `threshold_low_efficiency_config` | Threshold for LOW_EFFICIENCY classification used in this model run. |
+  </Accordion>
+
+  <Accordion title="Ad fatigue forecast (demo-meta_ad_fatigue_forecast)">
+    Daily forecast grain per campaign type. Filter `campaign_type = 'ALL'` for portfolio totals.
+
+    | Name | Description |
+    |---|---|
+    | `id` | Surrogate key generated from forecast_date and campaign_type. |
+    | `reference_date` | The date on which the forecast was generated (current active ads snapshot). |
+    | `forecast_date` | The projected date, up to 60 days ahead of reference_date. |
+    | `days_ahead` | Number of days between reference_date and forecast_date. |
+    | `campaign_type` | Campaign type, or 'ALL' for the pre-aggregated portfolio total. |
+    | `current_active_ad_count` | Number of active ads on the reference date for this campaign type. |
+    | `expected_viable_ads` | Projected number of viable ads on the forecast date, based on survival curve decay of the current cohort. |
+    | `expected_viable_spend` | Projected total daily spend from viable ads on the forecast date. |
+    | `avg_spend_per_viable_ad` | Average daily spend per viable ad, pinned to day-0 so the target does not drift as ads age. |
+    | `avg_spend_per_viable_ad_raw` | Average daily spend per viable ad at each projected age (not pinned). |
+    | `historical_avg_daily_spend` | Average daily spend over the preceding 14 days, used as a reference baseline. |
+    | `historical_avg_daily_active_ads` | Average number of active ads per day over the preceding 14 days. |
+    | `historical_spend_per_ad` | Historical average spend per active ad over the preceding 14 days. |
+    | `capacity_vs_historical` | Ratio of projected viable spend to historical average daily spend. Values below 1.0 indicate declining portfolio capacity. |
+    | `avg_viable_lifespan` | Expected number of days an ad remains viable, calculated as the area under the blended survival curve (Little's Law). |
+    | `cumulative_survival_rate` | If one new ad were launched per day from day 0, the number of viable ads from that stream on day t. |
+    | `forecast_horizon_config` | Forecast horizon in days used in this model run. |
+    | `window_days_config` | Rolling window size used in this model run. |
+    | `improving_credit_config` | Partial credit applied to IMPROVING ads in the survival blend (0 = pure healthy basis). |
+  </Accordion>
+
+  <Accordion title="Ad fatigue forecast — Looker Studio layer (demo-meta_ad_fatigue_forecast_looker_studio)">
+    Extends the forecast model with reactive launch planning based on the `@target_daily_spend` parameter. Filter `campaign_type = 'ALL'` for portfolio totals.
+
+    | Name | Description |
+    |---|---|
+    | `portfolio_adequacy_pct` | Percentage of the target daily spend covered by the current viable ad portfolio. |
+    | `target_viable_ads` | Number of viable ads required to cover the target spend at the current average spend per viable ad. |
+    | `steady_state_daily_ads` | Little's Law reference: average daily launch rate needed to sustain the target portfolio in steady state. |
+    | `daily_ads_churned` | Ads lost to fatigue each day (shown as a negative value for waterfall visualisations). |
+    | `daily_new_ads_launched` | Reactive new ad launches per day (zero on Saturdays and Sundays; elevated on Mondays). |
+    | `portfolio_net_change` | Net daily change in viable ad count (launches minus churn). Negative on weekends. |
+    | `projected_total_viable_ads` | Projected running total of viable ads each day. Dips at weekends, recovers on Monday. |
+    | `target_ad_velocity_7d` | Rolling 7-day total of new ad launches needed. Use as your weekly creative production target. |
+    | `surviving_viable_ads` | Yesterday's projected portfolio minus today's churn, before new launches are added. |
+    | `cumulative_new_ads_launched` | Running total of all new ad launches across the forecast horizon. |
+  </Accordion>
+
+</AccordionGroup>
+
+## Questions this report answers
+
+<AccordionGroup>
+
+  <Accordion title="Which ads should I pause or refresh right now?">
+    Filter the fatigue status table to `fatigue_status = 'FATIGUED'` to find ads that have deteriorated significantly from their own peak, are not recovering, and confirmed that decline the previous day. These are the strongest candidates for pausing or replacing with a refreshed creative. Ads showing `FATIGUING` are early warnings: worth reviewing but not necessarily pausing yet.
+  </Accordion>
+
+  <Accordion title="Am I launching enough new ads to sustain my target spend?">
+    Set your `@target_daily_spend` parameter in the Looker Studio report and check `portfolio_adequacy_pct`. If it is below 100%, your current portfolio cannot cover the target. Use `target_ad_velocity_7d` to understand your weekly creative output requirement and compare it against your actual launch rate to close the gap.
+  </Accordion>
+
+  <Accordion title="Why does my portfolio dip at weekends in the forecast?">
+    The reactive launch model does not schedule new ad launches on Saturdays or Sundays, reflecting typical team working patterns. Ads continue to churn over the weekend through natural fatigue, but replacements are not added until Monday. Monday absorbs the accumulated churn from Saturday and Sunday in a single catch-up batch, which is why the portfolio trajectory dips slightly on weekends and recovers sharply on Mondays.
+  </Accordion>
+
+  <Accordion title="How does the model decide an ad is 'fatigued' vs just having a bad day?">
+    The model uses three layers of protection against single-day noise. First, it uses a 4-day rolling CAC rather than the daily figure, smoothing short-term fluctuations. Second, it requires the 3-day CAC trend to be flat or worsening (not a temporarily bad day that is already recovering). Third, it requires the ad to have been FATIGUING on the previous day before promoting it to FATIGUED. An ad cannot jump straight to FATIGUED on the basis of a single spike.
+  </Accordion>
+
+  <Accordion title="How far ahead can I trust the forecast?">
+    The first two to three weeks are driven by the observed survival curves of your current active ad cohort and are the most reliable. Beyond that, the forecast extrapolates with a 5% daily decay beyond the maximum observed ad age and assumes constant average spend per ad. The 60-day horizon is best read as a directional trajectory rather than a precise prediction. Use it to understand structural gaps in your creative pipeline, and revisit the forecast weekly as new ads launch and old ones retire.
+  </Accordion>
+
+</AccordionGroup>
+
+---
+
+**Need help?** [Contact our team](mailto:support@gocrux.io) or [book a demo](https://gocrux.io/contact).
