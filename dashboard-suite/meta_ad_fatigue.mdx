@@ -20,35 +20,35 @@ The model uses a 4-day rolling window by default and evaluates the following cla
 
 <AccordionGroup>
 
-  <Accordion title="INACTIVE — no impressions today">
+  <Accordion title="INACTIVE - no impressions today">
     The ad recorded zero impressions on the current date. It is excluded from all fatigue calculations until it becomes active again.
   </Accordion>
 
-  <Accordion title="RAMPING — below spend or age thresholds">
+  <Accordion title="RAMPING - below spend or age thresholds">
     The ad has not yet accumulated enough spend or run for enough days to produce a reliable signal. It is ineligible for fatigue assessment and treated as neutral in portfolio calculations. You can customise your minimum spend threshold, just contact us to discuss.
   </Accordion>
 
-  <Accordion title="UNKNOWN — missing CAC data">
+  <Accordion title="UNKNOWN - missing CAC data">
     The ad is active and eligible but does not have a valid rolling CAC or peak CAC to compare against. This typically indicates zero recorded orders in the rolling window. No classification is possible until order data is available.
   </Accordion>
 
-  <Accordion title="LOW_EFFICIENCY — CAC 20%+ above campaign-type blend">
+  <Accordion title="LOW_EFFICIENCY - CAC 20%+ above campaign-type blend">
     The ad's rolling CAC is at least 20% above the blended average for its campaign type. This is a portfolio-level signal: the campaign type as a whole may have a cost problem, not just this individual ad. LOW_EFFICIENCY takes priority in the hierarchy so it is not masked by a favourable comparison to the ad's own peak.
   </Accordion>
 
-  <Accordion title="IMPROVING — recovering from a past peak decline">
+  <Accordion title="IMPROVING - recovering from a past peak decline">
     The ad's rolling CAC is 20% or more worse than its own peak, but the 3-day CAC trend is negative (CAC is falling). The ad has deteriorated from its best performance but is actively recovering. Recommendation is to monitor closely.
   </Accordion>
 
-  <Accordion title="FATIGUED — fully degraded and confirmed declining">
+  <Accordion title="FATIGUED - fully degraded and confirmed declining">
     The ad's rolling CAC is 50% or more worse than its own peak, the 3-day trend is flat or worsening, and it was already classified as FATIGUING on the previous day. The requirement to have passed through FATIGUING first prevents a single anomalous day from triggering a FATIGUED classification. This is the strongest signal to pause or refresh the creative.
   </Accordion>
 
-  <Accordion title="FATIGUING — declining from its own peak">
+  <Accordion title="FATIGUING - declining from its own peak">
     The ad's rolling CAC is 20% or more worse than its own peak and the trend is flat or worsening. The ad has not yet crossed the 50% degradation threshold, and it may not yet have been FATIGUING yesterday, so it is in an early warning state. Review the creative and monitor daily.
   </Accordion>
 
-  <Accordion title="HEALTHY — within tolerance on both axes">
+  <Accordion title="HEALTHY - within tolerance on both axes">
     The ad's rolling CAC is within 20% of its own peak and within the campaign-type blend tolerance. No action required.
   </Accordion>
 
@@ -60,7 +60,9 @@ Each ad also carries a numeric `fatigue_score` between 0 and 1, where 0 is fully
 
 ## How the forecast works
 
-A **viable ad** is one the survival model expects to still be in a non-fatigued state, meaning not yet classified as FATIGUED or LOW_EFFICIENCY. Viability is expressed as a probability derived from historical survival curves: at each ad age, the model looks at what fraction of real ads in your account remained non-fatigued at that age, and uses that as the survival rate. An ad with a survival rate of 0.8 contributes 0.8 to the `expected_viable_ads` count. As an ad ages, that survival rate decays to reflect the increasing likelihood it has crossed a fatigue threshold, so older ads contribute progressively less to projected spend until they effectively age out of the portfolio.
+A **viable ad** is one the survival model expects to still be in a non-fatigued state, meaning not yet classified as FATIGUED or LOW_EFFICIENCY. Viability is expressed as a probability derived from historical survival curves: at each ad age, the model looks at what fraction of real ads in your account remained non-fatigued at that age, and uses that as the survival rate. An ad with a survival rate of 0.8 contributes 0.8 to the `expected_viable_ads` count. 
+
+As an ad ages, that survival rate decays to reflect the increasing likelihood it has crossed a fatigue threshold, so older ads contribute progressively less to projected spend until they effectively age out of the portfolio.
 
 The forecast takes all currently active ads on the reference date and applies a blended survival curve derived from historical data. The survival curve represents the probability that an ad launched on any given day remains viable as it ages.
 
@@ -172,7 +174,7 @@ If there is an initial gap between your current viable portfolio and the target 
     | `improving_credit_config` | Partial credit applied to IMPROVING ads in the survival blend (0 = pure healthy basis). |
   </Accordion>
 
-  <Accordion title="Ad fatigue forecast — Looker Studio layer (demo-meta_ad_fatigue_forecast_looker_studio)">
+  <Accordion title="Ad fatigue forecast - Looker Studio layer (demo-meta_ad_fatigue_forecast_looker_studio)">
     Extends the forecast model with reactive launch planning based on the `@target_daily_spend` parameter. Filter `campaign_type = 'ALL'` for portfolio totals.
 
     | Name | Description |
