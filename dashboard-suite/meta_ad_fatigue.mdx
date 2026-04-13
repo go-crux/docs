@@ -25,7 +25,7 @@ The model uses a 4-day rolling window by default and evaluates the following cla
   </Accordion>
 
   <Accordion title="RAMPING — below spend or age thresholds">
-    The ad has not yet accumulated enough spend or run for enough days to produce a reliable signal. It is ineligible for fatigue assessment and treated as neutral in portfolio calculations.
+    The ad has not yet accumulated enough spend or run for enough days to produce a reliable signal. It is ineligible for fatigue assessment and treated as neutral in portfolio calculations. You can customise your minimum spend threshold, just contact us to discuss.
   </Accordion>
 
   <Accordion title="UNKNOWN — missing CAC data">
@@ -37,7 +37,7 @@ The model uses a 4-day rolling window by default and evaluates the following cla
   </Accordion>
 
   <Accordion title="IMPROVING — recovering from a past peak decline">
-    The ad's rolling CAC is 20% or more worse than its own peak, but the 3-day CAC trend is negative (CAC is falling). The ad has deteriorated from its best performance but is actively recovering. It is not paused but monitored closely.
+    The ad's rolling CAC is 20% or more worse than its own peak, but the 3-day CAC trend is negative (CAC is falling). The ad has deteriorated from its best performance but is actively recovering. Recommendation is to monitor closely.
   </Accordion>
 
   <Accordion title="FATIGUED — fully degraded and confirmed declining">
@@ -54,21 +54,21 @@ The model uses a 4-day rolling window by default and evaluates the following cla
 
 </AccordionGroup>
 
-The default thresholds (20% for FATIGUING, 50% for FATIGUED, 20% above blend for LOW_EFFICIENCY, 4-day rolling window) are configurable in the model's `config_params` CTE.
+The default thresholds (20% for FATIGUING, 50% for FATIGUED, 20% above blend for LOW_EFFICIENCY, 4-day rolling window) are all configurable per customer.
 
 Each ad also carries a numeric `fatigue_score` between 0 and 1, where 0 is fully healthy and 1 is fully fatigued. Use this field to sort ads by severity or to build calculated fields in Looker Studio.
 
 ## How the forecast works
 
-The forecast takes all currently active ads on the reference date and applies a blended survival curve derived from historical data. The survival curve represents the probability that an ad launched on any given day remains viable as it ages.
+A **viable ad** is one the survival model expects to still be in a non-fatigued state, meaning not yet classified as FATIGUED or LOW_EFFICIENCY. Viability is expressed as a probability derived from historical survival curves: at each ad age, the model looks at what fraction of real ads in your account remained non-fatigued at that age, and uses that as the survival rate. An ad with a survival rate of 0.8 contributes 0.8 to the `expected_viable_ads` count. As an ad ages, that survival rate decays to reflect the increasing likelihood it has crossed a fatigue threshold, so older ads contribute progressively less to projected spend until they effectively age out of the portfolio.
 
-The blended rate combines the healthy-ad decay curve with partial credit for ads currently classified as IMPROVING, controlled by the `improving_credit` parameter. At the default of 0, the forecast is anchored entirely on the healthy-ad survival basis, which gives a realistic rather than optimistic projection.
+The forecast takes all currently active ads on the reference date and applies a blended survival curve derived from historical data. The survival curve represents the probability that an ad launched on any given day remains viable as it ages.
 
 Beyond the maximum observed ad age in the historical data, the model extrapolates using a 5% daily decay applied to the last observed survival rate.
 
 Two summary outputs are produced:
 
-- **`avg_viable_lifespan`** — the area under the blended survival curve. Using Little's Law, this is the expected number of days an ad remains viable after launch. It is used to calculate the steady-state launch rate needed to sustain any given portfolio size.
+- **`avg_viable_lifespan`** — the expected number of days an ad remains viable after launch. It is used to calculate how many new ads you need to launch per day to keep your portfolio at a given size, because a longer lifespan means each ad covers more days before it needs replacing.
 - **`cumulative_survival_rate`** at day t — if you launched exactly one new ad per day from today, this is the number of viable ads you would have from that stream on day t. It is the building block for the reactive launch model.
 
 The forecast outputs per-campaign-type rows and a pre-aggregated `ALL` row. Always filter to `campaign_type = 'ALL'` when building totals in Looker Studio to avoid double-counting across campaign types.
@@ -196,7 +196,7 @@ If there is an initial gap between your current viable portfolio and the target 
 <AccordionGroup>
 
   <Accordion title="Which ads should I pause or refresh right now?">
-    Filter the fatigue status table to `fatigue_status = 'FATIGUED'` to find ads that have deteriorated significantly from their own peak, are not recovering, and confirmed that decline the previous day. These are the strongest candidates for pausing or replacing with a refreshed creative. Ads showing `FATIGUING` are early warnings: worth reviewing but not necessarily pausing yet.
+    Filter the fatigue status table to `fatigue_status = 'FATIGUED'` to find ads that have deteriorated significantly from their own peak, are not recovering, and confirmed that decline the previous day. These are the strongest candidates for pausing or replacing with a refreshed creative. Ads showing `FATIGUING` are early warnings: worth reviewing but not necessarily pausing yet (unless performance warrants).
   </Accordion>
 
   <Accordion title="Am I launching enough new ads to sustain my target spend?">
