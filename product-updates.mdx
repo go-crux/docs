@@ -4,6 +4,44 @@ description: "Latest platform updates, improvements, and new features"
 rss: true
 ---
 
+<Update label="May 2026" description="6th May" tags={["Analytics", "Improvements"]}>
+
+### Retention & Reporting Fixes
+
+Cohort retention reporting has been corrected to ensure data from the current, incomplete month no longer appears in retention views. Previously, early-month data could surface prematurely and skew retention percentages, making performance look lower than it was. Cohort data now only shows for complete months.
+
+A new monthly performance reporting model has been added, covering revenue, orders, AOV, and customer mix across a full calendar month, giving a cleaner view for monthly reviews and board reporting.
+
+</Update>
+
+<Update label="April 2026" description="30th April" tags={["Features", "AI", "Attribution"]}>
+
+### AI Analyst — Slack Assistant, Follow-Up Questions & Meta Ad Attribution Fix
+
+**The AI Analyst is now a native Slack Assistant.** When you open a direct message with the bot, it surfaces suggested questions to get you started. You no longer need to know the right question to ask, it prompts you with the most useful ones based on your data.
+
+**Follow-up question buttons** now appear after every report and answer. After your morning report lands, you can tap a suggested question, such as which channel drove the most new customers yesterday, and get an instant answer without typing anything.
+
+**Meta ad attribution is now accurate at the click-time name level.** Meta Ads changes ad and campaign names over time, which previously caused a mismatch between the name shown in Meta and the name recorded in your GA4 or Shopify data. We now capture name-change events from Meta in real time and use the original name at click time across all attribution reporting. This means your ad-level CAC and attribution data is now correct, even when ad names have been edited.
+
+Additional improvements in this release:
+
+- **Looker Studio links** included in analyst responses, so you can jump straight from an answer to the relevant dashboard
+- **Token usage** shown on every answer, giving visibility into query complexity
+- **Markdown tables** in answers now render correctly when ad, ad set, or campaign names contain special characters
+
+</Update>
+
+<Update label="April 2026" description="1st April" tags={["AI", "Improvements"]}>
+
+### AI Analyst — Scheduled Report Configuration
+
+Daily and weekly performance reports can now be configured per Slack channel, rather than applying a single schedule across your whole workspace. This makes it straightforward to receive reports in different channels for different teams.
+
+Percentage figures across all daily reports are now consistently formatted to one decimal place.
+
+</Update>
+
 <Update label="April 2026" description="15th April" tags={["Analytics", "Improvements"]}>
 
 ### Reporting Improvements - Country Breakdowns, Forecasting & Data Accuracy
