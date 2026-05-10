@@ -1,0 +1,154 @@
+---
+title: "Pillar 03: Order Value"
+description: "Diagnosing changes in average order value: product mix, discount behaviour and order composition."
+icon: "basket-shopping"
+---
+
+The Order Value pillar is about the size and profitability of each order. Anything related to product performance, merchandising, bundles or discounting belongs here.
+
+It's the pillar most often investigated last, partly because AOV moves slower than acquisition or retention metrics, and partly because the drivers feel less actionable. That's a mistake. AOV changes compound across every order, and the levers (mix, pricing, discounting) are often the ones with the highest margin payoff.
+
+## The core formula
+
+<Note>
+**`aov`** = `order composition x discounting`
+</Note>
+
+There are two things that drive AOV: what's in the basket and how much was discounted from it. Every diagnosis routes back to one of those two.
+
+Order composition is subsequently driven by the amount of items in the basket and what the average price of those items was. While discounting is driven by how many orders have a discount and how much those discounts are when they're used.
+
+### Discount metrics
+
+Two discount metrics matter, and they answer different questions.
+
+<Note>
+**`discount_rate`** = `COUNT(DISTINCT is_discounted_order) / COUNT(DISTINCT order_id)`
+
+The percentage of orders that include a discount code. Tells you how often discounting happens.
+</Note>
+
+<Note>
+**`discount_depth`** = `SUM(discount) / SUM(gross_revenue_from_discounted_orders)`
+
+The size of the discount as a percentage of pre-discount revenue. Tells you how much you give away when you do discount.
+</Note>
+
+These often move independently. Rate up, depth steady = more frequent discounting at the same level. Rate steady, depth up = same frequency, deeper offers. Both up = a structural shift in pricing strategy.
+
+## The metric tree
+
+<Frame>
+  <img src="/analysis-framework/images/metric-tree-aov.svg" alt="Order Value metric tree showing product mix and discounting branches with key dimensions" />
+</Frame>
+
+## Key drivers
+
+AOV is rarely uniform across order types. The interesting questions are about which segments drive the blended figure up or down.
+
+<Tabs>
+  <Tab title="Subscription vs one-off (order_type)">
+    Subscription and one-off orders typically have very different AOVs. Subscription orders may be lower per-order but generate more lifetime value. A shift in the subscription/one-off mix shows up immediately in blended AOV.
+
+    Always look at AOV separately for each `order_type` before drawing conclusions about a blended movement.
+  </Tab>
+
+  <Tab title="Order category (order_category)">
+    A broad classification of orders based on what's in them: i.e. starter pack, refill only, bundle, single-product. Each category has its own characteristic AOV. A shift in the mix between categories often explains topline AOV moves better than any single product metric.
+
+    Track the volume of each category alongside its individual AOV to see whether the shift is in mix or in within-category value.
+  </Tab>
+
+  <Tab title="New vs repeat customers">
+    First orders and repeat orders behave differently. New customers often buy starter packs or use first-order discounts. Repeat customers know what they want and may buy more or less depending on the brand.
+
+    Slice using the `is_acquisition` flag. A trend in blended AOV is often masking divergent trends in new and repeat orders.
+  </Tab>
+
+  <Tab title="Product category (product_category)">
+    The line-item-level view. Useful when order-level dimensions don't reveal a clear driver. Some product categories drive AOV through bundling (skincare sets, multi-buy offers), others suppress it (single-product replenishments).
+
+    Use the `orders_items` table for this analysis.
+  </Tab>
+</Tabs>
+
+## Worked example: AOV drop with stable revenue
+
+AOV is down 11% but total revenue is flat. The reason: more orders are coming in, but each is smaller.
+
+<Steps>
+  <Step title="Confirm the pillar">
+    Customer count is up 14%. Repeat orders are flat. The driver of the AOV drop is order composition, not customer behaviour shifts. This is an Order Value pillar question.
+  </Step>
+  <Step title="Split by new vs repeat">
+    AOV on new orders is down 18%. AOV on repeat orders is steady. The change is concentrated in first-time buyers.
+  </Step>
+  <Step title="Slice by order_category">
+    The proportion of new orders that are "Starter Pack" has dropped from 60% to 35%. The proportion that are "Single Product Trial" has risen from 25% to 50%. Single product trials have a much lower AOV than starter packs.
+  </Step>
+  <Step title="Find the cause">
+    A new Meta campaign launched two weeks ago is sending traffic to a single-product landing page rather than the starter pack page. Conversion is good, AOV per acquisition is much worse.
+  </Step>
+  <Step title="Recommend">
+    Test sending the campaign traffic to the starter pack landing page. Measure CR and AOV both, the starter pack page might convert worse but generate higher revenue per visitor. Don't optimise for CR alone, optimise for revenue per session.
+  </Step>
+</Steps>
+
+This kind of pattern (revenue stable, AOV down, customers up) is one of the most common AOV diagnostic shapes. Without slicing by order_category, the cause looks invisible.
+
+## Worked example: AOV drop driven by discounting
+
+Revenue and orders are roughly flat. AOV is down 8%.
+
+<Steps>
+  <Step title="Check discount metrics first">
+    Discount rate is up from 24% to 36%. Discount depth has gone from 12% to 17%. Both are up, which is a strong signal this is a discounting issue rather than a product mix issue.
+  </Step>
+  <Step title="Slice discount rate by channel">
+    The discount rate on email is up most sharply, from 35% to 58%. Other channels are steady.
+  </Step>
+  <Step title="Find the cause">
+    Three back-to-back promotional emails went out in the analysis window, each with a slightly steeper offer than the last. Engaged subscribers are now waiting for the next email rather than buying at full price.
+  </Step>
+  <Step title="Recommend">
+    Pause discount-led email for a fortnight. Test holding back full-price audiences from promotional sends entirely. Measure whether full-price email revenue recovers when the discounting cadence is broken.
+  </Step>
+</Steps>
+
+The trap here is that discount-led promotions generate visible short-term revenue spikes that mask the underlying margin problem. AOV is the metric that exposes it.
+
+## Where this data lives
+
+The primary mart for AOV diagnosis is `orders`. It contains `aov`, `discount_rate`, `discount_depth`, `order_type`, `order_category`, `is_acquisition` and the discount-related fields.
+
+For product-level analysis at line-item granularity, use `orders_items`.
+
+The relevant dashboards:
+
+- [Orders](/dashboard-suite/orders) for AOV trends, discount metrics and order composition
+- [Customer Deep Dive](/dashboard-suite/customer_deep_dive) for new vs repeat order behaviour
+- [Channel Performance](/dashboard-suite/channel_performance) for AOV by channel
+
+## Common mistakes
+
+<AccordionGroup>
+  <Accordion title="Optimising blended margin without product-level analysis">
+    Blended margin hides high variance between product categories. A single low-margin product can drag the average down even when most products are healthy. Always look at margin at the product or category level before making merchandising decisions.
+  </Accordion>
+
+  <Accordion title="Treating ROAS as a profitability metric">
+    ROAS is revenue divided by spend. It says nothing about margin. A 3x ROAS on a high-discount product can be less profitable than a 2x ROAS on a full-price one. Use CM3 (contribution margin level 3) for actual profitability.
+  </Accordion>
+
+  <Accordion title="Ignoring the new vs repeat split">
+    Blended AOV combines two very different customer behaviours. A new customer with a starter pack and a repeat customer with a refill have nothing in common analytically. Always split before drawing conclusions.
+  </Accordion>
+
+  <Accordion title="Reacting to single-week discount spikes">
+    Discount rate and depth often have weekly seasonality, particularly around payday and weekends. A one-week movement isn't usually a strategy issue. Look at four-week trends before changing anything.
+  </Accordion>
+
+  <Accordion title="Confusing discount rate with discount depth">
+    They tell different stories. Rate is how often you discount. Depth is how much you give away when you do. Different problems and different fixes. Always look at both.
+  </Accordion>
+</AccordionGroup>

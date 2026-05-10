@@ -1,0 +1,147 @@
+---
+title: "Pillar 01: Customers"
+description: "Diagnosing changes in new customer acquisition: traffic, conversion, channels and campaigns."
+icon: "user-plus"
+---
+
+The Customers pillar is about new customer acquisition. Anything related to marketing channels, campaigns, ads, keywords, or top-of-funnel website performance lives here.
+
+It is **not** about repeat purchases. If the question involves CRM, retention, or returning buyers, you need to be in the [Frequency pillar](/analysis-framework/frequency) instead.
+
+## The core formula
+
+<Note>
+**total_users × new_customer_cr = new customers**
+
+Where `new_customer_cr = SUM(new_orders) / SUM(total_users)`
+</Note>
+
+There are only two things that drive new customer acquisition: how many people came to the site, and what proportion of them became a first-time customer. Every diagnosis comes back to which of those two has moved.
+
+Always base this analysis on `new_orders`, not `total_orders`. Mixing in repeat orders contaminates the signal.
+
+## The metric tree
+
+<Frame>
+  <img src="/analysis-framework/images/metric-tree-customers.svg" alt="Customers metric tree showing total_users and new_customer_cr branching to supporting metrics and dimensions" />
+</Frame>
+
+## Diagnosing total_users
+
+Traffic is the volume side of the equation. It splits cleanly into paid and organic.
+
+| Channel type | Examples | What you control |
+| --- | --- | --- |
+| Paid | Paid Meta, Paid Search - Brand, Paid Search - Generic, Performance Max, Demand Gen, Influencer, Affiliates, Paid Shopping | Spend levels, targeting, creative |
+| Organic | Direct, Organic Search, Organic Social, Email, Referral | Indirect, but heavily influenced by brand activity, link building and content |
+
+When traffic drops, the question is always: was it paid, organic, or both?
+
+### Supporting metrics
+
+Two metrics give you context beyond raw user counts.
+
+- **`new_user_%`** = `SUM(new_users) / SUM(total_users)`. A drop here suggests you've over-indexed on lower-funnel activity, retargeting the same people instead of reaching new ones.
+- **`cost_per_user`** = `SUM(spend) / SUM(total_users)`. If this rises, you're paying more to bring fewer people to the site.
+
+### Dimensions to slice by
+
+Always work in this order. Going straight to landing pages before checking channel performance is a common trap that leads to false conclusions.
+
+<Steps>
+  <Step title="Channel">
+    Is one channel responsible for most of the drop? If paid Meta is down 30% and everything else is steady, you've found your driver.
+  </Step>
+  <Step title="Campaign">
+    Within the suspect channel, which campaigns moved? A drop on a single campaign is a creative or budget issue. A drop across multiple campaigns suggests a platform-level problem.
+  </Step>
+  <Step title="Landing page, Ad Set (Group) or Ad/Keyword">
+    The Most granular level. Useful to further diagnose whether a specific element of the campaign drove the change.
+  </Step>
+</Steps>
+
+## Diagnosing new_customer_cr
+
+Conversion rate can be slightly more nuanced, your channel mix can shift conversion rate significantly as well as potential on-site issues. We use the same dimensional hierarchy as traffic here; Channels, campaigns, landing pages / ad sets / ads or keywords, in that order.
+
+Start by understanding whether its driven by a customer intent shift (channel mix) by looking at session -> engagement rate. Engagement is defined by GA as anybody who has stayed on site longer than 10 seconds, has a key event or has at least 2 pageviews.
+
+Secondly, review engagement -> checkout %. This essentially tells you whether you have an issue with your conversion funnel (something out of stock, slow loading pages, checkout or UX issue).
+
+If there's no obvious driver across any of those dimensions, the issue is usually one of two things:
+
+- **Site-wide:** something has broken in checkout, on a key product page, or in payments. Test the buying flow end-to-end before going further with the data.
+- **Category-level:** demand for the product itself has shifted. Isolate brand search specifically and review. Compare against industry benchmarks or sister-category trends if you can.
+
+## Worked example: a sudden traffic drop
+
+You notice total_users is down 18% week-on-week. Contribution margin has slipped accordingly.
+
+<Steps>
+  <Step title="Confirm the pillar">
+    Repeat orders are flat. AOV is flat. The drop is concentrated in new customer volume. This is a Customers pillar question.
+  </Step>
+  <Step title="Split paid vs organic">
+    Paid traffic is down 28%. Organic is down 4% (within noise). This is a paid issue.
+  </Step>
+  <Step title="Slice by channel">
+    Paid Meta is down 41%. Paid Search is steady. Performance Max is up. The channel is Meta.
+  </Step>
+  <Step title="Slice by campaign">
+    Two prospecting campaigns are responsible for 80% of the Meta drop. Spend on those campaigns dropped 35% mid-week.
+  </Step>
+  <Step title="Recommend">
+    Investigate why budget pacing slowed on those campaigns. Restore spend or reallocate to the working ASCs. Set a budget alert to catch this earlier next time.
+  </Step>
+</Steps>
+
+The whole diagnosis takes one report and four filters. Without the framework, the same investigation often spreads into landing page tests, ad creative reviews and product page audits before getting to the actual cause.
+
+## Worked example: conversion rate drop with stable traffic
+
+Different scenario. Total users are flat, but new customer conversion rate has dropped from 1.8% to 1.2%.
+
+<Steps>
+  <Step title="Identify whether its a channel or site issue">
+    Session to engagement % is down across all channels by a similar magnitude. Comparing channel new_cr% confirms this and points to something site-wide.
+  </Step>
+  <Step title="Review Website Funnel">
+    Review the Website Conversion report to identify which funnel stage the drop is occuring; engaged session -> add to cart, add to cart -> start checkout, start checkout -> purchase. There is a noticeable drop in the start checkout -> purchase stage.
+  </Step>
+  <Step title="Investigate">
+    Jump into the checkout and review end to end. You notice free shipping isn't being triggered despite being over the order threshold. Something has broken the free shipping rule, investigate Shopify shipping rules.
+  </Step>
+</Steps>
+
+When channel-level data shows no single culprit, the answer almost always lives outside the dashboards. Check the site itself.
+
+## Where this data lives
+
+The primary reports for acquisition diagnosis are `channel_reporting` and `ecommerce_funnel`. The channel_reporting report contains `total_users`, `new_orders`, `new_customers`, `spend`, `cost_per_user` and `new_customer_cr`, sliceable by `channel`, `campaign_name` and `landing_page`. While the ecommerce_funnel provides a conversion rate breakdown
+across the various buying steps on the website (`visit` -> `engagement` -> `add to cart` -> `enter checkout` -> `purchase`).
+
+For the dashboards that visualise this:
+
+- [Channel Performance](/dashboard-suite/channel_performance) for channel and campaign-level diagnosis
+- [Daily KPI Performance](/dashboard-suite/daily_kpi_performance) for day-on-day movement spotting
+- [Meta Performance](/dashboard-suite/meta_performance) and [Paid Search Performance](/dashboard-suite/paid_search_performance) for channel-specific deep dives
+
+## Common mistakes
+
+<AccordionGroup>
+  <Accordion title="Using total_orders instead of new_orders">
+    Total orders include repeat customers. If you mix them into your acquisition analysis, you'll mistake retention strength for acquisition strength, and vice versa. Always filter to new_orders for this pillar.
+  </Accordion>
+
+  <Accordion title="Comparing paid and organic traffic without context">
+    Paid traffic responds within hours to spend changes. Organic traffic moves on weekly to monthly cycles. Comparing them on the same time scale produces misleading conclusions. Look at paid trends in days, organic trends in weeks.
+  </Accordion>
+
+  <Accordion title="Chasing low-volume channels">
+    A channel with 200 users showing a 50% CR change is rarely a meaningful signal. Weight your investigation toward channels that drive most of your volume. Investigate small channels last, not first.
+  </Accordion>
+
+  <Accordion title="Diagnosing CR without checking the site">
+    If channel-level data shows no clear driver, the issue is often functional. Broken checkout, slow page load, removed payment method. Walk the funnel before going deeper into the data.
+  </Accordion>
+</AccordionGroup>

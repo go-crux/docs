@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 360" role="img" aria-labelledby="growth-equation-title">
+  <title id="growth-equation-title">The Growth Equation: New Customers x Order Frequency x Order Value equals Contribution Margin</title>
+  <defs>
+    <style>
+      .bg { fill: #0A1929; }
+      .card { fill: #0F2337; stroke: #1E3A54; stroke-width: 1.5; }
+      .card-cm { fill: #042A4E; stroke: #57AAF6; stroke-width: 2; }
+      .heading { font-family: 'JetBrains Mono', 'Consolas', 'Courier New', monospace; font-weight: 700; fill: #E4EBF1; }
+      .label { font-family: 'JetBrains Mono', 'Consolas', 'Courier New', monospace; font-weight: 700; fill: #57AAF6; letter-spacing: 0.04em; }
+      .label-cm { font-family: 'JetBrains Mono', 'Consolas', 'Courier New', monospace; font-weight: 700; fill: #57AAF6; letter-spacing: 0.04em; }
+      .body { font-family: 'Inter', system-ui, sans-serif; font-weight: 400; fill: #8BA4B8; }
+      .body-strong { font-family: 'Inter', system-ui, sans-serif; font-weight: 500; fill: #E4EBF1; }
+      .op { font-family: 'JetBrains Mono', 'Consolas', 'Courier New', monospace; font-weight: 700; fill: #8BA4B8; }
+      .equals { font-family: 'JetBrains Mono', 'Consolas', 'Courier New', monospace; font-weight: 700; fill: #57AAF6; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1100" height="360"/>
+
+  <!-- Title -->
+  <text class="heading" x="550" y="50" font-size="22" text-anchor="middle">THE GROWTH EQUATION</text>
+  <text class="body" x="550" y="78" font-size="14" text-anchor="middle">The single formula every analysis question maps back to.</text>
+
+  <!-- Pillar 1: New Customers -->
+  <g transform="translate(40, 130)">
+    <rect class="card" x="0" y="0" width="200" height="140" rx="8"/>
+    <rect x="0" y="0" width="200" height="4" rx="2" fill="#57AAF6"/>
+    <text class="label" x="100" y="36" font-size="12" text-anchor="middle">PILLAR 01</text>
+    <text class="heading" x="100" y="68" font-size="18" text-anchor="middle">NEW</text>
+    <text class="heading" x="100" y="90" font-size="18" text-anchor="middle">CUSTOMERS</text>
+    <text class="body" x="100" y="118" font-size="12" text-anchor="middle">How many we acquire</text>
+  </g>
+
+  <!-- Operator x -->
+  <text class="op" x="260" y="208" font-size="32" text-anchor="middle">×</text>
+
+  <!-- Pillar 2: Frequency -->
+  <g transform="translate(280, 130)">
+    <rect class="card" x="0" y="0" width="200" height="140" rx="8"/>
+    <rect x="0" y="0" width="200" height="4" rx="2" fill="#C87DBB"/>
+    <text class="label" x="100" y="36" font-size="12" text-anchor="middle" fill="#C87DBB">PILLAR 02</text>
+    <text class="heading" x="100" y="68" font-size="18" text-anchor="middle">ORDER</text>
+    <text class="heading" x="100" y="90" font-size="18" text-anchor="middle">FREQUENCY</text>
+    <text class="body" x="100" y="118" font-size="12" text-anchor="middle">How often they buy</text>
+  </g>
+
+  <!-- Operator x -->
+  <text class="op" x="500" y="208" font-size="32" text-anchor="middle">×</text>
+
+  <!-- Pillar 3: AOV -->
+  <g transform="translate(520, 130)">
+    <rect class="card" x="0" y="0" width="200" height="140" rx="8"/>
+    <rect x="0" y="0" width="200" height="4" rx="2" fill="#5E9766"/>
+    <text class="label" x="100" y="36" font-size="12" text-anchor="middle" fill="#5E9766">PILLAR 03</text>
+    <text class="heading" x="100" y="68" font-size="18" text-anchor="middle">ORDER</text>
+    <text class="heading" x="100" y="90" font-size="18" text-anchor="middle">VALUE</text>
+    <text class="body" x="100" y="118" font-size="12" text-anchor="middle">How profitable each is</text>
+  </g>
+
+  <!-- Equals -->
+  <text class="equals" x="740" y="208" font-size="32" text-anchor="middle">=</text>
+
+  <!-- Outcome: CM -->
+  <g transform="translate(760, 130)">
+    <rect class="card-cm" x="0" y="0" width="300" height="140" rx="8"/>
+    <text class="label-cm" x="150" y="36" font-size="12" text-anchor="middle">PRIMARY KPI</text>
+    <text class="heading" x="150" y="68" font-size="18" text-anchor="middle">CONTRIBUTION</text>
+    <text class="heading" x="150" y="90" font-size="18" text-anchor="middle">MARGIN</text>
+    <text class="body-strong" x="150" y="118" font-size="12" text-anchor="middle">The number to improve</text>
+  </g>
+
+  <!-- Footer note -->
+  <text class="body" x="550" y="320" font-size="12" text-anchor="middle">Every performance question reduces to: which of the three is driving the change?</text>
+</svg>

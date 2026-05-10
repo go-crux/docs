@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 640" role="img" aria-labelledby="aov-tree-title">
+  <title id="aov-tree-title">Metric tree for the Order Value pillar</title>
+  <defs>
+    <style>
+      .bg { fill: #0A1929; }
+      .card { fill: #0F2337; stroke: #1E3A54; stroke-width: 1.5; }
+      .card-root { fill: #042A4E; stroke: #5E9766; stroke-width: 2; }
+      .card-l1 { fill: #132D47; stroke: #5E9766; stroke-width: 1.5; }
+      .heading { font-family: 'JetBrains Mono', 'Consolas', 'Courier New', monospace; font-weight: 700; fill: #E4EBF1; }
+      .label { font-family: 'JetBrains Mono', 'Consolas', 'Courier New', monospace; font-weight: 700; fill: #5E9766; letter-spacing: 0.04em; font-size: 10px; }
+      .formula { font-family: 'JetBrains Mono', 'Consolas', 'Courier New', monospace; font-weight: 400; fill: #5E9766; font-size: 11px; }
+      .body { font-family: 'Inter', system-ui, sans-serif; font-weight: 400; fill: #8BA4B8; }
+      .arrow { stroke: #1E3A54; stroke-width: 1.5; fill: none; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1100" height="640"/>
+
+  <!-- Title -->
+  <text class="heading" x="550" y="40" font-size="18" text-anchor="middle">ORDER VALUE METRIC TREE</text>
+  <text class="body" x="550" y="62" font-size="12" text-anchor="middle">AOV is driven by what's in the basket and how much was discounted off it.</text>
+
+  <!-- Root -->
+  <g transform="translate(425, 90)">
+    <rect class="card-root" x="0" y="0" width="250" height="64" rx="8"/>
+    <text class="label" x="125" y="22" text-anchor="middle">OUTCOME</text>
+    <text class="heading" x="125" y="46" font-size="15" text-anchor="middle">aov</text>
+  </g>
+
+  <!-- Lines down -->
+  <path class="arrow" d="M 550 154 L 550 175"/>
+  <path class="arrow" d="M 550 175 L 270 175 L 270 196"/>
+  <path class="arrow" d="M 550 175 L 830 175 L 830 196"/>
+
+  <!-- L1: two key sub-drivers -->
+  <g transform="translate(150, 200)">
+    <rect class="card-l1" x="0" y="0" width="240" height="100" rx="8"/>
+    <text class="label" x="120" y="22" text-anchor="middle">BASKET COMPOSITION</text>
+    <text class="heading" x="120" y="46" font-size="14" text-anchor="middle">product mix</text>
+    <text class="body" x="120" y="68" font-size="10" text-anchor="middle">What products are</text>
+    <text class="body" x="120" y="82" font-size="10" text-anchor="middle">customers buying together?</text>
+  </g>
+
+  <g transform="translate(710, 200)">
+    <rect class="card-l1" x="0" y="0" width="240" height="100" rx="8"/>
+    <text class="label" x="120" y="22" text-anchor="middle">PRICING IMPACT</text>
+    <text class="heading" x="120" y="46" font-size="14" text-anchor="middle">discounting</text>
+    <text class="body" x="120" y="68" font-size="10" text-anchor="middle">How often and how deeply</text>
+    <text class="body" x="120" y="82" font-size="10" text-anchor="middle">are we discounting?</text>
+  </g>
+
+  <!-- Lines down to L2: branch from each L1 card to both children -->
+  <!-- product mix (centre x=270) → order_type (centre x=140) and order_category (centre x=340) -->
+  <path class="arrow" d="M 270 300 L 270 315 L 140 315 L 140 330"/>
+  <path class="arrow" d="M 270 315 L 340 315 L 340 330"/>
+  <!-- discounting (centre x=830) → discount_rate (centre x=700) and discount_depth (centre x=900) -->
+  <path class="arrow" d="M 830 300 L 830 315 L 700 315 L 700 330"/>
+  <path class="arrow" d="M 830 315 L 900 315 L 900 330"/>
+
+  <!-- L2: supporting metrics under composition -->
+  <g transform="translate(50, 330)">
+    <rect class="card" x="0" y="0" width="180" height="70" rx="6"/>
+    <text class="heading" x="90" y="26" font-size="12" text-anchor="middle">items per order</text>
+    <text class="body" x="90" y="46" font-size="10" text-anchor="middle">Are customers buying</text>
+    <text class="body" x="90" y="58" font-size="10" text-anchor="middle">more items?</text>
+  </g>
+
+  <g transform="translate(250, 330)">
+    <rect class="card" x="0" y="0" width="180" height="70" rx="6"/>
+    <text class="heading" x="90" y="26" font-size="12" text-anchor="middle">avg price per item</text>
+    <text class="body" x="90" y="46" font-size="10" text-anchor="middle">Are customers buying</text>
+    <text class="body" x="90" y="58" font-size="10" text-anchor="middle">more expensive items?</text>
+  </g>
+
+  <!-- L2: supporting metrics under discounting -->
+  <g transform="translate(610, 330)">
+    <rect class="card" x="0" y="0" width="180" height="70" rx="6"/>
+    <text class="heading" x="90" y="26" font-size="12" text-anchor="middle">discount_rate</text>
+    <text class="body" x="90" y="46" font-size="10" text-anchor="middle">How often are we</text>
+    <text class="body" x="90" y="58" font-size="10" text-anchor="middle">applying discounts?</text>
+  </g>
+
+  <g transform="translate(810, 330)">
+    <rect class="card" x="0" y="0" width="180" height="70" rx="6"/>
+    <text class="heading" x="90" y="26" font-size="12" text-anchor="middle">discount_depth</text>
+    <text class="body" x="90" y="46" font-size="10" text-anchor="middle">How much are we giving</text>
+    <text class="body" x="90" y="58" font-size="10" text-anchor="middle">away when we do?</text>
+  </g>
+
+  <!-- Connection to dimensions -->
+  <path class="arrow" d="M 550 300 L 550 425"/>
+
+  <!-- Dimensions header -->
+  <g transform="translate(350, 430)">
+    <rect class="card-l1" x="0" y="0" width="400" height="50" rx="8"/>
+    <text class="heading" x="200" y="32" font-size="14" text-anchor="middle">DIMENSIONS TO SLICE BY</text>
+  </g>
+
+  <!-- Branch lines down to 4 dimensions -->
+  <path class="arrow" d="M 550 480 L 550 500"/>
+  <path class="arrow" d="M 550 500 L 145 500 L 145 520"/>
+  <path class="arrow" d="M 550 500 L 415 500 L 415 520"/>
+  <path class="arrow" d="M 550 500 L 685 500 L 685 520"/>
+  <path class="arrow" d="M 550 500 L 955 500 L 955 520"/>
+
+  <!-- Dimension cards -->
+  <g transform="translate(40, 525)">
+    <rect class="card" x="0" y="0" width="210" height="90" rx="6"/>
+    <text class="label" x="105" y="22" text-anchor="middle">BUYER TYPE</text>
+    <text class="heading" x="105" y="44" font-size="13" text-anchor="middle">is_acquisition</text>
+    <text class="body" x="105" y="62" font-size="10" text-anchor="middle">New vs repeat customer</text>
+    <text class="body" x="105" y="74" font-size="10" text-anchor="middle">order</text>
+  </g>
+
+  <g transform="translate(310, 525)">
+    <rect class="card" x="0" y="0" width="210" height="90" rx="6"/>
+    <text class="label" x="105" y="22" text-anchor="middle">PRODUCT</text>
+    <text class="heading" x="105" y="44" font-size="13" text-anchor="middle">product_category</text>
+    <text class="body" x="105" y="62" font-size="10" text-anchor="middle">Line-item-level</text>
+    <text class="body" x="105" y="74" font-size="10" text-anchor="middle">product analysis</text>
+  </g>
+
+  <g transform="translate(580, 525)">
+    <rect class="card" x="0" y="0" width="210" height="90" rx="6"/>
+    <text class="label" x="105" y="22" text-anchor="middle">ORDER SHAPE</text>
+    <text class="heading" x="105" y="44" font-size="13" text-anchor="middle">order_category</text>
+    <text class="body" x="105" y="62" font-size="10" text-anchor="middle">Starter, refill,</text>
+    <text class="body" x="105" y="74" font-size="10" text-anchor="middle">bundle, etc.</text>
+  </g>
+
+  <g transform="translate(850, 525)">
+    <rect class="card" x="0" y="0" width="210" height="90" rx="6"/>
+    <text class="label" x="105" y="22" text-anchor="middle">CROSS-CUT</text>
+    <text class="heading" x="105" y="44" font-size="13" text-anchor="middle">country</text>
+    <text class="body" x="105" y="62" font-size="10" text-anchor="middle">Geography of the</text>
+    <text class="body" x="105" y="74" font-size="10" text-anchor="middle">customer</text>
+  </g>
+</svg>

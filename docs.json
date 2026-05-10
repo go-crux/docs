@@ -45,6 +45,27 @@
         ]
       },
       {
+        "tab": "The Analysis Mindset",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "icon": "compass",
+            "pages": [
+              "analysis-framework/overview"
+            ]
+          },
+          {
+            "group": "The Three Pillars",
+            "icon": "layer-group",
+            "pages": [
+              "analysis-framework/customers",
+              "analysis-framework/frequency",
+              "analysis-framework/aov"
+            ]
+          }
+        ]
+      },  
+      {
         "tab": "Dashboard Suite",
         "groups": [
           {

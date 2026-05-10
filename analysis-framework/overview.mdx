@@ -1,0 +1,121 @@
+---
+title: "The Ecommerce Analysis Mindset"
+description: "How to focus on the metrics that matter and avoid analysis paralysis."
+icon: "compass"
+---
+
+Most ecommerce reporting fails the same way. Too many metrics, no hierarchy, and no clear method for deciding which ones matter on any given week. The result is analysis paralysis, dashboards open for an hour and no decision made.
+
+This framework is the opposite. One equation, three pillars, one workflow. Everything you look at in your reporting should map back to it.
+
+<Frame>
+  <img src="/analysis-framework/images/growth-equation.svg" alt="The growth equation: new customers x order frequency x order value equals contribution margin" />
+</Frame>
+
+## The growth equation
+
+Ecommerce performance is the product of three things, multiplied together.
+
+**new customers × order frequency × order value (profit) = contribution margin**
+
+Contribution margin is the primary KPI to improve. It's the only number that combines acquisition, retention and unit economics into a single output. Revenue alone hides discounting. ROAS alone hides repeat behaviour. Contribution margin is what's actually left at the end.
+
+Every performance question, no matter how it's phrased, can be reframed as: which of the three pillars is moving, and why?
+
+## The three pillars
+
+<CardGroup cols={3}>
+  <Card title="Customers" icon="user-plus" href="/analysis-framework/customers">
+    How many new customers you acquire and how efficiently you convert traffic.
+  </Card>
+  <Card title="Frequency" icon="rotate" href="/analysis-framework/frequency">
+    How often customers come back, measured in cohorts over time.
+  </Card>
+  <Card title="Order Value" icon="basket-shopping" href="/analysis-framework/aov">
+    The value and profitability of each order, driven by product mix and discounting.
+  </Card>
+</CardGroup>
+
+## The workflow
+
+When something moves, follow the same four steps every time. Start broad, narrow down, recommend an action.
+
+<Frame>
+  <img src="/analysis-framework/images/decision-flowchart.svg" alt="The analysis workflow: from performance change to actionable insight" />
+</Frame>
+
+<Steps>
+  <Step title="Observe the change">
+    A KPI has moved. Contribution margin, revenue, CAC, retention, anything in your reporting. Note the direction and the magnitude before you do anything else.
+  </Step>
+  <Step title="Identify the dominant pillar(s)">
+    Compare new customers, frequency and order value across the same period. Often there will be a single one responsible for the main chunk of the change. That's where you focus, this is the scope of your analysis. Resist the urge to investigate the others until you've finished with the initial scope.
+  </Step>
+  <Step title="Slice within the pillar">
+    Once you've picked a pillar, narrow down. Each pillar has a hierarchy of dimensions, broad to narrow. For Customers it's channel, then campaign, then landing page / ad group / ad. The same logic applies to the other two.
+  </Step>
+  <Step title="Recommend an action">
+    A finding without a next step isn't an insight, it's trivia. Every analysis should end with a hypothesis to go away and validate.
+  </Step>
+</Steps>
+
+## The principles that prevent paralysis
+
+These are the rules that keep analysis honest. They're worth re-reading any time you feel the data getting away from you.
+
+<AccordionGroup>
+  <Accordion title="Identify the driver(s)">
+    For any meaningful performance shift, a single metric and dimension will typically account for around 80% of the movement. Even if it doesn't, we'd recommend picking one pillar for your initial analysis as often your discovery will be connected to whats happening in the others as well. Investigating secondary drivers before identifying the primary one is the most common cause of analysis paralysis.
+  </Accordion>
+
+  <Accordion title="Start broad, narrow down">
+    Always start at the growth equation level. Then move to the dominant pillar. Then to the dimension within that pillar. Treat it like a metric tree you work down, not a search you scatter across. Each step down the tree you're narrowing your focus and honing in on the culprit.
+  </Accordion>
+
+  <Accordion title="Weight by volume, not by percentage change">
+    A segment with 20 orders at £45 AOV is not a comparable signal to a segment with 1,500 orders at £40 AOV. Big percentage swings in low-volume segments are usually noise. When in doubt, lean towards segments with more data behind them. Filter out low volume metrics for better clarity.
+  </Accordion>
+
+  <Accordion title="Every insight needs a recommended action">
+    If you can't articulate what you'd do differently as a result, you haven't finished the analysis. The action is the output, the chart is just the working out.
+  </Accordion>
+
+  <Accordion title="Match the metric to the question">
+    Acquisition questions need new_orders, not total_orders. Retention questions need cohort metrics (or repeat_orders), not topline revenue. AOV questions need order-level data, not channel summaries. Picking the wrong metric is the second most common cause of bad conclusions, after weighting noise as signal.
+  </Accordion>
+</AccordionGroup>
+
+## A worked example
+
+Suppose contribution margin has dropped 12% week-on-week. The temptation is to jump into each report to see what you can find. The framework says don't.
+
+<Steps>
+  <Step title="Compare across the equation">
+    New customers are down 4%, repeat orders are flat, AOV is down 9%. The dominant driver is order value. Customers and frequency are in noise territory. Stop looking at acquisition reports.
+  </Step>
+  <Step title="Slice within order value">
+    Open the orders deep dive report. Start by identifying whether its a product mix shift or discount driven (review order_category split and discount_rate). Discount rate has jumped from 22% to 38%, while discount depth has gone from 14% to 19%. The mix of discounted vs full-price orders has shifted significantly.
+  </Step>
+  <Step title="Find the cause">
+    Cross-check against campaign activity. A 25% off promo went out to a non-segmented email list on Tuesday. It pulled forward demand from full-price buyers.
+  </Step>
+  <Step title="Hypothesis">
+    "If we exclude active subscribers from the promo we can limit the hit to AOV as these will purchase full-price anyway on a regular basis." Test it.
+  </Step>
+</Steps>
+
+That's the whole loop. Twenty minutes, one driver, one action.
+
+## Where to go next
+
+<CardGroup cols={3}>
+  <Card title="Customers Pillar" icon="user-plus" href="/analysis-framework/customers">
+    The full metric tree, key drivers and worked examples for diagnosing acquisition.
+  </Card>
+  <Card title="Frequency Pillar" icon="rotate" href="/analysis-framework/frequency">
+    How to read cohort data, retention curves and LTV without getting lost.
+  </Card>
+  <Card title="Order Value Pillar" icon="basket-shopping" href="/analysis-framework/aov">
+    Diagnosing AOV shifts via product mix, discount behaviour and order composition.
+  </Card>
+</CardGroup>
