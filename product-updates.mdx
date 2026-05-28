@@ -4,6 +4,33 @@ description: "Latest platform updates, improvements, and new features"
 rss: true
 ---
 
+<Update label="May 2026" description="20th May" tags={["Attribution", "Analytics"]}>
+
+### Post-Purchase Survey Re-Attribution
+
+Orders that standard tracking leaves as Unknown, or that default to Brand Search, can now be probabilistically re-attributed to the channels that genuinely drove them, using your post-purchase survey responses.
+
+- **Rolling-window redistribution** uses 7, 14 and 30-day survey response patterns to redistribute hard-to-attribute orders across known channels, smoothing out low-volume noise
+- **Post-purchase survey ingestion** now runs as a dedicated daily pipeline, syncing survey responses straight into your warehouse, with a one-off bulk backfill to capture full history
+- **Configurable per brand**, so re-attribution is only applied where sufficient survey data exists, and reporting falls back cleanly where it does not
+
+This recovers acquisition signal for word-of-mouth, offline and brand-driven demand that click-based attribution systematically misses.
+
+</Update>
+
+<Update label="May 2026" description="8th May" tags={["Analytics", "Improvements"]}>
+
+### Monthly Reporting & Revenue Accuracy
+
+Building on the new monthly performance model, monthly reporting now goes deeper and resolves several revenue accuracy issues.
+
+- **Product-level granularity** added to monthly reporting, broken down by line item and SKU, alongside a new order categories breakdown
+- **Organic and paid splits** corrected across the monthly reporting marts for accurate channel mix
+- **Revenue definitions refined** so reporting uses total sales excluding tax rather than gross sales, giving cleaner margin and AOV figures
+- **Refunds now flow fully through channel reporting**, with refund grouping added to the channel reporting spine so refunded revenue is no longer understated by channel
+
+</Update>
+
 <Update label="May 2026" description="6th May" tags={["Analytics", "Improvements"]}>
 
 ### Retention & Reporting Fixes
