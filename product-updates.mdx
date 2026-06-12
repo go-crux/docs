@@ -4,6 +4,56 @@ description: "Latest platform updates, improvements, and new features"
 rss: true
 ---
 
+<Update label="June 2026" description="10th June" tags={["AI", "Analytics", "Improvements"]}>
+
+### AI Analyst — Weekly Report Redesign
+
+The weekly performance report has been rebuilt around the growth equation, so each Monday summary reads as a story about what moved the business, not just a wall of numbers.
+
+- **Acquisition** is now a full channel table with **CAC and spend** columns alongside new orders, new revenue and conversion rate, so you can see acquisition efficiency by channel at a glance
+- **Retention** is rebuilt on last-click attribution and led by a **90 day repurchase rate**, the share of new customers who come back for a second order, giving a cleaner read on whether recent cohorts are sticking
+- **Product mix** is promoted to its own section with revenue per unit and basket size, surfacing pricing and basket-composition shifts week on week
+- **Budget Split Recommendation** suggests the recommended optimal split of spend across your scalable channels, drawn from the Budget Optimiser, so the report points at the next allocation decision
+- **Monthly pacing** tracks run-rate against budget by market and in total, so you always know whether the month is on track
+
+These improvements build on the same report memory and reliability work below, so weekly reports stay consistent week to week and survive transient load.
+
+</Update>
+
+<Update label="June 2026" description="8th June" tags={["AI", "Analytics"]}>
+
+### AI Analyst — Daily Report Redesign & Report Memory
+
+The daily morning report has been reworked to lead with the single driver behind yesterday's performance, then back it with a tighter, more consistent set of numbers.
+
+- **Revenue & Orders** now carries **Repeat Order Rate, CAC and Spend** rows, framing the day against the growth equation of new customers, frequency and order value, with consistent rounding across currency and ratio metrics
+- **Directional indicators** apply a flat band, so changes within normal noise read as steady rather than being dressed up as a move
+- **Retention** is split onto last-click attribution, the right lens for understanding what pulled existing customers back, with email called out specifically
+- **Channel Highlights** gives a single scannable overview of acquisition and retention without drowning in per-channel tables
+
+**Report memory.** Reports now remember the last several reports they wrote and narrate with continuity, so a standing issue reads as "repeat orders still soft, day 3" rather than being re-explained from scratch each morning, and genuine change-points like "recovered today after three soft days" are called out explicitly.
+
+**Narration gate.** The commentary only tells a story once a move clears a beyond-normal-noise bar, using measured language. The underlying table figures stay raw for reference. The result is reports that stay calm on quiet days and sharpen when something genuinely changes.
+
+**Reliability.** Scheduled reports now retry with long backoff so they ride through transient rate limits and still land on time.
+
+</Update>
+
+<Update label="June 2026" description="3rd June" tags={["Analytics", "Health Metrics"]}>
+
+### Budget Optimiser Calibration & Meta Fatigue in Daily Health
+
+The Budget Optimiser has been recalibrated to produce more reliable forecasts, and Meta ad fatigue now updates daily.
+
+- **Seasonality accuracy** improved by deriving monthly AOV from revenue-weighted true monthly figures and dampening month-to-month swings on short, holiday-skewed histories, removing a systematic overstatement of forecast CAC
+- **Meta response curve** tuned so spend changes are reflected with a realistic diminishing return, rather than an over-flat curve that understated the cost of scaling
+- **Meta ad fatigue metrics** now flow into the daily business health mart alongside Meta and paid search, so fatigue status and the healthy ad gap refresh every day rather than on a slower cadence
+- **Fatigue CAC classification** stabilised for more consistent ad-level fatigue flagging
+
+See the [Meta Ad Fatigue report guide](/dashboard-suite/meta_ad_fatigue) and the [Budget Optimiser guide](/dashboard-suite/budget_optimiser) for context.
+
+</Update>
+
 <Update label="May 2026" description="20th May" tags={["Attribution", "Analytics"]}>
 
 ### Post-Purchase Survey Re-Attribution
