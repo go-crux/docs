@@ -1,11 +1,11 @@
 ---
 title: "How Attribution Works"
-description: "A step-by-step explanation of the Crux attribution waterfall, covering the five data sources checked in sequence and how first-click and last-click attribution differ."
+description: "A step-by-step explanation of the Crux attribution waterfall, covering the six data sources checked in sequence and how first-click and last-click attribution differ."
 ---
 
 Crux attribution works as a **waterfall**: for each order, we check multiple data sources in sequence. If the first source returns a clear attribution (not Direct or Unknown), we use it. If not, we move to the next source. This layered approach recovers orders that any single tracking method would miss.
 
-## The five layers
+## The six layers
 
 <Steps>
   <Step title="GA4 raw event data">
@@ -28,8 +28,14 @@ Crux attribution works as a **waterfall**: for each order, we check multiple dat
     Shopify's journey data captures social media referrals, search engine visits and other touchpoints that GA4 may have missed due to tracking blockers or cookie restrictions.
   </Step>
 
+  <Step title="Klaviyo email and flows">
+    Klaviyo records which campaign or automated flow a customer engaged with before they purchased. When an order is still attributed to a low-intent channel (Unknown, Direct, Self Referral, Organic Search or Paid Search - Brand) and Klaviyo attributed it to a campaign or flow, we credit the order to Email.
+
+    This recovers revenue driven by newsletters, promotions and lifecycle automations (welcome, abandoned cart, win-back) that customers often act on without clicking a tracked link. The override only replaces low-intent channels: a genuine paid or generic click always keeps its credit, so email never inflates itself at the expense of your acquisition channels. Recovered orders are credited to the Email channel (CRM group) and stamped with the Klaviyo campaign or flow name.
+  </Step>
+
   <Step title="Post-purchase surveys">
-    First-party data from "How did you hear about us?" surveys (such as Fairing, Kno or Triple Whale) provides a final fallback for orders still attributed to Unknown, Direct, or Paid Search Brand.
+    First-party data from "How did you hear about us?" surveys (such as Fairing, Kno or Triple Whale) provides a fallback for orders still attributed to Unknown, Direct, or Paid Search Brand.
 
     Surveys capture channels with no digital footprint: word of mouth, podcast mentions, TV ads, in-store recommendations, and other offline touchpoints that no click-based system can detect.
   </Step>
@@ -55,7 +61,7 @@ In your [Orders report](/dashboard-suite/orders), fields prefixed with "Last Cli
 
 ## What happens to unattributed orders
 
-After all five layers have been evaluated, any remaining orders are labelled as Unknown or Direct. These are genuine cases where no trackable touchpoint exists, typically caused by privacy-focused browsers, VPNs, or customers who typed your URL directly without using a discount code.
+After all six layers have been evaluated, any remaining orders are labelled as Unknown or Direct. These are genuine cases where no trackable touchpoint exists, typically caused by privacy-focused browsers, VPNs, or customers who typed your URL directly without using a discount code.
 
 Most brands see **70-80%+ attribution coverage** after the full waterfall, meaning only a small percentage of orders remain truly unattributed.
 

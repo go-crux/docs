@@ -5,11 +5,11 @@ description: "Answers to common questions about Crux attribution, including how 
 
 <AccordionGroup>
   <Accordion title="Why do I still see 'Unknown' or 'Direct' orders?">
-    Some orders genuinely have no trackable touchpoint. This happens when customers use privacy-focused browsers (Safari ITP, Firefox ETP), VPNs, or simply type your URL directly without using a discount code. The waterfall resolves as many orders as possible across five data sources, but a small percentage will always remain unattributed. Most brands see 80-90%+ coverage after the full waterfall.
+    Some orders genuinely have no trackable touchpoint. This happens when customers use privacy-focused browsers (Safari ITP, Firefox ETP), VPNs, or simply type your URL directly without using a discount code. The waterfall resolves as many orders as possible across six data sources, but a small percentage will always remain unattributed. Most brands see 80-90%+ coverage after the full waterfall.
   </Accordion>
 
   <Accordion title="How does Crux attribution differ from what I see in GA4?">
-    GA4 only captures session-level click data. If a customer types your URL directly or uses a privacy browser, GA4 marks the order as direct. Crux layers discount codes, Shopify customer journey, post-purchase surveys, and affiliate tags on top, recovering orders that GA4 would otherwise miss. The result is a significantly more complete picture of what is driving your revenue.
+    GA4 only captures session-level click data. If a customer types your URL directly or uses a privacy browser, GA4 marks the order as direct. Crux layers discount codes, Shopify customer journey, Klaviyo email and flows, post-purchase surveys, and affiliate tags on top, recovering orders that GA4 would otherwise miss. The result is a significantly more complete picture of what is driving your revenue.
   </Accordion>
 
   <Accordion title="How does Crux attribution differ from what I see in Meta or Google Ads?">
@@ -17,7 +17,7 @@ description: "Answers to common questions about Crux attribution, including how 
   </Accordion>
 
   <Accordion title="Can I see which data source attributed each order?">
-    Yes. The [Orders report](/dashboard-suite/orders) includes fallback flags showing whether Shopify customer journey or survey fallback was used for a given order, alongside the raw GA4 source and medium. This gives you full transparency into how each order was attributed.
+    Yes. The [Orders report](/dashboard-suite/orders) includes fallback flags showing whether the Shopify customer journey, Klaviyo, or survey fallback was used for a given order, alongside the raw GA4 source and medium. This gives you full transparency into how each order was attributed.
   </Accordion>
 
   <Accordion title="Why does my Channel Performance report show different numbers to Meta Ads Manager?">
