@@ -4,6 +4,49 @@ description: "Latest platform updates, improvements, and new features"
 rss: true
 ---
 
+<Update label="June 2026" description="29th June" tags={["Analytics", "Improvements"]}>
+
+### Klaviyo Reporting Enhancements
+
+Klaviyo campaign and flow reporting has been extended beyond engagement metrics to revenue and customer mix, so owned marketing is measured on the same terms as your paid and organic channels rather than on opens and clicks alone.
+
+- **Attributed orders and revenue** now sit against each campaign and flow, split new vs repeat customer and one-off vs subscription, so you can see which sends actually convert rather than just which get opened
+- **Lifetime open and click rates** are now reported as unique rates per campaign and flow, with machine opens and bot clicks separated out so engagement reflects real people
+- **List growth** surfaces daily subscribes, unsubscribes and net change per list, so you can see whether your audience is genuinely growing
+- **Profile segmentation** maps customer profiles to their Klaviyo lists and segments, connecting email audiences to purchase behaviour
+
+Together these let you judge email and SMS on revenue and repeat-customer contribution, not vanity engagement.
+
+</Update>
+
+<Update label="June 2026" description="29th June" tags={["Attribution", "Analytics"]}>
+
+### Klaviyo as an Attribution Source
+
+The multi-touch [attribution waterfall](/attribution/how-it-works) now treats Klaviyo email and flow conversions as a first-class source, recovering owned-marketing signal that click-based tracking often loses.
+
+- **Klaviyo campaign and flow conversions** are added as a recovery layer in the waterfall, alongside GA4, discount codes, the Shopify customer journey, post-purchase surveys and order note attributes
+- **Orders driven by email and automated flows** are now credited to the campaign or flow that drove them, rather than defaulting to Unknown, Brand Search or a last-click platform figure
+- **Consistent across reporting**, so email and automated flows are attributed the same way in both first-click and last-click views
+
+This closes a common gap where email and lifecycle marketing quietly drives repeat orders but goes uncredited in channel reporting.
+
+</Update>
+
+<Update label="June 2026" description="28th June" tags={["Analytics", "Improvements"]}>
+
+### Cost of Goods Accuracy & Flexibility
+
+Your contribution margin reporting (CM1, CM2 and CM3) already runs across orders and channels. This update improves how cost of goods is assigned to each order and hands you control of those costs in your configuration sheet, so margin figures are both more accurate and easier to keep current.
+
+- **More accurate per-order costs**: cost of goods is now resolved at line-item level and matched to the cost in effect on the order date, so historical margins stay correct as your costs change over time rather than a single current cost being applied across all history
+- **Self-serve in the configuration sheet**: per-unit costs are maintained in a Google Sheet you control and are effective-dated, so you can update a cost from the date it changes without rewriting history or waiting on a code change
+- **Coverage visibility**: each order carries a completeness flag showing whether its full cost is known, so any partial cost data is transparent rather than quietly understating margin
+
+The result is a more dependable contribution margin, on the same CM1 to CM3 reporting you already use, that you can keep current yourself as costs move.
+
+</Update>
+
 <Update label="June 2026" description="10th June" tags={["AI", "Analytics", "Improvements"]}>
 
 ### AI Analyst - Weekly Report Redesign
