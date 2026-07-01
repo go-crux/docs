@@ -45,6 +45,14 @@ description: "Answers to common questions about Crux attribution, including how 
   <Accordion title="Why does the same order show different channels for first-click and last-click?">
     This is expected and common. A customer often discovers your brand through one channel (e.g., a Meta ad) and converts through another (e.g., a Google brand search or email campaign). Both touchpoints are captured so you can see the full picture, from acquisition through to conversion.
   </Accordion>
+
+  <Accordion title="What is the modelled re-attribution layer, and how does it differ from the waterfall?">
+    The waterfall is deterministic: it attributes each order to a real, traceable touchpoint. Even so, a residual pool of orders resolves to Unknown or brand search, which understates the channels that actually introduced those customers. The modelled layer sits on top and redistributes that pool across your real acquisition channels, in proportion to what customers report in your post-purchase survey. It is volume-neutral (it moves credit between channels but never creates orders or revenue) and only runs when there is enough recent survey volume to be reliable. See [how attribution works](/attribution/how-it-works) for the full mechanism.
+  </Accordion>
+
+  <Accordion title="Should I use the modelled layer for campaign optimisation?">
+    No. The modelled layer is built for cross-channel strategy and budget decisions, where you need to know how channels compare and where the next pound should go. Because its credit is inferred from survey proportions rather than traced to a specific order, it should not be used to optimise within a channel (which ad, keyword or creative to change). For that, use the deterministic waterfall in the [Orders report](/dashboard-suite/orders), where every order is traceable to its source.
+  </Accordion>
 </AccordionGroup>
 
 ---

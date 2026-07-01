@@ -1,9 +1,24 @@
 ---
 title: "How Attribution Works"
-description: "A step-by-step explanation of the Crux attribution waterfall, covering the six data sources checked in sequence and how first-click and last-click attribution differ."
+description: "How Crux attribution works: the deterministic six-source waterfall, first-click versus last-click, and the modelled survey-based channel re-attribution layer."
 ---
 
 Crux attribution works as a **waterfall**: for each order, we check multiple data sources in sequence. If the first source returns a clear attribution (not Direct or Unknown), we use it. If not, we move to the next source. This layered approach recovers orders that any single tracking method would miss.
+
+## Two layers of attribution
+
+There is no single "correct" attribution model. What matters is matching the right method to the decision you are making. Crux runs two complementary layers, each answering a different question.
+
+<CardGroup cols={2}>
+  <Card title="Deterministic (campaign level)" icon="crosshairs">
+    Per-order attribution, traced back to a real touchpoint by the waterfall below. Because every order is traceable to a source, campaign or creative, this is the layer you use for **within-channel optimisation**: improving paid social, comparing influencer codes, or cutting CAC on a specific channel.
+  </Card>
+  <Card title="Modelled (channel level)" icon="chart-mixed">
+    A modelled layer on top of the waterfall that redistributes residual, non-actionable traffic across your real acquisition channels using post-purchase survey data. Because it is modelled rather than traced to a single order, this is the layer you use for **cross-channel strategy and budget decisions**: how channels compare, and where the next pound should go.
+  </Card>
+</CardGroup>
+
+The rest of this page walks through the deterministic waterfall first, then the modelled re-attribution layer that sits on top.
 
 ## The six layers
 
@@ -63,11 +78,39 @@ In your [Orders report](/dashboard-suite/orders), fields prefixed with "Last Cli
 
 After all six layers have been evaluated, any remaining orders are labelled as Unknown or Direct. These are genuine cases where no trackable touchpoint exists, typically caused by privacy-focused browsers, VPNs, or customers who typed your URL directly without using a discount code.
 
-Most brands see **70-80%+ attribution coverage** after the full waterfall, meaning only a small percentage of orders remain truly unattributed.
+Most brands see **70-80%+ attribution coverage** after the full waterfall, meaning only a small percentage of orders remain truly unattributed. At order level we leave these honestly as Unknown or Direct rather than guess a source we cannot see. For cross-channel and budget views, the modelled layer below resolves this residual pool.
 
 <Warning>
 Privacy browsers (Safari ITP, Firefox ETP) and VPN usage are increasing, which can reduce GA4's ability to match sessions to orders. The waterfall's additional layers (discount codes, surveys, affiliate tags) help compensate, but some unattributed orders are unavoidable.
 </Warning>
+
+## Modelled channel re-attribution
+
+Even after the waterfall, a residual pool of low-signal traffic remains: orders that still resolve to Unknown or brand search, where no touchpoint reliably tells you where the customer first came from. At order level that is honest, we do not invent a source we cannot see. But at channel level it masks real performance, because some of those customers were introduced by Meta, TikTok, an influencer or YouTube, and leaving them in an "Unknown" bucket understates the channels that actually drove them.
+
+For cross-channel strategy and budget decisions, we resolve that pool with a modelled layer on top of the waterfall. It redistributes the residual pool across your real acquisition channels, in proportion to what customers tell us in your post-purchase survey ("How did you hear about us?"). If, over the recent period, surveyed customers name Meta 40% of the time, an influencer 35% and TikTok 25%, the Unknown and brand-search pool for that period is split the same way.
+
+<Steps>
+  <Step title="Rolling survey window">
+    We use a rolling window of recent survey responses, widening it (7 to 14 to 30 days) until there are enough responses to be reliable. This keeps the split current as your channel mix shifts, rather than applying a stale, all-time average.
+  </Step>
+
+  <Step title="Volume thresholds">
+    Redistribution only runs when there is enough survey volume to trust the split; below that threshold the pool is left untouched. Individual channels with too few responses are excluded, so survey noise never creates a spurious channel.
+  </Step>
+
+  <Step title="Volume-neutral redistribution">
+    The layer only moves credit between channels, it never creates orders or revenue. Total orders and revenue are identical before and after, so your topline always reconciles.
+  </Step>
+</Steps>
+
+<Warning>
+The modelled layer is for **cross-channel and budget decisions only**. Because credit is inferred from survey proportions rather than traced to a specific order, it should never be used for campaign-level optimisation (which ad, keyword or creative to change). For that, use the deterministic waterfall, where every order is traceable to its source.
+</Warning>
+
+<Info>
+The modelled view powers cross-channel comparison on the [Channel Performance report](/dashboard-suite/channel_performance) and feeds budget optimisation. Your deterministic, order-level [Orders report](/dashboard-suite/orders) is unchanged: it always shows the traceable attribution, with residual orders left honestly as Unknown or Direct.
+</Info>
 
 ---
 
