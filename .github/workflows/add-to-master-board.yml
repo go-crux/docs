@@ -1,0 +1,45 @@
+# Adds every new issue in this repo to the go-crux master project board.
+#
+# The master board is one Kanban across all go-crux repos. GitHub Free allows only
+# ONE built-in auto-add workflow per project, so every repo beyond the first needs
+# its own trigger, which is what this file is.
+#
+# Requires an organisation secret ADD_TO_PROJECT_PAT holding a token with `repo`
+# and `project` scope. The default GITHUB_TOKEN cannot write to an organisation
+# project. Until that secret exists this workflow reports a skip rather than
+# failing on every issue.
+#
+# Note: workflows triggered by `issues` always run the copy on the DEFAULT branch,
+# so this file only takes effect once it is merged to `main`.
+
+name: Add to master board
+
+on:
+  issues:
+    types: [opened, reopened, transferred]
+
+permissions: {}
+
+jobs:
+  add-to-project:
+    name: Add issue to the Crux Master Board
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check the project token is configured
+        id: guard
+        env:
+          PROJECT_TOKEN: ${{ secrets.ADD_TO_PROJECT_PAT }}
+        run: |
+          if [ -z "$PROJECT_TOKEN" ]; then
+            echo "ADD_TO_PROJECT_PAT is not set, skipping." >> "$GITHUB_STEP_SUMMARY"
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Add to project
+        if: steps.guard.outputs.ready == 'true'
+        uses: actions/add-to-project@v2.0.0
+        with:
+          project-url: https://github.com/orgs/go-crux/projects/9
+          github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
