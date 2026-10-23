@@ -1,6 +1,6 @@
 # Analysis Framework, drop-in instructions
 
-This bundle adds a four-page Analysis Framework section to your Mintlify docs. It contains a hub page plus three pillar sub-pages, with five SVG diagrams.
+This bundle adds a four-page Analysis Framework section to your Mintlify docs. It contains a hub page plus three lever sub-pages, with five SVG diagrams.
 
 ## File structure
 
@@ -38,7 +38,7 @@ Add this tab to the `tabs` array in `docs.json`. Suggested position: between **O
       ]
     },
     {
-      "group": "The Three Pillars",
+      "group": "The Three Levers",
       "icon": "layer-group",
       "pages": [
         "analysis-framework/customers",
@@ -52,7 +52,7 @@ Add this tab to the `tabs` array in `docs.json`. Suggested position: between **O
 
 ## Notes
 
-- All five SVGs use Crux brand colours (`#0A1929` background, `#57AAF6` primary, `#C87DBB` and `#5E9766` for pillar accents). Yellow `#FBBC09` is not used as it's reserved for the logo per the brand guidelines.
+- All five SVGs use Crux brand colours (`#0A1929` background, `#57AAF6` primary, `#C87DBB` and `#5E9766` for lever accents). Yellow `#FBBC09` is not used as it's reserved for the logo per the brand guidelines.
 - Images are referenced in the MDX using absolute paths (`/analysis-framework/images/...`), which is the convention Mintlify expects for static assets in subfolders.
 - The MDX uses standard Mintlify components (`Frame`, `Card`, `CardGroup`, `Steps`, `Step`, `Tabs`, `Tab`, `Accordion`, `AccordionGroup`, `Note`). No additional dependencies needed.
 - Cross-links to existing pages (e.g. `/dashboard-suite/channel_performance`) assume your current URL structure. Adjust if the routes change.
